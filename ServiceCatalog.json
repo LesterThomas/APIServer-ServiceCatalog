@@ -3,12 +3,12 @@
     "info": {
         "title": "Service Catalog Management",
         "description": "This is Swagger UI environment generated for the TMF Service Catalog Management specification",
-        "version": "1.2"
+        "version": "1.2.0"
     },
-    "host": "env-0693795.jelastic.servint.net",
+    "host": "localhost:8080",
     "basePath": "/ServiceCatalog/api/catalogManagement/v2",
     "schemes": [
-        "https"
+        "http"
     ],
     "consumes": [
         "application/json"
@@ -55,7 +55,7 @@
                         "description": "For filtering: Used to indicate the current lifecycle status"
                     },
                     {
-                        "name": "validFor.startDateTime",
+                        "name": "validForStartDateTime",
                         "format": "date-time",
                         "required": false,
                         "in": "query",
@@ -63,7 +63,7 @@
                         "description": "For filtering: An instant of time, starting at the TimePeriod"
                     },
                     {
-                        "name": "validFor.endDateTime",
+                        "name": "validForEndDateTime",
                         "format": "date-time",
                         "required": false,
                         "in": "query",
@@ -356,7 +356,7 @@
                         "description": "For filtering: Used to indicate the current lifecycle status"
                     },
                     {
-                        "name": "validFor.startDateTime",
+                        "name": "validForStartDateTime",
                         "format": "date-time",
                         "required": false,
                         "in": "query",
@@ -364,7 +364,7 @@
                         "description": "For filtering: An instant of time, starting at the TimePeriod"
                     },
                     {
-                        "name": "validFor.endDateTime",
+                        "name": "validForEndDateTime",
                         "format": "date-time",
                         "required": false,
                         "in": "query",
@@ -375,91 +375,91 @@
                         "type": "string",
                         "required": false,
                         "in": "query",
-                        "name": "serviceSpecification.version",
+                        "name": "serviceSpecificationVersion",
                         "description": "For filtering: Version of the service specification"
                     },
                     {
                         "type": "string",
                         "required": false,
                         "in": "query",
-                        "name": "serviceSpecification.name",
+                        "name": "serviceSpecificationName",
                         "description": "For filtering: Name of the service specification"
                     },
                     {
                         "type": "string",
                         "required": false,
                         "in": "query",
-                        "name": "serviceSpecification.type",
+                        "name": "serviceSpecificationType",
                         "description": "For filtering: Type of the service specification"
                     },
                     {
                         "type": "string",
                         "required": false,
                         "in": "query",
-                        "name": "serviceCandidate.version",
+                        "name": "serviceCandidateVersion",
                         "description": "For filtering: Version of the service candidate"
                     },
                     {
                         "type": "string",
                         "required": false,
                         "in": "query",
-                        "name": "serviceCandidate.name",
+                        "name": "serviceCandidateName",
                         "description": "For filtering: Name of the service candidate"
                     },
                     {
                         "type": "string",
                         "required": false,
                         "in": "query",
-                        "name": "category.version",
+                        "name": "categoryVersion",
                         "description": "For filtering: Category version"
                     },
                     {
                         "type": "string",
                         "required": false,
                         "in": "query",
-                        "name": "category.name",
+                        "name": "categoryName",
                         "description": "For filtering: Name of the category"
                     },
                     {
                         "type": "string",
                         "required": false,
                         "in": "query",
-                        "name": "resourceCandidate.version",
+                        "name": "resourceCandidateVersion",
                         "description": "For filtering: Version of the resource candidate"
                     },
                     {
                         "type": "string",
                         "required": false,
                         "in": "query",
-                        "name": "resourceCandidate.name",
+                        "name": "resourceCandidateName",
                         "description": "For filtering: Name of the resource candidate"
                     },
                     {
                         "type": "string",
                         "required": false,
                         "in": "query",
-                        "name": "bundledServiceCandidate.lifecycleStatus",
+                        "name": "bundledServiceCandidateLifecycleStatus",
                         "description": "For filtering: Used to indicate the current lifecycle status"
                     },
                     {
                         "type": "string",
                         "required": false,
                         "in": "query",
-                        "name": "bundledServiceCandidate.name",
+                        "name": "bundledServiceCandidateName",
                         "description": "For filtering: Name of the BundledServiceCandidate"
                     },
                     {
                         "type": "string",
                         "required": false,
                         "in": "query",
-                        "name": "serviceCandidateTerm.name",
+                        "name": "serviceCandidateTermName",
                         "description": "For filtering: Name of the serviceCandidateTerm"
                     },
                     {
                         "type": "string",
                         "required": false,
                         "in": "query",
-                        "name": "serviceCandidateTerm.duration",
+                        "name": "serviceCandidateTermDuration",
                         "description": "For filtering: Duration of the serviceCandidateTerm"
                     }
                 ],
@@ -716,7 +716,7 @@
                         "type": "string",
                         "required": false,
                         "in": "query",
-                        "name": “type”,
+                        "name": "type",
                         "description": "For filtering: Type of the service specification"
                     },
                     {
@@ -734,7 +734,7 @@
                         "description": "For filtering: Used to indicate the current lifecycle status"
                     },
                     {
-                        "name": "validFor.startDateTime",
+                        "name": "validForStartDateTime",
                         "format": "date-time",
                         "required": false,
                         "in": "query",
@@ -742,7 +742,7 @@
                         "description": "For filtering: An instant of time, starting at the TimePeriod"
                     },
                     {
-                        "name": "validFor.endDateTime",
+                        "name": "validForEndDateTime",
                         "format": "date-time",
                         "required": false,
                         "in": "query",
@@ -760,98 +760,98 @@
                         "type": "string",
                         "required": false,
                         "in": "query",
-                        "name": "relatedParty.role",
+                        "name": "relatedPartyRole",
                         "description": "For filtering: Role of the related party."
                     },
                     {
                         "type": "string",
                         "required": false,
                         "in": "query",
-                        "name": "relatedParty.name",
+                        "name": "relatedPartyName",
                         "description": "For filtering: Name of the related party"
                     },
                     {
                         "type": "string",
                         "required": false,
                         "in": "query",
-                        "name": "serviceSpecCharacteristic.name",
+                        "name": "serviceSpecCharacteristicName",
                         "description": "For filtering: Name of the serviceSpecCharacteristic"
                     },
                     {
                         "type": "string",
                         "required": false,
                         "in": "query",
-                        "name": "serviceSpecCharacteristic.valueType",
+                        "name": "serviceSpecCharacteristicValueType",
                         "description": "For filtering: A kind of value that the characteristic can take on, such as numeric, text and so forth"
                     },
                     {
                         "type": "boolean",
                         "required": false,
                         "in": "query",
-                        "name": "serviceSpecCharacteristic.configurable",
+                        "name": "serviceSpecCharacteristicConfigurable",
                         "description": "For filtering: If true, the Boolean indicates that the serviceSpecCharacteristic is configurable"
                     },
                     {
                         "type": "string",
                         "required": false,
                         "in": "query",
-                        "name": "serviceSpecification.name",
+                        "name": "serviceSpecificationName",
                         "description": "For filtering: Name of the requiredServiceSpecification"
                     },
                     {
                         "type": "string",
                         "required": false,
                         "in": "query",
-                        "name": "serviceSpecification.version",
+                        "name": "serviceSpecificationVersion",
                         "description": "For filtering: Service specification version"
                     },
                     {
                         "type": "string",
                         "required": false,
                         "in": "query",
-                        "name": "serviceSpecificationRelationship.type",
+                        "name": "serviceSpecificationRelationshipType",
                         "description": "For filtering: Type of relationship such as migration, substitution, dependency, exclusivity"
                     },
                     {
                         "type": "string",
                         "required": false,
                         "in": "query",
-                        "name": "resourceSpecification.name",
+                        "name": "resourceSpecificationName",
                         "description": "For filtering: Name of the requiredResourceSpecification"
                     },
                     {
                         "type": "string",
                         "required": false,
                         "in": "query",
-                        "name": "resourceSpecification.version",
+                        "name": "resourceSpecificationVersion",
                         "description": "For filtering: Resource specification version"
                     },
                     {
                         "type": "string",
                         "required": false,
                         "in": "query",
-                        "name": "attachment.type",
+                        "name": "attachmentType",
                         "description": "For filtering: Attachment type such as video, picture"
                     },
                     {
                         "type": "string",
                         "required": false,
                         "in": "query",
-                        "name": "attachment.url",
+                        "name": "attachmentUrl",
                         "description": "For filtering: Uniform Resource Locator, is a web page address (a subset of URI)"
                     },
                     {
                         "type": "string",
                         "required": false,
                         "in": "query",
-                        "name": "bundledServiceSpecification.lifecycleStatus",
+                        "name": "bundledServiceSpecificationLifecycleStatus",
                         "description": "For filtering: Used to indicate the current lifecycle status"
                     },
                     {
                         "type": "string",
                         "required": false,
                         "in": "query",
-                        "name": "bundledServiceSpecification.name",
+                        "name": "bundledServiceSpecificationName",
                         "description": "For filtering: Name of the service specification"
                     }
                 ],
@@ -1598,9 +1598,9 @@
                     "type": "string",
                     "description": "Name of the service specification"
                 },
-                “type”: {
+                "type": {
                     "type": "string",
-                    "description": “Type of the service specification"
+                    "description": "Type of the service specification"
                 },
                 "description": {
                     "type": "string",
@@ -1681,9 +1681,9 @@
                     "type": "string",
                     "description": "Name of the service specification"
                 },
-                “type”: {
+                "type": {
                     "type": "string",
-                    "description": “Type of the service specification"
+                    "description": "Type of the service specification"
                 },
                 "description": {
                     "type": "string",
@@ -1754,9 +1754,9 @@
                     "type": "string",
                     "description": "Name of the service specification"
                 },
-                “type”: {
+                "type": {
                     "type": "string",
-                    "description": “Type of the service specification"
+                    "description": "Type of the service specification"
                 },
                 "description": {
                     "type": "string",
