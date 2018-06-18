@@ -3,43 +3,55 @@ swagger: "2.0"
 info:
   description: "This is Swagger UI environment generated for the TMF Service Catalog\
     \ Management specification"
-  version: "1.2"
+  version: "2.0.0"
   title: "Service Catalog Management"
 host: "localhost:8080"
-basePath: "/ServiceCatalog/api/catalogManagement/v2"
+basePath: "/tmf-api/serviceCatalogManagement/v2/"
 schemes:
-- "http"
+- "https"
 consumes:
 - "application/json"
 produces:
 - "application/json"
 paths:
-  /category:
+  /serviceCatalog:
     get:
       tags:
-      - "category"
-      summary: "List or find 'Category' objects"
-      operationId: "listCategory"
+      - "serviceCatalog"
+      summary: "List or find 'ServiceCatalog' objects"
+      operationId: "listServiceCatalog"
       parameters:
       - name: "fields"
         in: "query"
         description: "Comma separated properties to display in response"
         required: false
         type: "string"
-      - name: "lastUpdate"
+      - name: "name"
         in: "query"
-        description: "For filtering: Date and time of the last update"
+        description: "For filtering: Name of the catalog"
         required: false
         type: "string"
-        format: "date-time"
+      - name: "type"
+        in: "query"
+        description: "For filtering: Indicates the (class) type of catalog. For service\
+          \ catalogs, this will be 'ServiceCatalog'."
+        required: false
+        type: "string"
+      - name: "@schemaLocation"
+        in: "query"
+        description: "For filtering: This field provides a link to the schema describing\
+          \ this REST resource"
+        required: false
+        type: "string"
+      - name: "@baseType"
+        in: "query"
+        description: "For filtering: Indicates<b> </b>the base (class) type of this\
+          \ REST resource"
+        required: false
+        type: "string"
       - name: "version"
         in: "query"
-        description: "For filtering: Category version"
-        required: false
-        type: "string"
-      - name: "lifecycleStatus"
-        in: "query"
-        description: "For filtering: Used to indicate the current lifecycle status"
+        description: "For filtering: Catalog version"
         required: false
         type: "string"
       - name: "validForStartDateTime"
@@ -51,6 +63,214 @@ paths:
       - name: "validForEndDateTime"
         in: "query"
         description: "For filtering: An instant of time, ending at the TimePeriod."
+        required: false
+        type: "string"
+        format: "date-time"
+      - name: "lastUpdate"
+        in: "query"
+        description: "For filtering: Date and time of the last update"
+        required: false
+        type: "string"
+        format: "date-time"
+      - name: "lifecycleStatus"
+        in: "query"
+        description: "For filtering: Used to indicate the current lifecycle status"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "Ok"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/ServiceCatalog"
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "ServiceCatalog"
+    post:
+      tags:
+      - "serviceCatalog"
+      summary: "Creates a 'ServiceCatalog'"
+      operationId: "createServiceCatalog"
+      parameters:
+      - in: "body"
+        name: "serviceCatalog"
+        description: "The Service Catalog to be created"
+        required: true
+        schema:
+          $ref: "#/definitions/ServiceCatalog_Create"
+      responses:
+        201:
+          description: "Created"
+          schema:
+            $ref: "#/definitions/ServiceCatalog"
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "ServiceCatalog"
+  /serviceCatalog/{id}:
+    get:
+      tags:
+      - "serviceCatalog"
+      summary: "Retrieves a 'ServiceCatalog' by Id"
+      operationId: "retrieveServiceCatalog"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Identifier of the Service Catalog"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Ok"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/ServiceCatalog"
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "ServiceCatalog"
+    delete:
+      tags:
+      - "serviceCatalog"
+      summary: "Deletes a 'ServiceCatalog' by Id"
+      operationId: "deleteServiceCatalog"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Identifier of the Service Catalog"
+        required: true
+        type: "string"
+      responses:
+        204:
+          description: "Deleted"
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "ServiceCatalog"
+    patch:
+      tags:
+      - "serviceCatalog"
+      summary: "Updates partially a 'ServiceCatalog' by Id"
+      operationId: "patchServiceCatalog"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Identifier of the Service Catalog"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "serviceCatalog"
+        description: "The Service Catalog to be updated"
+        required: true
+        schema:
+          $ref: "#/definitions/ServiceCatalog_Update"
+      responses:
+        201:
+          description: "Updated"
+          schema:
+            $ref: "#/definitions/ServiceCatalog"
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "ServiceCatalog"
+  /serviceCategory:
+    get:
+      tags:
+      - "serviceCategory"
+      summary: "List or find 'ServiceCategory' objects"
+      operationId: "listServiceCategory"
+      parameters:
+      - name: "fields"
+        in: "query"
+        description: "Comma separated properties to display in response"
+        required: false
+        type: "string"
+      - name: "name"
+        in: "query"
+        description: "For filtering: Name of the category"
+        required: false
+        type: "string"
+      - name: "type"
+        in: "query"
+        description: "For filtering: The (class) type of this category"
+        required: false
+        type: "string"
+      - name: "@schemalLocation"
+        in: "query"
+        description: "For filtering: This field provides a link to the schema describing\
+          \ this REST resource"
+        required: false
+        type: "string"
+      - name: "@baseType"
+        in: "query"
+        description: "For filtering: Immediate base class type of this category"
+        required: false
+        type: "string"
+      - name: "version"
+        in: "query"
+        description: "For filtering: Category version"
+        required: false
+        type: "string"
+      - name: "validForStartDateTime"
+        in: "query"
+        description: "For filtering: An instant of time, starting at the TimePeriod"
+        required: false
+        type: "string"
+        format: "date-time"
+      - name: "validForEndDateTime"
+        in: "query"
+        description: "For filtering: An instant of time, ending at the TimePeriod."
+        required: false
+        type: "string"
+        format: "date-time"
+      - name: "lifecycleStatus"
+        in: "query"
+        description: "For filtering: Used to indicate the current lifecycle status"
+        required: false
+        type: "string"
+      - name: "lastUpdate"
+        in: "query"
+        description: "For filtering: Date and time of the last update"
         required: false
         type: "string"
         format: "date-time"
@@ -65,9 +285,44 @@ paths:
           \ is a root of categories"
         required: false
         type: "boolean"
-      - name: "name"
+      - name: "relatedPartyRole"
+        in: "query"
+        description: "For filtering: Role of the related party."
+        required: false
+        type: "string"
+      - name: "relatedPartyName"
+        in: "query"
+        description: "For filtering: Name of the related party"
+        required: false
+        type: "string"
+      - name: "serviceCandidateVersion"
+        in: "query"
+        description: "For filtering: ServiceCandidate version"
+        required: false
+        type: "string"
+      - name: "serviceCandidateName"
+        in: "query"
+        description: "For filtering: Name given to the ServiceCandidate"
+        required: false
+        type: "string"
+      - name: "serviceCandidateType"
+        in: "query"
+        description: "For filtering: The (class) type of the ServiceCandidate"
+        required: false
+        type: "string"
+      - name: "categoryVersion"
+        in: "query"
+        description: "For filtering: Category version"
+        required: false
+        type: "string"
+      - name: "categoryName"
         in: "query"
         description: "For filtering: Name of the category"
+        required: false
+        type: "string"
+      - name: "categoryType"
+        in: "query"
+        description: "For filtering: the class type of the category"
         required: false
         type: "string"
       responses:
@@ -76,7 +331,7 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/Category"
+              $ref: "#/definitions/ServiceCategory"
         400:
           description: "Bad Request"
           schema:
@@ -85,24 +340,24 @@ paths:
           description: "Internal Server Error"
           schema:
             $ref: "#/definitions/Error"
-      x-swagger-router-controller: "Category"
+      x-swagger-router-controller: "ServiceCategory"
     post:
       tags:
-      - "category"
-      summary: "Creates a 'Category'"
-      operationId: "createCategory"
+      - "serviceCategory"
+      summary: "Creates a 'ServiceCategory'"
+      operationId: "createServiceCategory"
       parameters:
       - in: "body"
-        name: "category"
-        description: "The Category to be created"
+        name: "serviceCategory"
+        description: "The Service Category to be created"
         required: true
         schema:
-          $ref: "#/definitions/Category_Create"
+          $ref: "#/definitions/ServiceCategory_Create"
       responses:
         201:
           description: "Created"
           schema:
-            $ref: "#/definitions/Category"
+            $ref: "#/definitions/ServiceCategory"
         400:
           description: "Bad Request"
           schema:
@@ -111,17 +366,17 @@ paths:
           description: "Internal Server Error"
           schema:
             $ref: "#/definitions/Error"
-      x-swagger-router-controller: "Category"
-  /category/{id}:
+      x-swagger-router-controller: "ServiceCategory"
+  /serviceCategory/{id}:
     get:
       tags:
-      - "category"
-      summary: "Retrieves a 'Category' by Id"
-      operationId: "retrieveCategory"
+      - "serviceCategory"
+      summary: "Retrieves a 'ServiceCategory' by Id"
+      operationId: "retrieveServiceCategory"
       parameters:
       - name: "id"
         in: "path"
-        description: "Identifier of the Category"
+        description: "Identifier of the Service Category"
         required: true
         type: "string"
       responses:
@@ -130,7 +385,7 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/Category"
+              $ref: "#/definitions/ServiceCategory"
         400:
           description: "Bad Request"
           schema:
@@ -143,29 +398,21 @@ paths:
           description: "Internal Server Error"
           schema:
             $ref: "#/definitions/Error"
-      x-swagger-router-controller: "Category"
-    put:
+      x-swagger-router-controller: "ServiceCategory"
+    delete:
       tags:
-      - "category"
-      summary: "Updates a 'Category' by Id"
-      operationId: "updateCategory"
+      - "serviceCategory"
+      summary: "Deletes a 'ServiceCategory' by Id"
+      operationId: "deleteServiceCategory"
       parameters:
       - name: "id"
         in: "path"
-        description: "Identifier of the Category"
+        description: "Identifier of the Service Category"
         required: true
         type: "string"
-      - in: "body"
-        name: "category"
-        description: "The Category to be updated"
-        required: true
-        schema:
-          $ref: "#/definitions/Category_Update"
       responses:
-        201:
-          description: "Updated"
-          schema:
-            $ref: "#/definitions/Category"
+        204:
+          description: "Deleted"
         400:
           description: "Bad Request"
           schema:
@@ -178,29 +425,29 @@ paths:
           description: "Internal Server Error"
           schema:
             $ref: "#/definitions/Error"
-      x-swagger-router-controller: "Category"
+      x-swagger-router-controller: "ServiceCategory"
     patch:
       tags:
-      - "category"
-      summary: "Updates partially a 'Category' by Id"
-      operationId: "updateCategoryPatch"
+      - "serviceCategory"
+      summary: "Updates partially a 'ServiceCategory' by Id"
+      operationId: "patchServiceCategory"
       parameters:
       - name: "id"
         in: "path"
-        description: "Identifier of the Category"
+        description: "Identifier of the Service Category"
         required: true
         type: "string"
       - in: "body"
-        name: "category"
-        description: "The Category to be updated"
+        name: "serviceCategory"
+        description: "The Service Category to be updated"
         required: true
         schema:
-          $ref: "#/definitions/Category_Update"
+          $ref: "#/definitions/ServiceCategory_Update"
       responses:
         201:
           description: "Updated"
           schema:
-            $ref: "#/definitions/Category"
+            $ref: "#/definitions/ServiceCategory"
         400:
           description: "Bad Request"
           schema:
@@ -213,7 +460,7 @@ paths:
           description: "Internal Server Error"
           schema:
             $ref: "#/definitions/Error"
-      x-swagger-router-controller: "Category"
+      x-swagger-router-controller: "ServiceCategory"
   /serviceCandidate:
     get:
       tags:
@@ -226,32 +473,31 @@ paths:
         description: "Comma separated properties to display in response"
         required: false
         type: "string"
-      - name: "version"
-        in: "query"
-        description: "For filtering: ServiceCandidate version"
-        required: false
-        type: "string"
-      - name: "lastUpdate"
-        in: "query"
-        description: "For filtering: Date and time of the last update"
-        required: false
-        type: "string"
-        format: "date-time"
       - name: "name"
         in: "query"
-        description: "For filtering: Name of the serviceCandidate"
+        description: "For filtering: Name given to this REST resource"
         required: false
         type: "string"
-      - name: "isBundle"
+      - name: "type"
         in: "query"
-        description: "For filtering: isBundle determines whether a serviceCandidate\
-          \ represents a single serviceCandidate (false), or a bundle of serviceCandidates\
-          \ (true)."
+        description: "For filtering: Class type of this REST resource"
         required: false
-        type: "boolean"
-      - name: "lifecycleStatus"
+        type: "string"
+      - name: "@schemaLocation"
         in: "query"
-        description: "For filtering: Used to indicate the current lifecycle status"
+        description: "For filtering: This field provides a link to the schema describing\
+          \ this REST resource"
+        required: false
+        type: "string"
+      - name: "@baseType"
+        in: "query"
+        description: "For filtering: The (immediate) base class type of this REST\
+          \ resource"
+        required: false
+        type: "string"
+      - name: "version"
+        in: "query"
+        description: "For filtering: the version of service candidate"
         required: false
         type: "string"
       - name: "validForStartDateTime"
@@ -266,29 +512,17 @@ paths:
         required: false
         type: "string"
         format: "date-time"
-      - name: "serviceSpecificationVersion"
+      - name: "lastUpdate"
         in: "query"
-        description: "For filtering: Version of the service specification"
+        description: "For filtering: Date and time of the last update of this REST\
+          \ resource"
         required: false
         type: "string"
-      - name: "serviceSpecificationName"
+        format: "date-time"
+      - name: "lifecycleStatus"
         in: "query"
-        description: "For filtering: Name of the service specification"
-        required: false
-        type: "string"
-      - name: "serviceSpecificationType"
-        in: "query"
-        description: "For filtering: Type of the service specification"
-        required: false
-        type: "string"
-      - name: "serviceCandidateVersion"
-        in: "query"
-        description: "For filtering: Version of the service candidate"
-        required: false
-        type: "string"
-      - name: "serviceCandidateName"
-        in: "query"
-        description: "For filtering: Name of the service candidate"
+        description: "For filtering: Used to indicate the current lifecycle status\
+          \ of the service candidate."
         required: false
         type: "string"
       - name: "categoryVersion"
@@ -301,34 +535,24 @@ paths:
         description: "For filtering: Name of the category"
         required: false
         type: "string"
-      - name: "resourceCandidateVersion"
+      - name: "categoryType"
         in: "query"
-        description: "For filtering: Version of the resource candidate"
+        description: "For filtering: the class type of the category"
         required: false
         type: "string"
-      - name: "resourceCandidateName"
+      - name: "serviceSpecificationVersion"
         in: "query"
-        description: "For filtering: Name of the resource candidate"
+        description: "For filtering: ServiceSpecification version"
         required: false
         type: "string"
-      - name: "bundledServiceCandidateLifecycleStatus"
+      - name: "serviceSpecificationName"
         in: "query"
-        description: "For filtering: Used to indicate the current lifecycle status"
+        description: "For filtering: Name given to the ServiceSpecification"
         required: false
         type: "string"
-      - name: "bundledServiceCandidateName"
+      - name: "serviceSpecificationType"
         in: "query"
-        description: "For filtering: Name of the BundledServiceCandidate"
-        required: false
-        type: "string"
-      - name: "serviceCandidateTermName"
-        in: "query"
-        description: "For filtering: Name of the serviceCandidateTerm"
-        required: false
-        type: "string"
-      - name: "serviceCandidateTermDuration"
-        in: "query"
-        description: "For filtering: Duration of the serviceCandidateTerm"
+        description: "For filtering: The (class) type of the ServiceSpecification"
         required: false
         type: "string"
       responses:
@@ -405,28 +629,20 @@ paths:
           schema:
             $ref: "#/definitions/Error"
       x-swagger-router-controller: "ServiceCandidate"
-    put:
+    delete:
       tags:
       - "serviceCandidate"
-      summary: "Updates a 'ServiceCandidate' by Id"
-      operationId: "updateServiceCandidate"
+      summary: "Deletes a 'ServiceCandidate' by Id"
+      operationId: "deleteServiceCandidate"
       parameters:
       - name: "id"
         in: "path"
         description: "Identifier of the Service Candidate"
         required: true
         type: "string"
-      - in: "body"
-        name: "serviceCandidate"
-        description: "The Service Candidate to be updated"
-        required: true
-        schema:
-          $ref: "#/definitions/ServiceCandidate_Update"
       responses:
-        201:
-          description: "Updated"
-          schema:
-            $ref: "#/definitions/ServiceCandidate"
+        204:
+          description: "Deleted"
         400:
           description: "Bad Request"
           schema:
@@ -444,7 +660,7 @@ paths:
       tags:
       - "serviceCandidate"
       summary: "Updates partially a 'ServiceCandidate' by Id"
-      operationId: "updateServiceCandidatePatch"
+      operationId: "patchServiceCandidate"
       parameters:
       - name: "id"
         in: "path"
@@ -487,37 +703,31 @@ paths:
         description: "Comma separated properties to display in response"
         required: false
         type: "string"
-      - name: "version"
-        in: "query"
-        description: "For filtering: Service specification version"
-        required: false
-        type: "string"
-      - name: "lastUpdate"
-        in: "query"
-        description: "For filtering: Date and time of the last update"
-        required: false
-        type: "string"
-        format: "date-time"
       - name: "name"
         in: "query"
-        description: "For filtering: Name of the service specification"
+        description: "For filtering: Name given to this REST resource"
         required: false
         type: "string"
       - name: "type"
         in: "query"
-        description: "For filtering: Type of the service specification"
+        description: "For filtering: Class type of this REST resource"
         required: false
         type: "string"
-      - name: "isBundle"
+      - name: "@schemaLocation"
         in: "query"
-        description: "For filtering: isBundle determines whether a serviceSpecification\
-          \ represents a single serviceSpecification (false), or a bundle of serviceSpecification\
-          \ (true)."
+        description: "For filtering: This field provides a link to the schema describing\
+          \ this REST resource"
         required: false
-        type: "boolean"
-      - name: "lifecycleStatus"
+        type: "string"
+      - name: "@baseType"
         in: "query"
-        description: "For filtering: Used to indicate the current lifecycle status"
+        description: "For filtering: The (immediate) base class type of this REST\
+          \ resource"
+        required: false
+        type: "string"
+      - name: "version"
+        in: "query"
+        description: "For filtering: Service specification version"
         required: false
         type: "string"
       - name: "validForStartDateTime"
@@ -532,25 +742,65 @@ paths:
         required: false
         type: "string"
         format: "date-time"
-      - name: "serviceNumber"
+      - name: "lastUpdate"
         in: "query"
-        description: "For filtering: An identification number assigned to uniquely\
-          \ identity the specification"
+        description: "For filtering: Date and time of the last update of this REST\
+          \ resource"
         required: false
         type: "string"
-      - name: "relatedPartyRole"
+        format: "date-time"
+      - name: "lifecycleStatus"
         in: "query"
-        description: "For filtering: Role of the related party."
+        description: "For filtering: Used to indicate the current lifecycle status\
+          \ of the service specification"
         required: false
         type: "string"
-      - name: "relatedPartyName"
+      - name: "isBundle"
         in: "query"
-        description: "For filtering: Name of the related party"
+        description: "For filtering: A flag indicates that if this service specification\
+          \ is a bundled specification (true) or single (false)."
+        required: false
+        type: "boolean"
+      - name: "resourceSpecificationVersion"
+        in: "query"
+        description: "For filtering: ResourceSpecification version"
+        required: false
+        type: "string"
+      - name: "resourceSpecificationName"
+        in: "query"
+        description: "For filtering: Name given to the ResourceSpecification"
+        required: false
+        type: "string"
+      - name: "resourceSpecificationType"
+        in: "query"
+        description: "For filtering: The (class) type of the ResourceSpecification"
+        required: false
+        type: "string"
+      - name: "attachmentName"
+        in: "query"
+        description: "For filtering: name given to the attachment"
+        required: false
+        type: "string"
+      - name: "attachmentType"
+        in: "query"
+        description: "For filtering: Attachment class  type"
+        required: false
+        type: "string"
+      - name: "attachmentUri"
+        in: "query"
+        description: "For filtering: Uniform Resource Identifier (URI) of the attachment"
+        required: false
+        type: "string"
+      - name: "attachmentMimeType"
+        in: "query"
+        description: "For filtering: Attachment mime type such as extension file for\
+          \ video, picture and document"
         required: false
         type: "string"
       - name: "serviceSpecCharacteristicName"
         in: "query"
-        description: "For filtering: Name of the serviceSpecCharacteristic"
+        description: "For filtering: A word, term, or phrase by which this characteristic\
+          \ specification is known and distinguished from other characteristic specifications."
         required: false
         type: "string"
       - name: "serviceSpecCharacteristicValueType"
@@ -561,55 +811,96 @@ paths:
         type: "string"
       - name: "serviceSpecCharacteristicConfigurable"
         in: "query"
-        description: "For filtering: If true, the Boolean indicates that the serviceSpecCharacteristic\
+        description: "For filtering: If true, the Boolean indicates that the ServiceSpecCharacteristic\
           \ is configurable"
         required: false
         type: "boolean"
-      - name: "serviceSpecificationName"
+      - name: "serviceSpecCharacteristicType"
         in: "query"
-        description: "For filtering: Name of the requiredServiceSpecification"
+        description: "For filtering: (Class) type of the ServiceSpecCharacteristic"
         required: false
         type: "string"
-      - name: "serviceSpecificationVersion"
+      - name: "serviceSpecCharacteristicSchemaLocation"
         in: "query"
-        description: "For filtering: Service specification version"
+        description: "For filtering: A link to the schema describing this characteristic"
         required: false
         type: "string"
-      - name: "serviceSpecificationRelationshipType"
+      - name: "serviceSpecCharacteristicValueSchemaLocation"
+        in: "query"
+        description: "For filtering: This (optional) field provides a link to the\
+          \ schema describing the value type."
+        required: false
+        type: "string"
+      - name: "serviceSpecCharacteristicMinCardinality"
+        in: "query"
+        description: "For filtering: The minimum number of instances a CharacteristicValue\
+          \ can take on. For example, zero to five phone numbers in a group calling\
+          \ plan, where zero is the value for the minCardinality."
+        required: false
+        type: "integer"
+      - name: "serviceSpecCharacteristicMaxCardinality"
+        in: "query"
+        description: "For filtering: The maximum number of instances a CharacteristicValue\
+          \ can take on. For example, zero to five phone numbers in a group calling\
+          \ plan, where five is the value for the maxCardinality."
+        required: false
+        type: "integer"
+      - name: "serviceSpecCharacteristicIsUnique"
+        in: "query"
+        description: "For filtering: An indicator that specifies if a value is unique\
+          \ for the specification. Possible values are; \"unique while value is in\
+          \ effect\" and \"unique whether value is in effect or not\""
+        required: false
+        type: "boolean"
+      - name: "serviceSpecCharacteristicRegex"
+        in: "query"
+        description: "For filtering: A rule or principle represented in regular expression\
+          \ used to derive the value of a characteristic value."
+        required: false
+        type: "string"
+      - name: "serviceSpecCharacteristicExtensible"
+        in: "query"
+        description: "For filtering: An indicator that specifies that the values for\
+          \ the characteristic can be extended by adding new values when instantiating\
+          \ a characteristic for an Entity."
+        required: false
+        type: "boolean"
+      - name: "relatedPartyRole"
+        in: "query"
+        description: "For filtering: Role of the related party."
+        required: false
+        type: "string"
+      - name: "relatedPartyName"
+        in: "query"
+        description: "For filtering: Name of the related party"
+        required: false
+        type: "string"
+      - name: "serviceSpecRelationshipType"
         in: "query"
         description: "For filtering: Type of relationship such as migration, substitution,\
           \ dependency, exclusivity"
         required: false
         type: "string"
-      - name: "resourceSpecificationName"
+      - name: "serviceSpecRelationshipRole"
         in: "query"
-        description: "For filtering: Name of the requiredResourceSpecification"
+        description: "For filtering: The association role for this service specification"
         required: false
         type: "string"
-      - name: "resourceSpecificationVersion"
+      - name: "serviceSpecRelationshipName"
         in: "query"
-        description: "For filtering: Resource specification version"
+        description: "For filtering: The name given to the target service specification\
+          \ instance"
         required: false
         type: "string"
-      - name: "attachmentType"
+      - name: "targetServiceSchemaType"
         in: "query"
-        description: "For filtering: Attachment type such as video, picture"
+        description: "For filtering: Class type of the target service"
         required: false
         type: "string"
-      - name: "attachmentUrl"
+      - name: "targetServiceSchemaSchemaLocation"
         in: "query"
-        description: "For filtering: Uniform Resource Locator, is a web page address\
-          \ (a subset of URI)"
-        required: false
-        type: "string"
-      - name: "bundledServiceSpecificationLifecycleStatus"
-        in: "query"
-        description: "For filtering: Used to indicate the current lifecycle status"
-        required: false
-        type: "string"
-      - name: "bundledServiceSpecificationName"
-        in: "query"
-        description: "For filtering: Name of the service specification"
+        description: "For filtering: This field provides a link to the schema describing\
+          \ the target service"
         required: false
         type: "string"
       responses:
@@ -686,28 +977,20 @@ paths:
           schema:
             $ref: "#/definitions/Error"
       x-swagger-router-controller: "ServiceSpecification"
-    put:
+    delete:
       tags:
       - "serviceSpecification"
-      summary: "Updates a 'ServiceSpecification' by Id"
-      operationId: "updateServiceSpecification"
+      summary: "Deletes a 'ServiceSpecification' by Id"
+      operationId: "deleteServiceSpecification"
       parameters:
       - name: "id"
         in: "path"
         description: "Identifier of the Service Specification"
         required: true
         type: "string"
-      - in: "body"
-        name: "serviceSpecification"
-        description: "The Service Specification to be updated"
-        required: true
-        schema:
-          $ref: "#/definitions/ServiceSpecification_Update"
       responses:
-        201:
-          description: "Updated"
-          schema:
-            $ref: "#/definitions/ServiceSpecification"
+        204:
+          description: "Deleted"
         400:
           description: "Bad Request"
           schema:
@@ -725,7 +1008,7 @@ paths:
       tags:
       - "serviceSpecification"
       summary: "Updates partially a 'ServiceSpecification' by Id"
-      operationId: "updateServiceSpecificationPatch"
+      operationId: "patchServiceSpecification"
       parameters:
       - name: "id"
         in: "path"
@@ -756,6 +1039,315 @@ paths:
           schema:
             $ref: "#/definitions/Error"
       x-swagger-router-controller: "ServiceSpecification"
+  /importJob:
+    get:
+      tags:
+      - "importJob"
+      summary: "List or find 'ImportJob' objects"
+      operationId: "listImportJob"
+      parameters:
+      - name: "fields"
+        in: "query"
+        description: "Comma separated properties to display in response"
+        required: false
+        type: "string"
+      - name: "contentType"
+        in: "query"
+        description: "For filtering: Indicates the format of the imported data"
+        required: false
+        type: "string"
+      - name: "path"
+        in: "query"
+        description: "For filtering: URL of the root resource where the content of\
+          \ the file specified by the import job must be applied"
+        required: false
+        type: "string"
+      - name: "status"
+        in: "query"
+        description: "For filtering: Status of the import job (not started, running,\
+          \ succeeded, failed)"
+        required: false
+        type: "string"
+      - name: "url"
+        in: "query"
+        description: "For filtering: URL of the file containing the data to be imported"
+        required: false
+        type: "string"
+      - name: "completionDate"
+        in: "query"
+        description: "For filtering: Date at which the job was completed"
+        required: false
+        type: "string"
+        format: "date-time"
+      - name: "creationDate"
+        in: "query"
+        description: "For filtering: Date at which the job was created"
+        required: false
+        type: "string"
+        format: "date-time"
+      - name: "errorLog"
+        in: "query"
+        description: "For filtering: Reason for failure if status is failed"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "Ok"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/ImportJob"
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "ImportJob"
+    post:
+      tags:
+      - "importJob"
+      summary: "Creates a 'ImportJob'"
+      operationId: "createImportJob"
+      parameters:
+      - in: "body"
+        name: "importJob"
+        description: "The Import Job to be created"
+        required: true
+        schema:
+          $ref: "#/definitions/ImportJob_Create"
+      responses:
+        201:
+          description: "Created"
+          schema:
+            $ref: "#/definitions/ImportJob"
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "ImportJob"
+  /importJob/{id}:
+    get:
+      tags:
+      - "importJob"
+      summary: "Retrieves a 'ImportJob' by Id"
+      operationId: "retrieveImportJob"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Identifier of the Import Job"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Ok"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/ImportJob"
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "ImportJob"
+    delete:
+      tags:
+      - "importJob"
+      summary: "Deletes a 'ImportJob' by Id"
+      operationId: "deleteImportJob"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Identifier of the Import Job"
+        required: true
+        type: "string"
+      responses:
+        204:
+          description: "Deleted"
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "ImportJob"
+  /exportJob:
+    get:
+      tags:
+      - "exportJob"
+      summary: "List or find 'ExportJob' objects"
+      operationId: "listExportJob"
+      parameters:
+      - name: "fields"
+        in: "query"
+        description: "Comma separated properties to display in response"
+        required: false
+        type: "string"
+      - name: "query"
+        in: "query"
+        description: "For filtering: Used to scope the exported data"
+        required: false
+        type: "string"
+      - name: "path"
+        in: "query"
+        description: "For filtering: URL of the root resource acting as the source\
+          \ for streaming content to the file specified by the export job"
+        required: false
+        type: "string"
+      - name: "contentType"
+        in: "query"
+        description: "For filtering: The format of the exported data"
+        required: false
+        type: "string"
+      - name: "status"
+        in: "query"
+        description: "For filtering: Status of the export job (not started, running,\
+          \ succeeded, failed)"
+        required: false
+        type: "string"
+      - name: "url"
+        in: "query"
+        description: "For filtering: URL of the file containing the data to be exported"
+        required: false
+        type: "string"
+      - name: "completionDate"
+        in: "query"
+        description: "For filtering: Data at which the job was completed"
+        required: false
+        type: "string"
+        format: "date-time"
+      - name: "creationDate"
+        in: "query"
+        description: "For filtering: Date at which the job was created"
+        required: false
+        type: "string"
+        format: "date-time"
+      - name: "errorLog"
+        in: "query"
+        description: "For filtering: Reason for failure"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "Ok"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/ExportJob"
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "ExportJob"
+    post:
+      tags:
+      - "exportJob"
+      summary: "Creates a 'ExportJob'"
+      operationId: "createExportJob"
+      parameters:
+      - in: "body"
+        name: "exportJob"
+        description: "The Export Job to be created"
+        required: true
+        schema:
+          $ref: "#/definitions/ExportJob_Create"
+      responses:
+        201:
+          description: "Created"
+          schema:
+            $ref: "#/definitions/ExportJob"
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "ExportJob"
+  /exportJob/{id}:
+    get:
+      tags:
+      - "exportJob"
+      summary: "Retrieves a 'ExportJob' by Id"
+      operationId: "retrieveExportJob"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Identifier of the Export Job"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Ok"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/ExportJob"
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "ExportJob"
+    delete:
+      tags:
+      - "exportJob"
+      summary: "Deletes a 'ExportJob' by Id"
+      operationId: "deleteExportJob"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Identifier of the Export Job"
+        required: true
+        type: "string"
+      responses:
+        204:
+          description: "Deleted"
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "ExportJob"
   /hub:
     post:
       tags:
@@ -813,58 +1405,8 @@ paths:
           schema:
             $ref: "#/definitions/Error"
       x-swagger-router-controller: "EventsSubscription"
-  /listener/catalogChangeBatchNotification:
-    post:
-      tags:
-      - "events publication"
-      summary: "Publishes a 'CatalogChangeBatchNotification'"
-      operationId: "publishCatalogChangeBatchNotification"
-      parameters:
-      - in: "body"
-        name: "catalogChangeBatchNotification"
-        description: "The Catalog Change Batch Notification to be published"
-        required: true
-        schema:
-          $ref: "#/definitions/CatalogChangeBatchNotification"
-      responses:
-        201:
-          description: "Published"
-        400:
-          description: "Bad Request"
-          schema:
-            $ref: "#/definitions/Error"
-        500:
-          description: "Internal Server Error"
-          schema:
-            $ref: "#/definitions/Error"
-      x-swagger-router-controller: "EventsPublication"
-  /listener/catalogChangeNotification:
-    post:
-      tags:
-      - "events publication"
-      summary: "Publishes a 'CatalogChangeNotification'"
-      operationId: "publishCatalogChangeNotification"
-      parameters:
-      - in: "body"
-        name: "catalogChangeNotification"
-        description: "The Catalog Change Notification to be published"
-        required: true
-        schema:
-          $ref: "#/definitions/CatalogChangeNotification"
-      responses:
-        201:
-          description: "Published"
-        400:
-          description: "Bad Request"
-          schema:
-            $ref: "#/definitions/Error"
-        500:
-          description: "Internal Server Error"
-          schema:
-            $ref: "#/definitions/Error"
-      x-swagger-router-controller: "EventsPublication"
 definitions:
-  Catalog:
+  ServiceCatalog:
     type: "object"
     properties:
       id:
@@ -873,69 +1415,160 @@ definitions:
       href:
         type: "string"
         description: "Unique reference of the catalog"
+      name:
+        type: "string"
+        description: "Name of the catalog"
+      description:
+        type: "string"
+        description: "Description of this catalog"
+      '@type':
+        type: "string"
+        description: "Indicates the (class) type of catalog. For service catalogs,\
+          \ this will be 'ServiceCatalog'."
+      '@schemaLocation':
+        type: "string"
+        description: "This field provides a link to the schema describing this REST\
+          \ resource"
+      '@baseType':
+        type: "string"
+        description: "Indicates<b> </b>the base (class) type of this REST resource"
       version:
         type: "string"
         description: "Catalog version"
+      validFor:
+        description: "The period for which the catalog is valid"
+        $ref: "#/definitions/TimePeriod"
       lastUpdate:
         type: "string"
         format: "date-time"
         description: "Date and time of the last update"
-      type:
-        type: "string"
-        description: "Indicates if the catalog is a service, service or resource catalog"
-      name:
-        type: "string"
-        description: "Name of the catalog"
       lifecycleStatus:
         type: "string"
         description: "Used to indicate the current lifecycle status"
-      validFor:
-        $ref: "#/definitions/TimePeriod"
-      relatedParty:
-        type: "array"
-        items:
-          $ref: "#/definitions/RelatedPartyRef"
-      category:
-        type: "array"
-        items:
-          $ref: "#/definitions/CategoryRef"
-    description: "A collection of Service Candidates."
+    description: "The root entity for service catalog management.\nA service catalog\
+      \ is a group of service specifications made available through service candidates\
+      \ that an organization provides to the consumers (internal consumers like its\
+      \ employees or B2B customers or B2C customers). \nA service catalog typically\
+      \ includes name, description and time period that is valid for. It will have\
+      \ a list of ServiceCandidate catalog items. A ServiceCandidate is an entity\
+      \ that makes a ServiceSpecification available to a catalog.\nA ServiceCandidate\
+      \ and its associated ServiceSpecification may be \"published\" - made visible\
+      \ -in any number of ServiceCatalogs, or in none."
     example:
+      '@baseType': "@baseType"
       lifecycleStatus: "lifecycleStatus"
       validFor:
         startDateTime: "2000-01-23T04:56:07.000+00:00"
         endDateTime: "2000-01-23T04:56:07.000+00:00"
+      '@type': "@type"
       lastUpdate: "2000-01-23T04:56:07.000+00:00"
       name: "name"
+      description: "description"
       id: "id"
       href: "href"
-      type: "type"
-      relatedParty:
-      - role: "role"
-        validFor:
-          startDateTime: "2000-01-23T04:56:07.000+00:00"
-          endDateTime: "2000-01-23T04:56:07.000+00:00"
-        name: "name"
-        id: "id"
-        href: "href"
-      - role: "role"
-        validFor:
-          startDateTime: "2000-01-23T04:56:07.000+00:00"
-          endDateTime: "2000-01-23T04:56:07.000+00:00"
-        name: "name"
-        id: "id"
-        href: "href"
-      category:
-      - name: "name"
-        id: "id"
-        href: "href"
-        version: "version"
-      - name: "name"
-        id: "id"
-        href: "href"
-        version: "version"
+      '@schemaLocation': "@schemaLocation"
       version: "version"
-  Category:
+  ServiceCatalog_Create:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      name:
+        type: "string"
+        description: "Name of the catalog"
+      description:
+        type: "string"
+        description: "Description of this catalog"
+      '@type':
+        type: "string"
+        description: "Indicates the (class) type of catalog. For service catalogs,\
+          \ this will be 'ServiceCatalog'."
+      '@schemaLocation':
+        type: "string"
+        description: "This field provides a link to the schema describing this REST\
+          \ resource"
+      '@baseType':
+        type: "string"
+        description: "Indicates<b> </b>the base (class) type of this REST resource"
+      version:
+        type: "string"
+        description: "Catalog version"
+      validFor:
+        description: "The period for which the catalog is valid"
+        $ref: "#/definitions/TimePeriod"
+      lastUpdate:
+        type: "string"
+        format: "date-time"
+        description: "Date and time of the last update"
+      lifecycleStatus:
+        type: "string"
+        description: "Used to indicate the current lifecycle status"
+    description: "The root entity for service catalog management.\nA service catalog\
+      \ is a group of service specifications made available through service candidates\
+      \ that an organization provides to the consumers (internal consumers like its\
+      \ employees or B2B customers or B2C customers). \nA service catalog typically\
+      \ includes name, description and time period that is valid for. It will have\
+      \ a list of ServiceCandidate catalog items. A ServiceCandidate is an entity\
+      \ that makes a ServiceSpecification available to a catalog.\nA ServiceCandidate\
+      \ and its associated ServiceSpecification may be \"published\" - made visible\
+      \ -in any number of ServiceCatalogs, or in none.\nSkipped properties: id,href"
+    example:
+      '@baseType': "@baseType"
+      lifecycleStatus: "lifecycleStatus"
+      validFor:
+        startDateTime: "2000-01-23T04:56:07.000+00:00"
+        endDateTime: "2000-01-23T04:56:07.000+00:00"
+      '@type': "@type"
+      lastUpdate: "2000-01-23T04:56:07.000+00:00"
+      name: "name"
+      description: "description"
+      '@schemaLocation': "@schemaLocation"
+      version: "version"
+  ServiceCatalog_Update:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        description: "Name of the catalog"
+      description:
+        type: "string"
+        description: "Description of this catalog"
+      '@schemaLocation':
+        type: "string"
+        description: "This field provides a link to the schema describing this REST\
+          \ resource"
+      '@baseType':
+        type: "string"
+        description: "Indicates<b> </b>the base (class) type of this REST resource"
+      version:
+        type: "string"
+        description: "Catalog version"
+      validFor:
+        description: "The period for which the catalog is valid"
+        $ref: "#/definitions/TimePeriod"
+      lifecycleStatus:
+        type: "string"
+        description: "Used to indicate the current lifecycle status"
+    description: "The root entity for service catalog management.\nA service catalog\
+      \ is a group of service specifications made available through service candidates\
+      \ that an organization provides to the consumers (internal consumers like its\
+      \ employees or B2B customers or B2C customers). \nA service catalog typically\
+      \ includes name, description and time period that is valid for. It will have\
+      \ a list of ServiceCandidate catalog items. A ServiceCandidate is an entity\
+      \ that makes a ServiceSpecification available to a catalog.\nA ServiceCandidate\
+      \ and its associated ServiceSpecification may be \"published\" - made visible\
+      \ -in any number of ServiceCatalogs, or in none.\nSkipped properties: id,href,id,href,@type,lastUpdate"
+    example:
+      '@baseType': "@baseType"
+      lifecycleStatus: "lifecycleStatus"
+      validFor:
+        startDateTime: "2000-01-23T04:56:07.000+00:00"
+        endDateTime: "2000-01-23T04:56:07.000+00:00"
+      name: "name"
+      description: "description"
+      '@schemaLocation': "@schemaLocation"
+      version: "version"
+  ServiceCategory:
     type: "object"
     properties:
       id:
@@ -943,19 +1576,36 @@ definitions:
         description: "Unique identifier of the category"
       href:
         type: "string"
-        description: "Reference of the catalog"
+        description: "Hyperlink reference to the category"
+      name:
+        type: "string"
+        description: "Name of the category"
+      description:
+        type: "string"
+        description: "Description of the category"
+      '@type':
+        type: "string"
+        description: "The (class) type of this category"
+      '@schemalLocation':
+        type: "string"
+        description: "This field provides a link to the schema describing this REST\
+          \ resource"
+      '@baseType':
+        type: "string"
+        description: "Immediate base class type of this category"
+      version:
+        type: "string"
+        description: "Category version"
+      validFor:
+        description: "The period for which the category is valid"
+        $ref: "#/definitions/TimePeriod"
+      lifecycleStatus:
+        type: "string"
+        description: "Used to indicate the current lifecycle status"
       lastUpdate:
         type: "string"
         format: "date-time"
         description: "Date and time of the last update"
-      version:
-        type: "string"
-        description: "Category version"
-      lifecycleStatus:
-        type: "string"
-        description: "Used to indicate the current lifecycle status"
-      validFor:
-        $ref: "#/definitions/TimePeriod"
       parentId:
         type: "string"
         description: "Unique identifier of the parent category"
@@ -963,46 +1613,105 @@ definitions:
         type: "boolean"
         description: "If true, this Boolean indicates that the category is a root\
           \ of categories"
-      name:
-        type: "string"
-        description: "Name of the category"
-      description:
-        type: "string"
-        description: "Description of the category"
-    description: "The category resource is used to group service candidates, service\
-      \ and resource candidates in logical containers. Categories can contain other\
-      \ categories and/or service candidates, resource or service candidates."
+      relatedParty:
+        type: "array"
+        items:
+          $ref: "#/definitions/RelatedPartyRef"
+      serviceCandidate:
+        type: "array"
+        items:
+          $ref: "#/definitions/ServiceCandidateRef"
+      category:
+        type: "array"
+        items:
+          $ref: "#/definitions/CategoryRef"
+    description: "The (service) category resource is used to group service candidates\
+      \ in logical containers. Categories can contain other categories."
     example:
       lifecycleStatus: "lifecycleStatus"
       isRoot: true
       validFor:
         startDateTime: "2000-01-23T04:56:07.000+00:00"
         endDateTime: "2000-01-23T04:56:07.000+00:00"
-      lastUpdate: "2000-01-23T04:56:07.000+00:00"
-      name: "name"
+      serviceCandidate:
+      - '@type': "@type"
+        name: "name"
+        id: "id"
+        href: "href"
+        version: "version"
+      - '@type': "@type"
+        name: "name"
+        id: "id"
+        href: "href"
+        version: "version"
+      '@type': "@type"
       description: "description"
-      id: "id"
-      href: "href"
+      relatedParty:
+      - role: "role"
+        validFor:
+          startDateTime: "2000-01-23T04:56:07.000+00:00"
+          endDateTime: "2000-01-23T04:56:07.000+00:00"
+        name: "name"
+        id: "id"
+        href: "href"
+      - role: "role"
+        validFor:
+          startDateTime: "2000-01-23T04:56:07.000+00:00"
+          endDateTime: "2000-01-23T04:56:07.000+00:00"
+        name: "name"
+        id: "id"
+        href: "href"
       version: "version"
       parentId: "parentId"
-  Category_Create:
+      '@baseType': "@baseType"
+      lastUpdate: "2000-01-23T04:56:07.000+00:00"
+      name: "name"
+      '@schemalLocation': "@schemalLocation"
+      id: "id"
+      href: "href"
+      category:
+      - name: "name"
+        id: "id"
+        href: "href"
+        version: "version"
+      - name: "name"
+        id: "id"
+        href: "href"
+        version: "version"
+  ServiceCategory_Create:
     type: "object"
     required:
     - "name"
-    - "parentId"
     properties:
+      name:
+        type: "string"
+        description: "Name of the category"
+      description:
+        type: "string"
+        description: "Description of the category"
+      '@type':
+        type: "string"
+        description: "The (class) type of this category"
+      '@schemalLocation':
+        type: "string"
+        description: "This field provides a link to the schema describing this REST\
+          \ resource"
+      '@baseType':
+        type: "string"
+        description: "Immediate base class type of this category"
+      version:
+        type: "string"
+        description: "Category version"
+      validFor:
+        description: "The period for which the category is valid"
+        $ref: "#/definitions/TimePeriod"
+      lifecycleStatus:
+        type: "string"
+        description: "Used to indicate the current lifecycle status"
       lastUpdate:
         type: "string"
         format: "date-time"
         description: "Date and time of the last update"
-      version:
-        type: "string"
-        description: "Category version"
-      lifecycleStatus:
-        type: "string"
-        description: "Used to indicate the current lifecycle status"
-      validFor:
-        $ref: "#/definitions/TimePeriod"
       parentId:
         type: "string"
         description: "Unique identifier of the parent category"
@@ -1010,38 +1719,95 @@ definitions:
         type: "boolean"
         description: "If true, this Boolean indicates that the category is a root\
           \ of categories"
-      name:
-        type: "string"
-        description: "Name of the category"
-      description:
-        type: "string"
-        description: "Description of the category"
-    description: "The category resource is used to group service candidates, service\
-      \ and resource candidates in logical containers. Categories can contain other\
-      \ categories and/or service candidates, resource or service candidates.\nSkipped\
-      \ properties: id,href"
+      relatedParty:
+        type: "array"
+        items:
+          $ref: "#/definitions/RelatedPartyRef"
+      serviceCandidate:
+        type: "array"
+        items:
+          $ref: "#/definitions/ServiceCandidateRef"
+      category:
+        type: "array"
+        items:
+          $ref: "#/definitions/CategoryRef"
+    description: "The (service) category resource is used to group service candidates\
+      \ in logical containers. Categories can contain other categories.\nSkipped properties:\
+      \ id,href"
     example:
       lifecycleStatus: "lifecycleStatus"
       isRoot: true
       validFor:
         startDateTime: "2000-01-23T04:56:07.000+00:00"
         endDateTime: "2000-01-23T04:56:07.000+00:00"
-      lastUpdate: "2000-01-23T04:56:07.000+00:00"
-      name: "name"
+      serviceCandidate:
+      - '@type': "@type"
+        name: "name"
+        id: "id"
+        href: "href"
+        version: "version"
+      - '@type': "@type"
+        name: "name"
+        id: "id"
+        href: "href"
+        version: "version"
+      '@type': "@type"
       description: "description"
+      relatedParty:
+      - role: "role"
+        validFor:
+          startDateTime: "2000-01-23T04:56:07.000+00:00"
+          endDateTime: "2000-01-23T04:56:07.000+00:00"
+        name: "name"
+        id: "id"
+        href: "href"
+      - role: "role"
+        validFor:
+          startDateTime: "2000-01-23T04:56:07.000+00:00"
+          endDateTime: "2000-01-23T04:56:07.000+00:00"
+        name: "name"
+        id: "id"
+        href: "href"
       version: "version"
       parentId: "parentId"
-  Category_Update:
+      '@baseType': "@baseType"
+      lastUpdate: "2000-01-23T04:56:07.000+00:00"
+      name: "name"
+      '@schemalLocation': "@schemalLocation"
+      category:
+      - name: "name"
+        id: "id"
+        href: "href"
+        version: "version"
+      - name: "name"
+        id: "id"
+        href: "href"
+        version: "version"
+  ServiceCategory_Update:
     type: "object"
     properties:
+      name:
+        type: "string"
+        description: "Name of the category"
+      description:
+        type: "string"
+        description: "Description of the category"
+      '@schemalLocation':
+        type: "string"
+        description: "This field provides a link to the schema describing this REST\
+          \ resource"
+      '@baseType':
+        type: "string"
+        description: "Immediate base class type of this category"
       version:
         type: "string"
         description: "Category version"
+      validFor:
+        description: "The period for which the category is valid"
+        $ref: "#/definitions/TimePeriod"
       lifecycleStatus:
         type: "string"
         description: "Used to indicate the current lifecycle status"
-      validFor:
-        $ref: "#/definitions/TimePeriod"
       parentId:
         type: "string"
         description: "Unique identifier of the parent category"
@@ -1049,24 +1815,66 @@ definitions:
         type: "boolean"
         description: "If true, this Boolean indicates that the category is a root\
           \ of categories"
-      name:
-        type: "string"
-        description: "Name of the category"
-      description:
-        type: "string"
-        description: "Description of the category"
-    description: "The category resource is used to group service candidates, service\
-      \ and resource candidates in logical containers. Categories can contain other\
-      \ categories and/or service candidates, resource or service candidates.\nSkipped\
-      \ properties: id,href,id,lastUpdate"
+      relatedParty:
+        type: "array"
+        items:
+          $ref: "#/definitions/RelatedPartyRef"
+      serviceCandidate:
+        type: "array"
+        items:
+          $ref: "#/definitions/ServiceCandidateRef"
+      category:
+        type: "array"
+        items:
+          $ref: "#/definitions/CategoryRef"
+    description: "The (service) category resource is used to group service candidates\
+      \ in logical containers. Categories can contain other categories.\nSkipped properties:\
+      \ id,href,id,href,@type,lastUpdate"
     example:
+      '@baseType': "@baseType"
       lifecycleStatus: "lifecycleStatus"
       isRoot: true
       validFor:
         startDateTime: "2000-01-23T04:56:07.000+00:00"
         endDateTime: "2000-01-23T04:56:07.000+00:00"
+      serviceCandidate:
+      - '@type': "@type"
+        name: "name"
+        id: "id"
+        href: "href"
+        version: "version"
+      - '@type': "@type"
+        name: "name"
+        id: "id"
+        href: "href"
+        version: "version"
       name: "name"
       description: "description"
+      '@schemalLocation': "@schemalLocation"
+      relatedParty:
+      - role: "role"
+        validFor:
+          startDateTime: "2000-01-23T04:56:07.000+00:00"
+          endDateTime: "2000-01-23T04:56:07.000+00:00"
+        name: "name"
+        id: "id"
+        href: "href"
+      - role: "role"
+        validFor:
+          startDateTime: "2000-01-23T04:56:07.000+00:00"
+          endDateTime: "2000-01-23T04:56:07.000+00:00"
+        name: "name"
+        id: "id"
+        href: "href"
+      category:
+      - name: "name"
+        id: "id"
+        href: "href"
+        version: "version"
+      - name: "name"
+        id: "id"
+        href: "href"
+        version: "version"
       version: "version"
       parentId: "parentId"
   ServiceCandidate:
@@ -1074,94 +1882,70 @@ definitions:
     properties:
       id:
         type: "string"
-        description: "Unique identifier of the serviceCandidate"
+        description: "Unique identifier of this REST resource"
       href:
         type: "string"
-        description: "Reference of the ServiceCandidate"
+        description: "Hyperlink reference to this REST resource"
+      name:
+        type: "string"
+        description: "Name given to this REST resource"
+      description:
+        type: "string"
+        description: "Description of this REST resource"
+      '@type':
+        type: "string"
+        description: "Class type of this REST resource"
+      '@schemaLocation':
+        type: "string"
+        description: "This field provides a link to the schema describing this REST\
+          \ resource"
+      '@baseType':
+        type: "string"
+        description: "The (immediate) base class type of this REST resource"
       version:
         type: "string"
-        description: "ServiceCandidate version"
+        description: "the version of service candidate"
+      validFor:
+        description: "The period for which this REST resource is valid"
+        $ref: "#/definitions/TimePeriod"
       lastUpdate:
         type: "string"
         format: "date-time"
-        description: "Date and time of the last update"
-      name:
-        type: "string"
-        description: "Name of the serviceCandidate"
-      description:
-        type: "string"
-        description: "Description of the serviceCandidate"
-      isBundle:
-        type: "boolean"
-        description: "isBundle determines whether a serviceCandidate represents a\
-          \ single serviceCandidate (false), or a bundle of serviceCandidates (true)."
+        description: "Date and time of the last update of this REST resource"
       lifecycleStatus:
         type: "string"
-        description: "Used to indicate the current lifecycle status"
-      validFor:
-        $ref: "#/definitions/TimePeriod"
-      serviceSpecification:
-        $ref: "#/definitions/ServiceSpecificationRef"
+        description: "Used to indicate the current lifecycle status of the service\
+          \ candidate."
       category:
         type: "array"
         items:
           $ref: "#/definitions/CategoryRef"
-      resourceCandidate:
-        $ref: "#/definitions/ResourceCandidateRef"
-      bundledServiceCandidate:
-        type: "array"
-        items:
-          $ref: "#/definitions/BundledServiceCandidate"
-      serviceCandidateTerm:
-        type: "array"
-        items:
-          $ref: "#/definitions/ServiceCandidateTerm"
-    description: "Represents entities that may be ordered from the provider of the\
-      \ catalog."
+      serviceSpecification:
+        $ref: "#/definitions/ServiceSpecificationRef"
+    description: "ServiceCandidate is an entity that makes a service specification\
+      \ available to a catalog. A\nServiceCandidate and its associated service specification\
+      \ may be published - made visible - in any number of service catalogs, or in\
+      \ none. One service specification can be composed of other service specifications."
     example:
-      isBundle: true
-      serviceCandidateTerm:
-      - duration: "duration"
-        validFor:
-          startDateTime: "2000-01-23T04:56:07.000+00:00"
-          endDateTime: "2000-01-23T04:56:07.000+00:00"
-        name: "name"
-        description: "description"
-      - duration: "duration"
-        validFor:
-          startDateTime: "2000-01-23T04:56:07.000+00:00"
-          endDateTime: "2000-01-23T04:56:07.000+00:00"
-        name: "name"
-        description: "description"
       lifecycleStatus: "lifecycleStatus"
       validFor:
         startDateTime: "2000-01-23T04:56:07.000+00:00"
         endDateTime: "2000-01-23T04:56:07.000+00:00"
+      '@type': "@type"
       serviceSpecification:
+        '@type': "@type"
         name: "name"
         id: "id"
         href: "href"
         version: "version"
       description: "description"
       version: "version"
-      resourceCandidate:
-        name: "name"
-        id: "id"
-        href: "href"
-        version: "version"
-      bundledServiceCandidate:
-      - lifecycleStatus: "lifecycleStatus"
-        name: "name"
-        id: "id"
-        href: "href"
-      - lifecycleStatus: "lifecycleStatus"
-        name: "name"
-        id: "id"
-        href: "href"
+      '@baseType': "@baseType"
       lastUpdate: "2000-01-23T04:56:07.000+00:00"
       name: "name"
       id: "id"
       href: "href"
+      '@schemaLocation': "@schemaLocation"
       category:
       - name: "name"
         id: "id"
@@ -1174,86 +1958,66 @@ definitions:
   ServiceCandidate_Create:
     type: "object"
     required:
-    - "bundledServiceCandidate"
     - "name"
-    - "serviceSpecification"
     properties:
+      name:
+        type: "string"
+        description: "Name given to this REST resource"
+      description:
+        type: "string"
+        description: "Description of this REST resource"
+      '@type':
+        type: "string"
+        description: "Class type of this REST resource"
+      '@schemaLocation':
+        type: "string"
+        description: "This field provides a link to the schema describing this REST\
+          \ resource"
+      '@baseType':
+        type: "string"
+        description: "The (immediate) base class type of this REST resource"
       version:
         type: "string"
-        description: "ServiceCandidate version"
+        description: "the version of service candidate"
+      validFor:
+        description: "The period for which this REST resource is valid"
+        $ref: "#/definitions/TimePeriod"
       lastUpdate:
         type: "string"
         format: "date-time"
-        description: "Date and time of the last update"
-      name:
-        type: "string"
-        description: "Name of the serviceCandidate"
-      description:
-        type: "string"
-        description: "Description of the serviceCandidate"
-      isBundle:
-        type: "boolean"
-        description: "isBundle determines whether a serviceCandidate represents a\
-          \ single serviceCandidate (false), or a bundle of serviceCandidates (true)."
+        description: "Date and time of the last update of this REST resource"
       lifecycleStatus:
         type: "string"
-        description: "Used to indicate the current lifecycle status"
-      validFor:
-        $ref: "#/definitions/TimePeriod"
-      serviceSpecification:
-        $ref: "#/definitions/ServiceSpecificationRef"
+        description: "Used to indicate the current lifecycle status of the service\
+          \ candidate."
       category:
         type: "array"
         items:
           $ref: "#/definitions/CategoryRef"
-      resourceCandidate:
-        $ref: "#/definitions/ResourceCandidateRef"
-      bundledServiceCandidate:
-        type: "array"
-        items:
-          $ref: "#/definitions/BundledServiceCandidate"
-      serviceCandidateTerm:
-        type: "array"
-        items:
-          $ref: "#/definitions/ServiceCandidateTerm"
-    description: "Represents entities that are orderable from the provider of the\
-      \ catalog.\nSkipped properties: id,href"
+      serviceSpecification:
+        $ref: "#/definitions/ServiceSpecificationRef"
+    description: "ServiceCandidate is an entity that makes a service specification\
+      \ available to a catalog. A\nServiceCandidate and its associated service specification\
+      \ may be published - made visible - in any number of service catalogs, or in\
+      \ none. One service specification can be composed of other service specifications.\n\
+      Skipped properties: id,href"
     example:
-      isBundle: true
-      serviceCandidateTerm:
-      - duration: "duration"
-        validFor:
-          startDateTime: "2000-01-23T04:56:07.000+00:00"
-          endDateTime: "2000-01-23T04:56:07.000+00:00"
-        name: "name"
-        description: "description"
-      - duration: "duration"
-        validFor:
-          startDateTime: "2000-01-23T04:56:07.000+00:00"
-          endDateTime: "2000-01-23T04:56:07.000+00:00"
-        name: "name"
-        description: "description"
+      '@baseType': "@baseType"
       lifecycleStatus: "lifecycleStatus"
       validFor:
         startDateTime: "2000-01-23T04:56:07.000+00:00"
         endDateTime: "2000-01-23T04:56:07.000+00:00"
-      bundledServiceCandidate:
-      - lifecycleStatus: "lifecycleStatus"
-        name: "name"
-        id: "id"
-        href: "href"
-      - lifecycleStatus: "lifecycleStatus"
-        name: "name"
-        id: "id"
-        href: "href"
+      '@type': "@type"
       lastUpdate: "2000-01-23T04:56:07.000+00:00"
       name: "name"
       serviceSpecification:
+        '@type': "@type"
         name: "name"
         id: "id"
         href: "href"
         version: "version"
       description: "description"
+      '@schemaLocation': "@schemaLocation"
       category:
       - name: "name"
         id: "id"
@@ -1264,85 +2028,58 @@ definitions:
         href: "href"
         version: "version"
       version: "version"
-      resourceCandidate:
-        name: "name"
-        id: "id"
-        href: "href"
-        version: "version"
   ServiceCandidate_Update:
     type: "object"
     properties:
-      version:
-        type: "string"
-        description: "ServiceCandidate version"
       name:
         type: "string"
-        description: "Name of the serviceCandidate"
+        description: "Name given to this REST resource"
       description:
         type: "string"
-        description: "Description of the serviceCandidate"
-      isBundle:
-        type: "boolean"
-        description: "isBundle determines whether a serviceCandidate represents a\
-          \ single serviceCandidate (false), or a bundle of serviceCandidates (true)."
+        description: "Description of this REST resource"
+      '@schemaLocation':
+        type: "string"
+        description: "This field provides a link to the schema describing this REST\
+          \ resource"
+      '@baseType':
+        type: "string"
+        description: "The (immediate) base class type of this REST resource"
+      version:
+        type: "string"
+        description: "the version of service candidate"
+      validFor:
+        description: "The period for which this REST resource is valid"
+        $ref: "#/definitions/TimePeriod"
       lifecycleStatus:
         type: "string"
-        description: "Used to indicate the current lifecycle status"
-      validFor:
-        $ref: "#/definitions/TimePeriod"
-      serviceSpecification:
-        $ref: "#/definitions/ServiceSpecificationRef"
+        description: "Used to indicate the current lifecycle status of the service\
+          \ candidate."
       category:
         type: "array"
         items:
           $ref: "#/definitions/CategoryRef"
-      resourceCandidate:
-        $ref: "#/definitions/ResourceCandidateRef"
-      bundledServiceCandidate:
-        type: "array"
-        items:
-          $ref: "#/definitions/BundledServiceCandidate"
-      serviceCandidateTerm:
-        type: "array"
-        items:
-          $ref: "#/definitions/ServiceCandidateTerm"
-    description: "Represents entities that are orderable from the provider of the\
-      \ catalog.\nSkipped properties: id,href,id,lastUpdate"
+      serviceSpecification:
+        $ref: "#/definitions/ServiceSpecificationRef"
+    description: "ServiceCandidate is an entity that makes a service specification\
+      \ available to a catalog. A\nServiceCandidate and its associated service specification\
+      \ may be published - made visible - in any number of service catalogs, or in\
+      \ none. One service specification can be composed of other service specifications.\n\
+      Skipped properties: id,href,id,href,@type,lastUpdate"
     example:
-      isBundle: true
-      serviceCandidateTerm:
-      - duration: "duration"
-        validFor:
-          startDateTime: "2000-01-23T04:56:07.000+00:00"
-          endDateTime: "2000-01-23T04:56:07.000+00:00"
-        name: "name"
-        description: "description"
-      - duration: "duration"
-        validFor:
-          startDateTime: "2000-01-23T04:56:07.000+00:00"
-          endDateTime: "2000-01-23T04:56:07.000+00:00"
-        name: "name"
-        description: "description"
+      '@baseType': "@baseType"
       lifecycleStatus: "lifecycleStatus"
       validFor:
         startDateTime: "2000-01-23T04:56:07.000+00:00"
         endDateTime: "2000-01-23T04:56:07.000+00:00"
-      bundledServiceCandidate:
-      - lifecycleStatus: "lifecycleStatus"
-        name: "name"
-        id: "id"
-        href: "href"
-      - lifecycleStatus: "lifecycleStatus"
-        name: "name"
-        id: "id"
-        href: "href"
       name: "name"
       serviceSpecification:
+        '@type': "@type"
         name: "name"
         id: "id"
         href: "href"
         version: "version"
       description: "description"
+      '@schemaLocation': "@schemaLocation"
       category:
       - name: "name"
         id: "id"
@@ -1353,62 +2090,49 @@ definitions:
         href: "href"
         version: "version"
       version: "version"
-      resourceCandidate:
-        name: "name"
-        id: "id"
-        href: "href"
-        version: "version"
   ServiceSpecification:
     type: "object"
     properties:
       id:
         type: "string"
-        description: "Unique identifier of the service specification"
+        description: "Unique identifier of this REST resource"
       href:
         type: "string"
-        description: "Reference of the service specification"
+        description: "Hyperlink reference to this REST resource"
+      name:
+        type: "string"
+        description: "Name given to this REST resource"
+      description:
+        type: "string"
+        description: "Description of this REST resource"
+      '@type':
+        type: "string"
+        description: "Class type of this REST resource"
+      '@schemaLocation':
+        type: "string"
+        description: "This field provides a link to the schema describing this REST\
+          \ resource"
+      '@baseType':
+        type: "string"
+        description: "The (immediate) base class type of this REST resource"
       version:
         type: "string"
         description: "Service specification version"
+      validFor:
+        description: "The period for which this REST resource is valid"
+        $ref: "#/definitions/TimePeriod"
       lastUpdate:
         type: "string"
         format: "date-time"
-        description: "Date and time of the last update"
-      name:
-        type: "string"
-        description: "Name of the service specification"
-      type:
-        type: "string"
-        description: "Type of the service specification"
-      description:
-        type: "string"
-        description: "A narrative that explains in detail what the service specification\
-          \ is"
-      isBundle:
-        type: "boolean"
-        description: "isBundle determines whether a serviceSpecification represents\
-          \ a single serviceSpecification (false), or a bundle of serviceSpecification\
-          \ (true)."
+        description: "Date and time of the last update of this REST resource"
       lifecycleStatus:
         type: "string"
-        description: "Used to indicate the current lifecycle status"
-      validFor:
-        $ref: "#/definitions/TimePeriod"
-      serviceNumber:
-        type: "string"
-        description: "An identification number assigned to uniquely identity the specification"
-      relatedParty:
-        type: "array"
-        items:
-          $ref: "#/definitions/RelatedPartyRef"
-      serviceSpecCharacteristic:
-        type: "array"
-        items:
-          $ref: "#/definitions/ServiceSpecCharacteristic"
-      serviceSpecificationRelationship:
-        type: "array"
-        items:
-          $ref: "#/definitions/ServiceSpecificationRelationship"
+        description: "Used to indicate the current lifecycle status of the service\
+          \ specification"
+      isBundle:
+        type: "boolean"
+        description: "A flag indicates that if this service specification is a bundled\
+          \ specification (true) or single (false)."
       resourceSpecification:
         type: "array"
         items:
@@ -1417,42 +2141,34 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/Attachment"
-      bundledServiceSpecification:
+      serviceSpecCharacteristic:
         type: "array"
         items:
-          $ref: "#/definitions/BundledServiceSpecification"
-    description: "Is a detailed description of a tangible or intangible object made\
-      \ available externally in the form of a ServiceCandidate to service delivery\
-      \ partners or other parties playing a party role."
+          $ref: "#/definitions/ServiceSpecCharacteristic"
+      relatedParty:
+        type: "array"
+        items:
+          $ref: "#/definitions/RelatedPartyRef"
+      serviceSpecRelationship:
+        type: "array"
+        items:
+          $ref: "#/definitions/ServiceSpecRelationship"
+      targetServiceSchema:
+        $ref: "#/definitions/TargetServiceSchemaRef"
+    description: "ServiceSpecification is a class that offers characteristics to describe\
+      \ a type of service.\nFunctionally, it acts as a template by which Services\
+      \ may be instantiated. By sharing the same  specification, these services would\
+      \ therefore share the same set of characteristics."
     example:
       isBundle: true
-      serviceNumber: "serviceNumber"
-      bundledServiceSpecification:
-      - lifecycleStatus: "lifecycleStatus"
-        name: "name"
-        id: "id"
-        href: "href"
-      - lifecycleStatus: "lifecycleStatus"
-        name: "name"
-        id: "id"
-        href: "href"
+      targetServiceSchema:
+        '@type': "@type"
+        '@schemaLocation': "@schemaLocation"
       lifecycleStatus: "lifecycleStatus"
       validFor:
         startDateTime: "2000-01-23T04:56:07.000+00:00"
         endDateTime: "2000-01-23T04:56:07.000+00:00"
-      serviceSpecificationRelationship:
-      - validFor:
-          startDateTime: "2000-01-23T04:56:07.000+00:00"
-          endDateTime: "2000-01-23T04:56:07.000+00:00"
-        id: "id"
-        href: "href"
-        type: "type"
-      - validFor:
-          startDateTime: "2000-01-23T04:56:07.000+00:00"
-          endDateTime: "2000-01-23T04:56:07.000+00:00"
-        id: "id"
-        href: "href"
-        type: "type"
+      '@type': "@type"
       resourceSpecification:
       - name: "name"
         id: "id"
@@ -1463,7 +2179,6 @@ definitions:
         href: "href"
         version: "version"
       description: "description"
-      type: "type"
       relatedParty:
       - role: "role"
         validFor:
@@ -1480,12 +2195,15 @@ definitions:
         id: "id"
         href: "href"
       version: "version"
+      '@baseType': "@baseType"
       attachment:
-      - href: "href"
+      - description: "description"
+        href: "href"
         id: "id"
         type: "type"
         url: "url"
-      - href: "href"
+      - description: "description"
+        href: "href"
         id: "id"
         type: "type"
         url: "url"
@@ -1493,126 +2211,183 @@ definitions:
       name: "name"
       id: "id"
       href: "href"
+      '@schemaLocation': "@schemaLocation"
       serviceSpecCharacteristic:
-      - serviceSpecCharRelationship:
+      - validFor:
+          startDateTime: "2000-01-23T04:56:07.000+00:00"
+          endDateTime: "2000-01-23T04:56:07.000+00:00"
+        '@type': "@type"
+        '@valueSchemaLocation': "@valueSchemaLocation"
+        isUnique: true
+        description: "description"
+        serviceSpecCharacteristicValue:
+        - rangeInterval: "rangeInterval"
+          isDefault: true
+          valueTo: 5
+          regex: "regex"
+          unitOfMeasure: "unitOfMeasure"
+          validFor:
+            startDateTime: "2000-01-23T04:56:07.000+00:00"
+            endDateTime: "2000-01-23T04:56:07.000+00:00"
+          '@type': "@type"
+          valueType: "valueType"
+          '@schemaLocation': "@schemaLocation"
+          value: "{}"
+          valueFrom: 1
+        - rangeInterval: "rangeInterval"
+          isDefault: true
+          valueTo: 5
+          regex: "regex"
+          unitOfMeasure: "unitOfMeasure"
+          validFor:
+            startDateTime: "2000-01-23T04:56:07.000+00:00"
+            endDateTime: "2000-01-23T04:56:07.000+00:00"
+          '@type': "@type"
+          valueType: "valueType"
+          '@schemaLocation': "@schemaLocation"
+          value: "{}"
+          valueFrom: 1
+        maxCardinality: 6
+        minCardinality: 0
+        serviceSpecCharRelationship:
         - validFor:
             startDateTime: "2000-01-23T04:56:07.000+00:00"
             endDateTime: "2000-01-23T04:56:07.000+00:00"
+          '@type': "@type"
+          name: "name"
+          id: "id"
+          href: "href"
           type: "type"
         - validFor:
             startDateTime: "2000-01-23T04:56:07.000+00:00"
             endDateTime: "2000-01-23T04:56:07.000+00:00"
+          '@type': "@type"
+          name: "name"
+          id: "id"
+          href: "href"
           type: "type"
+        regex: "regex"
+        valueType: "valueType"
+        name: "name"
+        '@schemaLocation': "@schemaLocation"
+        extensible: true
+        configurable: true
+      - validFor:
+          startDateTime: "2000-01-23T04:56:07.000+00:00"
+          endDateTime: "2000-01-23T04:56:07.000+00:00"
+        '@type': "@type"
+        '@valueSchemaLocation': "@valueSchemaLocation"
+        isUnique: true
+        description: "description"
+        serviceSpecCharacteristicValue:
+        - rangeInterval: "rangeInterval"
+          isDefault: true
+          valueTo: 5
+          regex: "regex"
+          unitOfMeasure: "unitOfMeasure"
+          validFor:
+            startDateTime: "2000-01-23T04:56:07.000+00:00"
+            endDateTime: "2000-01-23T04:56:07.000+00:00"
+          '@type': "@type"
+          valueType: "valueType"
+          '@schemaLocation': "@schemaLocation"
+          value: "{}"
+          valueFrom: 1
+        - rangeInterval: "rangeInterval"
+          isDefault: true
+          valueTo: 5
+          regex: "regex"
+          unitOfMeasure: "unitOfMeasure"
+          validFor:
+            startDateTime: "2000-01-23T04:56:07.000+00:00"
+            endDateTime: "2000-01-23T04:56:07.000+00:00"
+          '@type': "@type"
+          valueType: "valueType"
+          '@schemaLocation': "@schemaLocation"
+          value: "{}"
+          valueFrom: 1
+        maxCardinality: 6
+        minCardinality: 0
+        serviceSpecCharRelationship:
+        - validFor:
+            startDateTime: "2000-01-23T04:56:07.000+00:00"
+            endDateTime: "2000-01-23T04:56:07.000+00:00"
+          '@type': "@type"
+          name: "name"
+          id: "id"
+          href: "href"
+          type: "type"
+        - validFor:
+            startDateTime: "2000-01-23T04:56:07.000+00:00"
+            endDateTime: "2000-01-23T04:56:07.000+00:00"
+          '@type': "@type"
+          name: "name"
+          id: "id"
+          href: "href"
+          type: "type"
+        regex: "regex"
+        valueType: "valueType"
+        name: "name"
+        '@schemaLocation': "@schemaLocation"
+        extensible: true
+        configurable: true
+      serviceSpecRelationship:
+      - role: "role"
         validFor:
           startDateTime: "2000-01-23T04:56:07.000+00:00"
           endDateTime: "2000-01-23T04:56:07.000+00:00"
-        valueType: "valueType"
         name: "name"
-        description: "description"
-        serviceSpecCharacteristicValue:
-        - default: true
-          valueTo: "valueTo"
-          unitOfMeasure: "unitOfMeasure"
-          validFor:
-            startDateTime: "2000-01-23T04:56:07.000+00:00"
-            endDateTime: "2000-01-23T04:56:07.000+00:00"
-          valueType: "valueType"
-          value: "value"
-          valueFrom: "valueFrom"
-        - default: true
-          valueTo: "valueTo"
-          unitOfMeasure: "unitOfMeasure"
-          validFor:
-            startDateTime: "2000-01-23T04:56:07.000+00:00"
-            endDateTime: "2000-01-23T04:56:07.000+00:00"
-          valueType: "valueType"
-          value: "value"
-          valueFrom: "valueFrom"
-        configurable: true
-      - serviceSpecCharRelationship:
-        - validFor:
-            startDateTime: "2000-01-23T04:56:07.000+00:00"
-            endDateTime: "2000-01-23T04:56:07.000+00:00"
-          type: "type"
-        - validFor:
-            startDateTime: "2000-01-23T04:56:07.000+00:00"
-            endDateTime: "2000-01-23T04:56:07.000+00:00"
-          type: "type"
+        id: "id"
+        href: "href"
+        type: "type"
+      - role: "role"
         validFor:
           startDateTime: "2000-01-23T04:56:07.000+00:00"
           endDateTime: "2000-01-23T04:56:07.000+00:00"
-        valueType: "valueType"
         name: "name"
-        description: "description"
-        serviceSpecCharacteristicValue:
-        - default: true
-          valueTo: "valueTo"
-          unitOfMeasure: "unitOfMeasure"
-          validFor:
-            startDateTime: "2000-01-23T04:56:07.000+00:00"
-            endDateTime: "2000-01-23T04:56:07.000+00:00"
-          valueType: "valueType"
-          value: "value"
-          valueFrom: "valueFrom"
-        - default: true
-          valueTo: "valueTo"
-          unitOfMeasure: "unitOfMeasure"
-          validFor:
-            startDateTime: "2000-01-23T04:56:07.000+00:00"
-            endDateTime: "2000-01-23T04:56:07.000+00:00"
-          valueType: "valueType"
-          value: "value"
-          valueFrom: "valueFrom"
-        configurable: true
+        id: "id"
+        href: "href"
+        type: "type"
   ServiceSpecification_Create:
     type: "object"
     required:
-    - "bundledServiceSpecification"
+    - "@type"
     - "name"
-    - "serviceSpecCharacteristic"
     properties:
+      name:
+        type: "string"
+        description: "Name given to this REST resource"
+      description:
+        type: "string"
+        description: "Description of this REST resource"
+      '@type':
+        type: "string"
+        description: "Class type of this REST resource"
+      '@schemaLocation':
+        type: "string"
+        description: "This field provides a link to the schema describing this REST\
+          \ resource"
+      '@baseType':
+        type: "string"
+        description: "The (immediate) base class type of this REST resource"
       version:
         type: "string"
         description: "Service specification version"
+      validFor:
+        description: "The period for which this REST resource is valid"
+        $ref: "#/definitions/TimePeriod"
       lastUpdate:
         type: "string"
         format: "date-time"
-        description: "Date and time of the last update"
-      name:
-        type: "string"
-        description: "Name of the service specification"
-      type:
-        type: "string"
-        description: "Type of the service specification"
-      description:
-        type: "string"
-        description: "A narrative that explains in detail what the service specification\
-          \ is"
-      isBundle:
-        type: "boolean"
-        description: "isBundle determines whether a serviceSpecification represents\
-          \ a single serviceSpecification (false), or a bundle of serviceSpecification\
-          \ (true)."
+        description: "Date and time of the last update of this REST resource"
       lifecycleStatus:
         type: "string"
-        description: "Used to indicate the current lifecycle status"
-      validFor:
-        $ref: "#/definitions/TimePeriod"
-      serviceNumber:
-        type: "string"
-        description: "An identification number assigned to uniquely identity the specification"
-      relatedParty:
-        type: "array"
-        items:
-          $ref: "#/definitions/RelatedPartyRef"
-      serviceSpecCharacteristic:
-        type: "array"
-        items:
-          $ref: "#/definitions/ServiceSpecCharacteristic"
-      serviceSpecificationRelationship:
-        type: "array"
-        items:
-          $ref: "#/definitions/ServiceSpecificationRelationship"
+        description: "Used to indicate the current lifecycle status of the service\
+          \ specification"
+      isBundle:
+        type: "boolean"
+        description: "A flag indicates that if this service specification is a bundled\
+          \ specification (true) or single (false)."
       resourceSpecification:
         type: "array"
         items:
@@ -1621,42 +2396,34 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/Attachment"
-      bundledServiceSpecification:
+      serviceSpecCharacteristic:
         type: "array"
         items:
-          $ref: "#/definitions/BundledServiceSpecification"
-    description: "Is a detailed description of a tangible or intangible object made\
-      \ available externally in the form of a ServiceCandidate to service delivery\
-      \ partners or other parties playing a party role.\nSkipped properties: id,href"
+          $ref: "#/definitions/ServiceSpecCharacteristic"
+      relatedParty:
+        type: "array"
+        items:
+          $ref: "#/definitions/RelatedPartyRef"
+      serviceSpecRelationship:
+        type: "array"
+        items:
+          $ref: "#/definitions/ServiceSpecRelationship"
+      targetServiceSchema:
+        $ref: "#/definitions/TargetServiceSchemaRef"
+    description: "ServiceSpecification is a class that offers characteristics to describe\
+      \ a type of service.\nFunctionally, it acts as a template by which Services\
+      \ may be instantiated. By sharing the same  specification, these services would\
+      \ therefore share the same set of characteristics.\nSkipped properties: id,href"
     example:
       isBundle: true
-      serviceNumber: "serviceNumber"
-      bundledServiceSpecification:
-      - lifecycleStatus: "lifecycleStatus"
-        name: "name"
-        id: "id"
-        href: "href"
-      - lifecycleStatus: "lifecycleStatus"
-        name: "name"
-        id: "id"
-        href: "href"
+      targetServiceSchema:
+        '@type': "@type"
+        '@schemaLocation': "@schemaLocation"
       lifecycleStatus: "lifecycleStatus"
       validFor:
         startDateTime: "2000-01-23T04:56:07.000+00:00"
         endDateTime: "2000-01-23T04:56:07.000+00:00"
-      serviceSpecificationRelationship:
-      - validFor:
-          startDateTime: "2000-01-23T04:56:07.000+00:00"
-          endDateTime: "2000-01-23T04:56:07.000+00:00"
-        id: "id"
-        href: "href"
-        type: "type"
-      - validFor:
-          startDateTime: "2000-01-23T04:56:07.000+00:00"
-          endDateTime: "2000-01-23T04:56:07.000+00:00"
-        id: "id"
-        href: "href"
-        type: "type"
+      '@type': "@type"
       resourceSpecification:
       - name: "name"
         id: "id"
@@ -1667,7 +2434,6 @@ definitions:
         href: "href"
         version: "version"
       description: "description"
-      type: "type"
       relatedParty:
       - role: "role"
         validFor:
@@ -1684,129 +2450,187 @@ definitions:
         id: "id"
         href: "href"
       version: "version"
+      '@baseType': "@baseType"
       attachment:
-      - href: "href"
+      - description: "description"
+        href: "href"
         id: "id"
         type: "type"
         url: "url"
-      - href: "href"
+      - description: "description"
+        href: "href"
         id: "id"
         type: "type"
         url: "url"
       lastUpdate: "2000-01-23T04:56:07.000+00:00"
       name: "name"
+      '@schemaLocation': "@schemaLocation"
       serviceSpecCharacteristic:
-      - serviceSpecCharRelationship:
+      - validFor:
+          startDateTime: "2000-01-23T04:56:07.000+00:00"
+          endDateTime: "2000-01-23T04:56:07.000+00:00"
+        '@type': "@type"
+        '@valueSchemaLocation': "@valueSchemaLocation"
+        isUnique: true
+        description: "description"
+        serviceSpecCharacteristicValue:
+        - rangeInterval: "rangeInterval"
+          isDefault: true
+          valueTo: 5
+          regex: "regex"
+          unitOfMeasure: "unitOfMeasure"
+          validFor:
+            startDateTime: "2000-01-23T04:56:07.000+00:00"
+            endDateTime: "2000-01-23T04:56:07.000+00:00"
+          '@type': "@type"
+          valueType: "valueType"
+          '@schemaLocation': "@schemaLocation"
+          value: "{}"
+          valueFrom: 1
+        - rangeInterval: "rangeInterval"
+          isDefault: true
+          valueTo: 5
+          regex: "regex"
+          unitOfMeasure: "unitOfMeasure"
+          validFor:
+            startDateTime: "2000-01-23T04:56:07.000+00:00"
+            endDateTime: "2000-01-23T04:56:07.000+00:00"
+          '@type': "@type"
+          valueType: "valueType"
+          '@schemaLocation': "@schemaLocation"
+          value: "{}"
+          valueFrom: 1
+        maxCardinality: 6
+        minCardinality: 0
+        serviceSpecCharRelationship:
         - validFor:
             startDateTime: "2000-01-23T04:56:07.000+00:00"
             endDateTime: "2000-01-23T04:56:07.000+00:00"
+          '@type': "@type"
+          name: "name"
+          id: "id"
+          href: "href"
           type: "type"
         - validFor:
             startDateTime: "2000-01-23T04:56:07.000+00:00"
             endDateTime: "2000-01-23T04:56:07.000+00:00"
+          '@type': "@type"
+          name: "name"
+          id: "id"
+          href: "href"
           type: "type"
+        regex: "regex"
+        valueType: "valueType"
+        name: "name"
+        '@schemaLocation': "@schemaLocation"
+        extensible: true
+        configurable: true
+      - validFor:
+          startDateTime: "2000-01-23T04:56:07.000+00:00"
+          endDateTime: "2000-01-23T04:56:07.000+00:00"
+        '@type': "@type"
+        '@valueSchemaLocation': "@valueSchemaLocation"
+        isUnique: true
+        description: "description"
+        serviceSpecCharacteristicValue:
+        - rangeInterval: "rangeInterval"
+          isDefault: true
+          valueTo: 5
+          regex: "regex"
+          unitOfMeasure: "unitOfMeasure"
+          validFor:
+            startDateTime: "2000-01-23T04:56:07.000+00:00"
+            endDateTime: "2000-01-23T04:56:07.000+00:00"
+          '@type': "@type"
+          valueType: "valueType"
+          '@schemaLocation': "@schemaLocation"
+          value: "{}"
+          valueFrom: 1
+        - rangeInterval: "rangeInterval"
+          isDefault: true
+          valueTo: 5
+          regex: "regex"
+          unitOfMeasure: "unitOfMeasure"
+          validFor:
+            startDateTime: "2000-01-23T04:56:07.000+00:00"
+            endDateTime: "2000-01-23T04:56:07.000+00:00"
+          '@type': "@type"
+          valueType: "valueType"
+          '@schemaLocation': "@schemaLocation"
+          value: "{}"
+          valueFrom: 1
+        maxCardinality: 6
+        minCardinality: 0
+        serviceSpecCharRelationship:
+        - validFor:
+            startDateTime: "2000-01-23T04:56:07.000+00:00"
+            endDateTime: "2000-01-23T04:56:07.000+00:00"
+          '@type': "@type"
+          name: "name"
+          id: "id"
+          href: "href"
+          type: "type"
+        - validFor:
+            startDateTime: "2000-01-23T04:56:07.000+00:00"
+            endDateTime: "2000-01-23T04:56:07.000+00:00"
+          '@type': "@type"
+          name: "name"
+          id: "id"
+          href: "href"
+          type: "type"
+        regex: "regex"
+        valueType: "valueType"
+        name: "name"
+        '@schemaLocation': "@schemaLocation"
+        extensible: true
+        configurable: true
+      serviceSpecRelationship:
+      - role: "role"
         validFor:
           startDateTime: "2000-01-23T04:56:07.000+00:00"
           endDateTime: "2000-01-23T04:56:07.000+00:00"
-        valueType: "valueType"
         name: "name"
-        description: "description"
-        serviceSpecCharacteristicValue:
-        - default: true
-          valueTo: "valueTo"
-          unitOfMeasure: "unitOfMeasure"
-          validFor:
-            startDateTime: "2000-01-23T04:56:07.000+00:00"
-            endDateTime: "2000-01-23T04:56:07.000+00:00"
-          valueType: "valueType"
-          value: "value"
-          valueFrom: "valueFrom"
-        - default: true
-          valueTo: "valueTo"
-          unitOfMeasure: "unitOfMeasure"
-          validFor:
-            startDateTime: "2000-01-23T04:56:07.000+00:00"
-            endDateTime: "2000-01-23T04:56:07.000+00:00"
-          valueType: "valueType"
-          value: "value"
-          valueFrom: "valueFrom"
-        configurable: true
-      - serviceSpecCharRelationship:
-        - validFor:
-            startDateTime: "2000-01-23T04:56:07.000+00:00"
-            endDateTime: "2000-01-23T04:56:07.000+00:00"
-          type: "type"
-        - validFor:
-            startDateTime: "2000-01-23T04:56:07.000+00:00"
-            endDateTime: "2000-01-23T04:56:07.000+00:00"
-          type: "type"
+        id: "id"
+        href: "href"
+        type: "type"
+      - role: "role"
         validFor:
           startDateTime: "2000-01-23T04:56:07.000+00:00"
           endDateTime: "2000-01-23T04:56:07.000+00:00"
-        valueType: "valueType"
         name: "name"
-        description: "description"
-        serviceSpecCharacteristicValue:
-        - default: true
-          valueTo: "valueTo"
-          unitOfMeasure: "unitOfMeasure"
-          validFor:
-            startDateTime: "2000-01-23T04:56:07.000+00:00"
-            endDateTime: "2000-01-23T04:56:07.000+00:00"
-          valueType: "valueType"
-          value: "value"
-          valueFrom: "valueFrom"
-        - default: true
-          valueTo: "valueTo"
-          unitOfMeasure: "unitOfMeasure"
-          validFor:
-            startDateTime: "2000-01-23T04:56:07.000+00:00"
-            endDateTime: "2000-01-23T04:56:07.000+00:00"
-          valueType: "valueType"
-          value: "value"
-          valueFrom: "valueFrom"
-        configurable: true
+        id: "id"
+        href: "href"
+        type: "type"
   ServiceSpecification_Update:
     type: "object"
     properties:
+      name:
+        type: "string"
+        description: "Name given to this REST resource"
+      description:
+        type: "string"
+        description: "Description of this REST resource"
+      '@schemaLocation':
+        type: "string"
+        description: "This field provides a link to the schema describing this REST\
+          \ resource"
+      '@baseType':
+        type: "string"
+        description: "The (immediate) base class type of this REST resource"
       version:
         type: "string"
         description: "Service specification version"
-      name:
-        type: "string"
-        description: "Name of the service specification"
-      type:
-        type: "string"
-        description: "Type of the service specification"
-      description:
-        type: "string"
-        description: "A narrative that explains in detail what the service specification\
-          \ is"
-      isBundle:
-        type: "boolean"
-        description: "isBundle determines whether a serviceSpecification represents\
-          \ a single serviceSpecification (false), or a bundle of serviceSpecification\
-          \ (true)."
+      validFor:
+        description: "The period for which this REST resource is valid"
+        $ref: "#/definitions/TimePeriod"
       lifecycleStatus:
         type: "string"
-        description: "Used to indicate the current lifecycle status"
-      validFor:
-        $ref: "#/definitions/TimePeriod"
-      serviceNumber:
-        type: "string"
-        description: "An identification number assigned to uniquely identity the specification"
-      relatedParty:
-        type: "array"
-        items:
-          $ref: "#/definitions/RelatedPartyRef"
-      serviceSpecCharacteristic:
-        type: "array"
-        items:
-          $ref: "#/definitions/ServiceSpecCharacteristic"
-      serviceSpecificationRelationship:
-        type: "array"
-        items:
-          $ref: "#/definitions/ServiceSpecificationRelationship"
+        description: "Used to indicate the current lifecycle status of the service\
+          \ specification"
+      isBundle:
+        type: "boolean"
+        description: "A flag indicates that if this service specification is a bundled\
+          \ specification (true) or single (false)."
       resourceSpecification:
         type: "array"
         items:
@@ -1815,42 +2639,33 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/Attachment"
-      bundledServiceSpecification:
+      serviceSpecCharacteristic:
         type: "array"
         items:
-          $ref: "#/definitions/BundledServiceSpecification"
-    description: "Is a detailed description of a tangible or intangible object made\
-      \ available externally in the form of a ServiceCandidate to service delivery\
-      \ partners or other parties playing a party role.\nSkipped properties: id,href,id,lastUpdate"
+          $ref: "#/definitions/ServiceSpecCharacteristic"
+      relatedParty:
+        type: "array"
+        items:
+          $ref: "#/definitions/RelatedPartyRef"
+      serviceSpecRelationship:
+        type: "array"
+        items:
+          $ref: "#/definitions/ServiceSpecRelationship"
+      targetServiceSchema:
+        $ref: "#/definitions/TargetServiceSchemaRef"
+    description: "ServiceSpecification is a class that offers characteristics to describe\
+      \ a type of service.\nFunctionally, it acts as a template by which Services\
+      \ may be instantiated. By sharing the same  specification, these services would\
+      \ therefore share the same set of characteristics.\nSkipped properties: id,href,id,href,lastUpdate,@type"
     example:
       isBundle: true
-      serviceNumber: "serviceNumber"
-      bundledServiceSpecification:
-      - lifecycleStatus: "lifecycleStatus"
-        name: "name"
-        id: "id"
-        href: "href"
-      - lifecycleStatus: "lifecycleStatus"
-        name: "name"
-        id: "id"
-        href: "href"
+      targetServiceSchema:
+        '@type': "@type"
+        '@schemaLocation': "@schemaLocation"
       lifecycleStatus: "lifecycleStatus"
       validFor:
         startDateTime: "2000-01-23T04:56:07.000+00:00"
         endDateTime: "2000-01-23T04:56:07.000+00:00"
-      serviceSpecificationRelationship:
-      - validFor:
-          startDateTime: "2000-01-23T04:56:07.000+00:00"
-          endDateTime: "2000-01-23T04:56:07.000+00:00"
-        id: "id"
-        href: "href"
-        type: "type"
-      - validFor:
-          startDateTime: "2000-01-23T04:56:07.000+00:00"
-          endDateTime: "2000-01-23T04:56:07.000+00:00"
-        id: "id"
-        href: "href"
-        type: "type"
       resourceSpecification:
       - name: "name"
         id: "id"
@@ -1861,7 +2676,6 @@ definitions:
         href: "href"
         version: "version"
       description: "description"
-      type: "type"
       relatedParty:
       - role: "role"
         validFor:
@@ -1878,87 +2692,330 @@ definitions:
         id: "id"
         href: "href"
       version: "version"
+      '@baseType': "@baseType"
       attachment:
-      - href: "href"
+      - description: "description"
+        href: "href"
         id: "id"
         type: "type"
         url: "url"
-      - href: "href"
+      - description: "description"
+        href: "href"
         id: "id"
         type: "type"
         url: "url"
       name: "name"
+      '@schemaLocation': "@schemaLocation"
       serviceSpecCharacteristic:
-      - serviceSpecCharRelationship:
+      - validFor:
+          startDateTime: "2000-01-23T04:56:07.000+00:00"
+          endDateTime: "2000-01-23T04:56:07.000+00:00"
+        '@type': "@type"
+        '@valueSchemaLocation': "@valueSchemaLocation"
+        isUnique: true
+        description: "description"
+        serviceSpecCharacteristicValue:
+        - rangeInterval: "rangeInterval"
+          isDefault: true
+          valueTo: 5
+          regex: "regex"
+          unitOfMeasure: "unitOfMeasure"
+          validFor:
+            startDateTime: "2000-01-23T04:56:07.000+00:00"
+            endDateTime: "2000-01-23T04:56:07.000+00:00"
+          '@type': "@type"
+          valueType: "valueType"
+          '@schemaLocation': "@schemaLocation"
+          value: "{}"
+          valueFrom: 1
+        - rangeInterval: "rangeInterval"
+          isDefault: true
+          valueTo: 5
+          regex: "regex"
+          unitOfMeasure: "unitOfMeasure"
+          validFor:
+            startDateTime: "2000-01-23T04:56:07.000+00:00"
+            endDateTime: "2000-01-23T04:56:07.000+00:00"
+          '@type': "@type"
+          valueType: "valueType"
+          '@schemaLocation': "@schemaLocation"
+          value: "{}"
+          valueFrom: 1
+        maxCardinality: 6
+        minCardinality: 0
+        serviceSpecCharRelationship:
         - validFor:
             startDateTime: "2000-01-23T04:56:07.000+00:00"
             endDateTime: "2000-01-23T04:56:07.000+00:00"
+          '@type': "@type"
+          name: "name"
+          id: "id"
+          href: "href"
           type: "type"
         - validFor:
             startDateTime: "2000-01-23T04:56:07.000+00:00"
             endDateTime: "2000-01-23T04:56:07.000+00:00"
+          '@type': "@type"
+          name: "name"
+          id: "id"
+          href: "href"
           type: "type"
+        regex: "regex"
+        valueType: "valueType"
+        name: "name"
+        '@schemaLocation': "@schemaLocation"
+        extensible: true
+        configurable: true
+      - validFor:
+          startDateTime: "2000-01-23T04:56:07.000+00:00"
+          endDateTime: "2000-01-23T04:56:07.000+00:00"
+        '@type': "@type"
+        '@valueSchemaLocation': "@valueSchemaLocation"
+        isUnique: true
+        description: "description"
+        serviceSpecCharacteristicValue:
+        - rangeInterval: "rangeInterval"
+          isDefault: true
+          valueTo: 5
+          regex: "regex"
+          unitOfMeasure: "unitOfMeasure"
+          validFor:
+            startDateTime: "2000-01-23T04:56:07.000+00:00"
+            endDateTime: "2000-01-23T04:56:07.000+00:00"
+          '@type': "@type"
+          valueType: "valueType"
+          '@schemaLocation': "@schemaLocation"
+          value: "{}"
+          valueFrom: 1
+        - rangeInterval: "rangeInterval"
+          isDefault: true
+          valueTo: 5
+          regex: "regex"
+          unitOfMeasure: "unitOfMeasure"
+          validFor:
+            startDateTime: "2000-01-23T04:56:07.000+00:00"
+            endDateTime: "2000-01-23T04:56:07.000+00:00"
+          '@type': "@type"
+          valueType: "valueType"
+          '@schemaLocation': "@schemaLocation"
+          value: "{}"
+          valueFrom: 1
+        maxCardinality: 6
+        minCardinality: 0
+        serviceSpecCharRelationship:
+        - validFor:
+            startDateTime: "2000-01-23T04:56:07.000+00:00"
+            endDateTime: "2000-01-23T04:56:07.000+00:00"
+          '@type': "@type"
+          name: "name"
+          id: "id"
+          href: "href"
+          type: "type"
+        - validFor:
+            startDateTime: "2000-01-23T04:56:07.000+00:00"
+            endDateTime: "2000-01-23T04:56:07.000+00:00"
+          '@type': "@type"
+          name: "name"
+          id: "id"
+          href: "href"
+          type: "type"
+        regex: "regex"
+        valueType: "valueType"
+        name: "name"
+        '@schemaLocation': "@schemaLocation"
+        extensible: true
+        configurable: true
+      serviceSpecRelationship:
+      - role: "role"
         validFor:
           startDateTime: "2000-01-23T04:56:07.000+00:00"
           endDateTime: "2000-01-23T04:56:07.000+00:00"
-        valueType: "valueType"
         name: "name"
-        description: "description"
-        serviceSpecCharacteristicValue:
-        - default: true
-          valueTo: "valueTo"
-          unitOfMeasure: "unitOfMeasure"
-          validFor:
-            startDateTime: "2000-01-23T04:56:07.000+00:00"
-            endDateTime: "2000-01-23T04:56:07.000+00:00"
-          valueType: "valueType"
-          value: "value"
-          valueFrom: "valueFrom"
-        - default: true
-          valueTo: "valueTo"
-          unitOfMeasure: "unitOfMeasure"
-          validFor:
-            startDateTime: "2000-01-23T04:56:07.000+00:00"
-            endDateTime: "2000-01-23T04:56:07.000+00:00"
-          valueType: "valueType"
-          value: "value"
-          valueFrom: "valueFrom"
-        configurable: true
-      - serviceSpecCharRelationship:
-        - validFor:
-            startDateTime: "2000-01-23T04:56:07.000+00:00"
-            endDateTime: "2000-01-23T04:56:07.000+00:00"
-          type: "type"
-        - validFor:
-            startDateTime: "2000-01-23T04:56:07.000+00:00"
-            endDateTime: "2000-01-23T04:56:07.000+00:00"
-          type: "type"
+        id: "id"
+        href: "href"
+        type: "type"
+      - role: "role"
         validFor:
           startDateTime: "2000-01-23T04:56:07.000+00:00"
           endDateTime: "2000-01-23T04:56:07.000+00:00"
-        valueType: "valueType"
         name: "name"
-        description: "description"
-        serviceSpecCharacteristicValue:
-        - default: true
-          valueTo: "valueTo"
-          unitOfMeasure: "unitOfMeasure"
-          validFor:
-            startDateTime: "2000-01-23T04:56:07.000+00:00"
-            endDateTime: "2000-01-23T04:56:07.000+00:00"
-          valueType: "valueType"
-          value: "value"
-          valueFrom: "valueFrom"
-        - default: true
-          valueTo: "valueTo"
-          unitOfMeasure: "unitOfMeasure"
-          validFor:
-            startDateTime: "2000-01-23T04:56:07.000+00:00"
-            endDateTime: "2000-01-23T04:56:07.000+00:00"
-          valueType: "valueType"
-          value: "value"
-          valueFrom: "valueFrom"
-        configurable: true
+        id: "id"
+        href: "href"
+        type: "type"
+  ImportJob:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        description: "Identifier of the import job"
+      href:
+        type: "string"
+        description: "Reference of the import job"
+      contentType:
+        type: "string"
+        description: "Indicates the format of the imported data"
+      path:
+        type: "string"
+        description: "URL of the root resource where the content of the file specified\
+          \ by the import job must be applied"
+      status:
+        type: "string"
+        description: "Status of the import job (not started, running, succeeded, failed)"
+      url:
+        type: "string"
+        description: "URL of the file containing the data to be imported"
+      completionDate:
+        type: "string"
+        format: "date-time"
+        description: "Date at which the job was completed"
+      creationDate:
+        type: "string"
+        format: "date-time"
+        description: "Date at which the job was created"
+      errorLog:
+        type: "string"
+        description: "Reason for failure if status is failed"
+    description: "Represents a task used to import resources from a file"
+    example:
+      path: "path"
+      completionDate: "2000-01-23T04:56:07.000+00:00"
+      errorLog: "errorLog"
+      id: "id"
+      href: "href"
+      creationDate: "2000-01-23T04:56:07.000+00:00"
+      contentType: "contentType"
+      url: "url"
+      status: "status"
+  ImportJob_Create:
+    type: "object"
+    required:
+    - "url"
+    properties:
+      contentType:
+        type: "string"
+        description: "Indicates the format of the imported data"
+      path:
+        type: "string"
+        description: "URL of the root resource where the content of the file specified\
+          \ by the import job must be applied"
+      status:
+        type: "string"
+        description: "Status of the import job (not started, running, succeeded, failed)"
+      url:
+        type: "string"
+        description: "URL of the file containing the data to be imported"
+      completionDate:
+        type: "string"
+        format: "date-time"
+        description: "Date at which the job was completed"
+      creationDate:
+        type: "string"
+        format: "date-time"
+        description: "Date at which the job was created"
+      errorLog:
+        type: "string"
+        description: "Reason for failure if status is failed"
+    description: "Represents a task used to import resources from a file\nSkipped\
+      \ properties: id,href"
+    example:
+      path: "path"
+      completionDate: "2000-01-23T04:56:07.000+00:00"
+      errorLog: "errorLog"
+      creationDate: "2000-01-23T04:56:07.000+00:00"
+      contentType: "contentType"
+      url: "url"
+      status: "status"
+  ExportJob:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        description: "Identifier of the export job"
+      href:
+        type: "string"
+        description: "Reference of the export job"
+      query:
+        type: "string"
+        description: "Used to scope the exported data"
+      path:
+        type: "string"
+        description: "URL of the root resource acting as the source for streaming\
+          \ content to the file specified by the export job"
+      contentType:
+        type: "string"
+        description: "The format of the exported data"
+      status:
+        type: "string"
+        description: "Status of the export job (not started, running, succeeded, failed)"
+      url:
+        type: "string"
+        description: "URL of the file containing the data to be exported"
+      completionDate:
+        type: "string"
+        format: "date-time"
+        description: "Data at which the job was completed"
+      creationDate:
+        type: "string"
+        format: "date-time"
+        description: "Date at which the job was created"
+      errorLog:
+        type: "string"
+        description: "Reason for failure"
+    description: "Represents a task used to export resources to a file"
+    example:
+      path: "path"
+      query: "query"
+      completionDate: "2000-01-23T04:56:07.000+00:00"
+      errorLog: "errorLog"
+      id: "id"
+      href: "href"
+      creationDate: "2000-01-23T04:56:07.000+00:00"
+      contentType: "contentType"
+      url: "url"
+      status: "status"
+  ExportJob_Create:
+    type: "object"
+    required:
+    - "url"
+    properties:
+      query:
+        type: "string"
+        description: "Used to scope the exported data"
+      path:
+        type: "string"
+        description: "URL of the root resource acting as the source for streaming\
+          \ content to the file specified by the export job"
+      contentType:
+        type: "string"
+        description: "The format of the exported data"
+      status:
+        type: "string"
+        description: "Status of the export job (not started, running, succeeded, failed)"
+      url:
+        type: "string"
+        description: "URL of the file containing the data to be exported"
+      completionDate:
+        type: "string"
+        format: "date-time"
+        description: "Data at which the job was completed"
+      creationDate:
+        type: "string"
+        format: "date-time"
+        description: "Date at which the job was created"
+      errorLog:
+        type: "string"
+        description: "Reason for failure"
+    description: "Represents a task used to export resources to a file\nSkipped properties:\
+      \ id,href"
+    example:
+      path: "path"
+      query: "query"
+      completionDate: "2000-01-23T04:56:07.000+00:00"
+      errorLog: "errorLog"
+      creationDate: "2000-01-23T04:56:07.000+00:00"
+      contentType: "contentType"
+      url: "url"
+      status: "status"
   TimePeriod:
     type: "object"
     properties:
@@ -1984,7 +3041,7 @@ definitions:
       href:
         type: "string"
         description: "Reference of the related party, could be a party reference or\
-          \ a partyRole reference"
+          \ a party role reference"
       role:
         type: "string"
         description: "Role of the related party."
@@ -1992,8 +3049,9 @@ definitions:
         type: "string"
         description: "Name of the related party"
       validFor:
+        description: "Validity period of the related party"
         $ref: "#/definitions/TimePeriod"
-    description: "RelatedParty reference. RelatedParty defines party or party role\
+    description: "RelatedParty reference. A related party defines party or party role\
       \ linked to a specific entity."
     example:
       role: "role"
@@ -2003,6 +3061,31 @@ definitions:
       name: "name"
       id: "id"
       href: "href"
+  ServiceCandidateRef:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        description: "reference id to the target ServiceCandidate"
+      href:
+        type: "string"
+        description: "Hyperlink reference to the target ServiceCandidate"
+      version:
+        type: "string"
+        description: "ServiceCandidate version"
+      name:
+        type: "string"
+        description: "Name given to the ServiceCandidate"
+      '@type':
+        type: "string"
+        description: "The (class) type of the ServiceCandidate"
+    description: "reference to ServiceCandidate object"
+    example:
+      '@type': "@type"
+      name: "name"
+      id: "id"
+      href: "href"
+      version: "version"
   CategoryRef:
     type: "object"
     properties:
@@ -2018,232 +3101,40 @@ definitions:
       name:
         type: "string"
         description: "Name of the category"
-    description: "Category reference. The category resource is used to group service\
-      \ candidates, service and resource candidates in logical containers. Categories\
-      \ can contain other categories and/or service candidates, resource or service\
+    description: "Category reference. The category resource is used to group product\
+      \ offerings, service and resource candidates in logical containers. Categories\
+      \ can contain other categories and/or product offerings, resource or service\
       \ candidates."
     example:
       name: "name"
       id: "id"
       href: "href"
       version: "version"
-  PlaceRef:
-    type: "object"
-    properties:
-      id:
-        type: "string"
-        description: "Unique identifier of the place"
-      href:
-        type: "string"
-        description: "Unique reference of the place"
-      name:
-        type: "string"
-        description: "Name of the place"
-    description: "Place reference. Place defines the places where the service candidates\
-      \ are sold."
   ServiceSpecificationRef:
     type: "object"
     properties:
       id:
         type: "string"
-        description: "Unique identifier of the service specification"
+        description: "reference id to the target ServiceSpecification"
       href:
         type: "string"
-        description: "Reference of the service specification"
+        description: "Hyperlink reference to the target ServiceSpecification"
       version:
         type: "string"
-        description: "Version of the service specification"
+        description: "ServiceSpecification version"
       name:
         type: "string"
-        description: "Name of the service specification"
-    description: "Service specification reference: A ServiceSpecification is a detailed\
-      \ description of a tangible or intangible object made available externally in\
-      \ the form of a ServiceCandidate to service delivery partners or other parties\
-      \ playing a party role."
+        description: "Name given to the ServiceSpecification"
+      '@type':
+        type: "string"
+        description: "The (class) type of the ServiceSpecification"
+    description: "reference to  ServiceSpecification object"
     example:
+      '@type': "@type"
       name: "name"
       id: "id"
       href: "href"
       version: "version"
-  ServiceCandidateRef:
-    type: "object"
-    properties:
-      id:
-        type: "string"
-        description: "Unique identifier of the service candidate"
-      href:
-        type: "string"
-        description: "Unique reference of the service candidate"
-      version:
-        type: "string"
-        description: "Version of the service candidate"
-      name:
-        type: "string"
-        description: "Name of the service candidate"
-    description: "ServiceCandidate reference. ServiceCandidate is an entity that makes\
-      \ a ServiceSpecification available to a catalog."
-  ResourceCandidateRef:
-    type: "object"
-    properties:
-      id:
-        type: "string"
-        description: "Unique identifier of the resource candidate"
-      href:
-        type: "string"
-        description: "Reference of the resource candidate"
-      version:
-        type: "string"
-        description: "Version of the resource candidate"
-      name:
-        type: "string"
-        description: "Name of the resource candidate"
-    description: "ResourceCandidate reference: A resource candidate is an entity that\
-      \ makes a ResourceSpecification available to a catalog."
-    example:
-      name: "name"
-      id: "id"
-      href: "href"
-      version: "version"
-  BundledServiceCandidate:
-    type: "object"
-    properties:
-      id:
-        type: "string"
-        description: "Unique identifier of the BundledServiceCandidate"
-      href:
-        type: "string"
-        description: "Unique reference of the BundledServiceCandidate"
-      lifecycleStatus:
-        type: "string"
-        description: "Used to indicate the current lifecycle status"
-      name:
-        type: "string"
-        description: "Name of the BundledServiceCandidate"
-    description: "A type of ServiceCandidate that belongs to a grouping of ServiceCandidates\
-      \ made available to the market. It inherits of all attributes of ServiceCandidate."
-    example:
-      lifecycleStatus: "lifecycleStatus"
-      name: "name"
-      id: "id"
-      href: "href"
-  ServiceCandidateTerm:
-    type: "object"
-    properties:
-      name:
-        type: "string"
-        description: "Name of the serviceCandidateTerm"
-      description:
-        type: "string"
-        description: "Description of the serviceCandidateTerm"
-      duration:
-        type: "string"
-        description: "Duration of the serviceCandidateTerm"
-      validFor:
-        $ref: "#/definitions/TimePeriod"
-    description: "A condition under which a ServiceCandidate is made available to\
-      \ Service Delivery Partners. For instance, a serviceCandidate can be offered\
-      \ with multiple commitment periods."
-    example:
-      duration: "duration"
-      validFor:
-        startDateTime: "2000-01-23T04:56:07.000+00:00"
-        endDateTime: "2000-01-23T04:56:07.000+00:00"
-      name: "name"
-      description: "description"
-  ServiceSpecCharacteristic:
-    type: "object"
-    properties:
-      name:
-        type: "string"
-        description: "Name of the serviceSpecCharacteristic"
-      description:
-        type: "string"
-        description: "A narrative that explains in detail what the serviceSpecCharacteristic\
-          \ is"
-      valueType:
-        type: "string"
-        description: "A kind of value that the characteristic can take on, such as\
-          \ numeric, text and so forth"
-      configurable:
-        type: "boolean"
-        description: "If true, the Boolean indicates that the serviceSpecCharacteristic\
-          \ is configurable"
-      validFor:
-        $ref: "#/definitions/TimePeriod"
-      serviceSpecCharRelationship:
-        type: "array"
-        items:
-          $ref: "#/definitions/ServiceSpecCharRelationship"
-      serviceSpecCharacteristicValue:
-        type: "array"
-        items:
-          $ref: "#/definitions/ServiceSpecCharacteristicValue"
-    description: "A characteristic quality or distinctive feature of a ServiceSpecification.\
-      \  The characteristic can be take on a discrete value, such as color, can take\
-      \ on a range of values, (for example, sensitivity of 100-240 mV), or can be\
-      \ derived from a formula (for example, usage time (hrs) = 30 - talk time *3).\
-      \ Certain characteristics, such as color, may be configured during the ordering\
-      \ or some other process."
-    example:
-      serviceSpecCharRelationship:
-      - validFor:
-          startDateTime: "2000-01-23T04:56:07.000+00:00"
-          endDateTime: "2000-01-23T04:56:07.000+00:00"
-        type: "type"
-      - validFor:
-          startDateTime: "2000-01-23T04:56:07.000+00:00"
-          endDateTime: "2000-01-23T04:56:07.000+00:00"
-        type: "type"
-      validFor:
-        startDateTime: "2000-01-23T04:56:07.000+00:00"
-        endDateTime: "2000-01-23T04:56:07.000+00:00"
-      valueType: "valueType"
-      name: "name"
-      description: "description"
-      serviceSpecCharacteristicValue:
-      - default: true
-        valueTo: "valueTo"
-        unitOfMeasure: "unitOfMeasure"
-        validFor:
-          startDateTime: "2000-01-23T04:56:07.000+00:00"
-          endDateTime: "2000-01-23T04:56:07.000+00:00"
-        valueType: "valueType"
-        value: "value"
-        valueFrom: "valueFrom"
-      - default: true
-        valueTo: "valueTo"
-        unitOfMeasure: "unitOfMeasure"
-        validFor:
-          startDateTime: "2000-01-23T04:56:07.000+00:00"
-          endDateTime: "2000-01-23T04:56:07.000+00:00"
-        valueType: "valueType"
-        value: "value"
-        valueFrom: "valueFrom"
-      configurable: true
-  ServiceSpecificationRelationship:
-    type: "object"
-    properties:
-      id:
-        type: "string"
-        description: "Unique identifier of the serviceSpecification"
-      href:
-        type: "string"
-        description: "Reference of the serviceSpecification"
-      type:
-        type: "string"
-        description: "Type of relationship such as migration, substitution, dependency,\
-          \ exclusivity"
-      validFor:
-        $ref: "#/definitions/TimePeriod"
-    description: "A migration, substitution, dependency or exclusivity relationship\
-      \ between/among service specifications."
-    example:
-      validFor:
-        startDateTime: "2000-01-23T04:56:07.000+00:00"
-        endDateTime: "2000-01-23T04:56:07.000+00:00"
-      id: "id"
-      href: "href"
-      type: "type"
   ResourceSpecificationRef:
     type: "object"
     properties:
@@ -2260,7 +3151,7 @@ definitions:
         type: "string"
         description: "Resource specification version"
     description: "Resource Specification reference: The ResourceSpecification is required\
-      \ to realize a ServiceSpecification."
+      \ to realize a ProductSpecification."
     example:
       name: "name"
       id: "id"
@@ -2269,6 +3160,9 @@ definitions:
   Attachment:
     type: "object"
     properties:
+      description:
+        type: "string"
+        description: "A narrative text describing the content of the attachment"
       href:
         type: "string"
         description: "Reference of the attachment"
@@ -2282,34 +3176,255 @@ definitions:
         type: "string"
         description: "Uniform Resource Locator, is a web page address (a subset of\
           \ URI)"
-    description: "Describes a service through video, pictures..."
+    description: "Complements the description of an element (for instance a product)\
+      \ through video, pictures..."
     example:
+      description: "description"
       href: "href"
       id: "id"
       type: "type"
       url: "url"
-  BundledServiceSpecification:
+  ServiceSpecCharacteristic:
     type: "object"
     properties:
-      id:
-        type: "string"
-        description: "Unique identifier of the service specification"
-      href:
-        type: "string"
-        description: "Reference of the service specification"
-      lifecycleStatus:
-        type: "string"
-        description: "Used to indicate the current lifecycle status"
       name:
         type: "string"
-        description: "Name of the service specification"
-    description: "A type of ServiceSpecification that belongs to a grouping of ServiceSpecifications\
-      \ made available to the market. It inherits of all attributes of ServiceSpecification."
+        description: "A word, term, or phrase by which this characteristic specification\
+          \ is known and distinguished from other characteristic specifications."
+      description:
+        type: "string"
+        description: "A narrative that explains in detail what the ServiceSpecCharacteristic\
+          \ is"
+      valueType:
+        type: "string"
+        description: "A kind of value that the characteristic can take on, such as\
+          \ numeric, text and so forth"
+      configurable:
+        type: "boolean"
+        description: "If true, the Boolean indicates that the ServiceSpecCharacteristic\
+          \ is configurable"
+      validFor:
+        description: "The period for which the ServiceSpecCharacteristic is valid"
+        $ref: "#/definitions/TimePeriod"
+      '@type':
+        type: "string"
+        description: "(Class) type of the ServiceSpecCharacteristic"
+      '@schemaLocation':
+        type: "string"
+        description: "A link to the schema describing this characteristic"
+      '@valueSchemaLocation':
+        type: "string"
+        description: "This (optional) field provides a link to the schema describing\
+          \ the value type."
+      minCardinality:
+        type: "integer"
+        description: "The minimum number of instances a CharacteristicValue can take\
+          \ on. For example, zero to five phone numbers in a group calling plan, where\
+          \ zero is the value for the minCardinality."
+      maxCardinality:
+        type: "integer"
+        description: "The maximum number of instances a CharacteristicValue can take\
+          \ on. For example, zero to five phone numbers in a group calling plan, where\
+          \ five is the value for the maxCardinality."
+      isUnique:
+        type: "boolean"
+        description: "An indicator that specifies if a value is unique for the specification.\
+          \ Possible values are; \"unique while value is in effect\" and \"unique\
+          \ whether value is in effect or not\""
+      regex:
+        type: "string"
+        description: "A rule or principle represented in regular expression used to\
+          \ derive the value of a characteristic value."
+      extensible:
+        type: "boolean"
+        description: "An indicator that specifies that the values for the characteristic\
+          \ can be extended by adding new values when instantiating a characteristic\
+          \ for an Entity."
+      serviceSpecCharacteristicValue:
+        type: "array"
+        items:
+          $ref: "#/definitions/ServiceSpecCharacteristicValue"
+      serviceSpecCharRelationship:
+        type: "array"
+        items:
+          $ref: "#/definitions/ServiceSpecCharRelationship"
+    description: "This class represents the key features of this service specification.\
+      \ For example, bandwidth is a characteristic of many different types of services;\
+      \ if bandwidth is a relevant characteristic (e.g., from the point-of-view of\
+      \ a Customer obtaining this Service via a Product) then bandwidth would be a\
+      \ ServiceSpecCharacteristic for that particular Service."
     example:
-      lifecycleStatus: "lifecycleStatus"
+      validFor:
+        startDateTime: "2000-01-23T04:56:07.000+00:00"
+        endDateTime: "2000-01-23T04:56:07.000+00:00"
+      '@type': "@type"
+      '@valueSchemaLocation': "@valueSchemaLocation"
+      isUnique: true
+      description: "description"
+      serviceSpecCharacteristicValue:
+      - rangeInterval: "rangeInterval"
+        isDefault: true
+        valueTo: 5
+        regex: "regex"
+        unitOfMeasure: "unitOfMeasure"
+        validFor:
+          startDateTime: "2000-01-23T04:56:07.000+00:00"
+          endDateTime: "2000-01-23T04:56:07.000+00:00"
+        '@type': "@type"
+        valueType: "valueType"
+        '@schemaLocation': "@schemaLocation"
+        value: "{}"
+        valueFrom: 1
+      - rangeInterval: "rangeInterval"
+        isDefault: true
+        valueTo: 5
+        regex: "regex"
+        unitOfMeasure: "unitOfMeasure"
+        validFor:
+          startDateTime: "2000-01-23T04:56:07.000+00:00"
+          endDateTime: "2000-01-23T04:56:07.000+00:00"
+        '@type': "@type"
+        valueType: "valueType"
+        '@schemaLocation': "@schemaLocation"
+        value: "{}"
+        valueFrom: 1
+      maxCardinality: 6
+      minCardinality: 0
+      serviceSpecCharRelationship:
+      - validFor:
+          startDateTime: "2000-01-23T04:56:07.000+00:00"
+          endDateTime: "2000-01-23T04:56:07.000+00:00"
+        '@type': "@type"
+        name: "name"
+        id: "id"
+        href: "href"
+        type: "type"
+      - validFor:
+          startDateTime: "2000-01-23T04:56:07.000+00:00"
+          endDateTime: "2000-01-23T04:56:07.000+00:00"
+        '@type': "@type"
+        name: "name"
+        id: "id"
+        href: "href"
+        type: "type"
+      regex: "regex"
+      valueType: "valueType"
+      name: "name"
+      '@schemaLocation': "@schemaLocation"
+      extensible: true
+      configurable: true
+  ServiceSpecRelationship:
+    type: "object"
+    properties:
+      type:
+        type: "string"
+        description: "Type of relationship such as migration, substitution, dependency,\
+          \ exclusivity"
+      role:
+        type: "string"
+        description: "The association role for this service specification"
+      id:
+        type: "string"
+        description: "Unique identifier of target ServiceSpecification"
+      href:
+        type: "string"
+        description: "Reference of the target ServiceSpecification"
+      name:
+        type: "string"
+        description: "The name given to the target service specification instance"
+      validFor:
+        description: "The period for which the ServiceSpecRelationship is valid"
+        $ref: "#/definitions/TimePeriod"
+    description: "A migration, substitution, dependency or exclusivity relationship\
+      \ between/among service specifications."
+    example:
+      role: "role"
+      validFor:
+        startDateTime: "2000-01-23T04:56:07.000+00:00"
+        endDateTime: "2000-01-23T04:56:07.000+00:00"
       name: "name"
       id: "id"
       href: "href"
+      type: "type"
+  TargetServiceSchemaRef:
+    type: "object"
+    properties:
+      '@type':
+        type: "string"
+        description: "Class type of the target service"
+      '@schemaLocation':
+        type: "string"
+        description: "This field provides a link to the schema describing the target\
+          \ service"
+    description: "The reference object to the schema and type of target service which\
+      \ is described by service specification"
+    example:
+      '@type': "@type"
+      '@schemaLocation': "@schemaLocation"
+  ServiceSpecCharacteristicValue:
+    type: "object"
+    properties:
+      valueType:
+        type: "string"
+        description: "A kind of value that the characteristic value can take on, such\
+          \ as numeric, text and so forth"
+      isDefault:
+        type: "boolean"
+        description: "If true, the Boolean Indicates if the value is the default value\
+          \ for a characteristic"
+      value:
+        type: "object"
+        description: "the  value that the characteristic can take on."
+        properties: {}
+      unitOfMeasure:
+        type: "string"
+        description: "A length, surface, volume, dry measure, liquid measure, money,\
+          \ weight, time, and the like. In general, a determinate quantity or magnitude\
+          \ of the kind designated, taken as a standard of comparison for others of\
+          \ the same kind, in assigning to them numerical values, as 1 foot, 1 yard,\
+          \ 1 mile, 1 square foot."
+      validFor:
+        description: "The period of time for which a value is applicable."
+        $ref: "#/definitions/TimePeriod"
+      valueFrom:
+        type: "integer"
+        description: "The low range value that a characteristic can take on"
+      valueTo:
+        type: "integer"
+        description: "The upper range value that a characteristic can take on"
+      rangeInterval:
+        type: "string"
+        description: "An indicator that specifies the inclusion or exclusion of the\
+          \ valueFrom and valueTo attributes. If applicable, possible values are \"\
+          open\", \"closed\", \"closedBottom\" and \"closedTop\"."
+      regex:
+        type: "string"
+        description: "A regular expression constraint for given value"
+      '@type':
+        type: "string"
+        description: "The class type of the characteristic value"
+      '@schemaLocation':
+        type: "string"
+        description: "Hyperlink reference to schema describing this object."
+    description: "A ServiceSpecCharacteristicValue object is used to define a set\
+      \ of attributes, each of which can be assigned to a corresponding set of attributes\
+      \ in a ServiceSpecCharacteristic object. The values of the attributes in the\
+      \ ServiceSpecCharacteristicValue object describe the values of the attributes\
+      \ that a corresponding ServiceSpecCharacteristic object can take on."
+    example:
+      rangeInterval: "rangeInterval"
+      isDefault: true
+      valueTo: 5
+      regex: "regex"
+      unitOfMeasure: "unitOfMeasure"
+      validFor:
+        startDateTime: "2000-01-23T04:56:07.000+00:00"
+        endDateTime: "2000-01-23T04:56:07.000+00:00"
+      '@type': "@type"
+      valueType: "valueType"
+      '@schemaLocation': "@schemaLocation"
+      value: "{}"
+      valueFrom: 1
   ServiceSpecCharRelationship:
     type: "object"
     properties:
@@ -2317,224 +3432,32 @@ definitions:
         type: "string"
         description: "Type of relationship such as aggregation, migration, substitution,\
           \ dependency, exclusivity"
+      name:
+        type: "string"
+        description: "Name of the target  characteristic"
+      id:
+        type: "string"
+        description: "Unique identifier of the target specification"
+      href:
+        type: "string"
+        description: "Hyperlink reference to the target specification"
+      '@type':
+        type: "string"
+        description: "class type of target specification"
       validFor:
+        description: "The period for which the object is valid"
         $ref: "#/definitions/TimePeriod"
     description: "An aggregation, migration, substitution, dependency or exclusivity\
-      \ relationship between/among serviceSpecCharacteristics."
+      \ relationship between/among Specification Characteristics."
     example:
       validFor:
         startDateTime: "2000-01-23T04:56:07.000+00:00"
         endDateTime: "2000-01-23T04:56:07.000+00:00"
+      '@type': "@type"
+      name: "name"
+      id: "id"
+      href: "href"
       type: "type"
-  ServiceSpecCharacteristicValue:
-    type: "object"
-    properties:
-      valueType:
-        type: "string"
-        description: "A kind of value that the characteristic can take on, such as\
-          \ numeric, text, and so forth"
-      default:
-        type: "boolean"
-        description: "Indicates if the value is the default value for a characteristic"
-      value:
-        type: "string"
-        description: "A discrete value that the characteristic can take on"
-      unitOfMeasure:
-        type: "string"
-        description: "Could be minutes, GB..."
-      valueFrom:
-        type: "string"
-        description: "The low range value that a characteristic can take on"
-      valueTo:
-        type: "string"
-        description: "The upper range value that a characteristic can take on"
-      validFor:
-        $ref: "#/definitions/TimePeriod"
-    description: "A number or text that can be assigned to a ServiceSpecCharacteristic."
-    example:
-      default: true
-      valueTo: "valueTo"
-      unitOfMeasure: "unitOfMeasure"
-      validFor:
-        startDateTime: "2000-01-23T04:56:07.000+00:00"
-        endDateTime: "2000-01-23T04:56:07.000+00:00"
-      valueType: "valueType"
-      value: "value"
-      valueFrom: "valueFrom"
-  CatalogChangeBatchNotification:
-    type: "object"
-    properties:
-      eventType:
-        type: "string"
-        description: "Type of event"
-      eventTime:
-        type: "string"
-        format: "date-time"
-        description: "Creation date of the event"
-      eventId:
-        type: "string"
-        description: "Identifier of the event"
-      resourcePath:
-        type: "string"
-        description: "To indicate which entity is concerned"
-      fieldPath:
-        type: "string"
-        description: "details which field is missing, its structure is quite similar\
-          \ to GET filter criteria"
-      event:
-        $ref: "#/definitions/CatalogEvent"
-    description: "TheCatalogChangeBatch notification is sent to each listener who\
-      \ has subscribed to receive it."
-    example:
-      eventId: "eventId"
-      resourcePath: "resourcePath"
-      eventTime: "2000-01-23T04:56:07.000+00:00"
-      fieldPath: "fieldPath"
-      eventType: "eventType"
-      event:
-        catalog:
-          lifecycleStatus: "lifecycleStatus"
-          validFor:
-            startDateTime: "2000-01-23T04:56:07.000+00:00"
-            endDateTime: "2000-01-23T04:56:07.000+00:00"
-          lastUpdate: "2000-01-23T04:56:07.000+00:00"
-          name: "name"
-          id: "id"
-          href: "href"
-          type: "type"
-          relatedParty:
-          - role: "role"
-            validFor:
-              startDateTime: "2000-01-23T04:56:07.000+00:00"
-              endDateTime: "2000-01-23T04:56:07.000+00:00"
-            name: "name"
-            id: "id"
-            href: "href"
-          - role: "role"
-            validFor:
-              startDateTime: "2000-01-23T04:56:07.000+00:00"
-              endDateTime: "2000-01-23T04:56:07.000+00:00"
-            name: "name"
-            id: "id"
-            href: "href"
-          category:
-          - name: "name"
-            id: "id"
-            href: "href"
-            version: "version"
-          - name: "name"
-            id: "id"
-            href: "href"
-            version: "version"
-          version: "version"
-  CatalogChangeNotification:
-    type: "object"
-    properties:
-      eventType:
-        type: "string"
-        description: "Type of event"
-      eventTime:
-        type: "string"
-        format: "date-time"
-        description: "Creation date of the event"
-      eventId:
-        type: "string"
-        description: "Identifier of the event"
-      resourcePath:
-        type: "string"
-        description: "To indicate which entity is concerned"
-      fieldPath:
-        type: "string"
-        description: "details which field is missing, its structure is quite similar\
-          \ to GET filter criteria"
-      event:
-        $ref: "#/definitions/CatalogEvent"
-    description: "TheCatalogChange notification is sent to each listener who has subscribed\
-      \ to receive it."
-    example:
-      eventId: "eventId"
-      resourcePath: "resourcePath"
-      eventTime: "2000-01-23T04:56:07.000+00:00"
-      fieldPath: "fieldPath"
-      eventType: "eventType"
-      event:
-        catalog:
-          lifecycleStatus: "lifecycleStatus"
-          validFor:
-            startDateTime: "2000-01-23T04:56:07.000+00:00"
-            endDateTime: "2000-01-23T04:56:07.000+00:00"
-          lastUpdate: "2000-01-23T04:56:07.000+00:00"
-          name: "name"
-          id: "id"
-          href: "href"
-          type: "type"
-          relatedParty:
-          - role: "role"
-            validFor:
-              startDateTime: "2000-01-23T04:56:07.000+00:00"
-              endDateTime: "2000-01-23T04:56:07.000+00:00"
-            name: "name"
-            id: "id"
-            href: "href"
-          - role: "role"
-            validFor:
-              startDateTime: "2000-01-23T04:56:07.000+00:00"
-              endDateTime: "2000-01-23T04:56:07.000+00:00"
-            name: "name"
-            id: "id"
-            href: "href"
-          category:
-          - name: "name"
-            id: "id"
-            href: "href"
-            version: "version"
-          - name: "name"
-            id: "id"
-            href: "href"
-            version: "version"
-          version: "version"
-  CatalogEvent:
-    type: "object"
-    properties:
-      catalog:
-        $ref: "#/definitions/Catalog"
-    description: "The Catalog event is generated each time a catalog is updated."
-    example:
-      catalog:
-        lifecycleStatus: "lifecycleStatus"
-        validFor:
-          startDateTime: "2000-01-23T04:56:07.000+00:00"
-          endDateTime: "2000-01-23T04:56:07.000+00:00"
-        lastUpdate: "2000-01-23T04:56:07.000+00:00"
-        name: "name"
-        id: "id"
-        href: "href"
-        type: "type"
-        relatedParty:
-        - role: "role"
-          validFor:
-            startDateTime: "2000-01-23T04:56:07.000+00:00"
-            endDateTime: "2000-01-23T04:56:07.000+00:00"
-          name: "name"
-          id: "id"
-          href: "href"
-        - role: "role"
-          validFor:
-            startDateTime: "2000-01-23T04:56:07.000+00:00"
-            endDateTime: "2000-01-23T04:56:07.000+00:00"
-          name: "name"
-          id: "id"
-          href: "href"
-        category:
-        - name: "name"
-          id: "id"
-          href: "href"
-          version: "version"
-        - name: "name"
-          id: "id"
-          href: "href"
-          version: "version"
-        version: "version"
   EventSubscription:
     required:
     - "callback"

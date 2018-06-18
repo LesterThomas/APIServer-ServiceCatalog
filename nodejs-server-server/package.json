@@ -1,11 +1,11 @@
 {
   "name": "service-catalog-management",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "description": "This is Swagger UI environment generated for the TMF Service Catalog Management specification",
   "main": "index.js",
   "scripts": {
-    "prestart": "npm install",
-    "start": "node index.js"
+	"prestart": "npm install",
+	"start": "node index.js"
   },
   "keywords": [
     "swagger"

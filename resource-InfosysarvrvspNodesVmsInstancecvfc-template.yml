@@ -1,0 +1,633 @@
+tosca_definitions_version: tosca_simple_yaml_1_1
+metadata:
+  invariantUUID: d95298d6-5679-4a60-8dec-28b9fdcb23bd
+  UUID: cbf5097f-a4c1-471b-948e-1f4f9d6b2041
+  name: InfosysARVRVSP-nodes.vms_instanceCvfc
+  description: Complex node type that is used as nested type in VF
+  type: CVFC
+  category: Generic
+  subcategory: Abstract
+  resourceVendor: InfosysARVRVLM
+  resourceVendorRelease: '1.0'
+  resourceVendorModelNumber: ''
+imports:
+- nodes:
+    file: nodes.yml
+- datatypes:
+    file: data.yml
+- capabilities:
+    file: capabilities.yml
+- relationships:
+    file: relationships.yml
+- groups:
+    file: groups.yml
+- policies:
+    file: policies.yml
+- resource-InfosysARVRVSP-nodes.vms_instanceCvfc-interface:
+    file: resource-InfosysarvrvspNodesVmsInstancecvfc-template-interface.yml
+- resource-Infosysarvrvsp.nodes.heat.vms_instance:
+    file: resource-InfosysarvrvspNodesHeatVmsInstance-template.yml
+- resource-NeutronPort:
+    file: resource-Neutronport-template.yml
+topology_template:
+  inputs:
+    port_vms_instance_port_vlan_requirements:
+      type: list
+      entry_schema:
+        type: org.openecomp.datatypes.network.VlanRequirements
+    nfc_function:
+      type: string
+    port_vms_instance_port_ip_requirements:
+      type: list
+      entry_schema:
+        type: org.openecomp.datatypes.network.IpRequirements
+    port_vms_instance_port_security_groups:
+      type: list
+      entry_schema:
+        type: json
+    index_value:
+      type: integer
+      default: 0
+      description: Index value of this substitution service template runtime instance
+    port_vms_instance_port_exCP_naming:
+      type: org.openecomp.datatypes.Naming
+      default:
+        ecomp_generated_naming: true
+    max_instances:
+      type: integer
+      description: Maximum number of VFC Instances
+    nfc_naming:
+      type: org.openecomp.datatypes.Naming
+      default:
+        ecomp_generated_naming: true
+      description: vfc naming
+    vm_flavor_name:
+      type: string
+    port_vms_instance_port_network:
+      type: list
+      entry_schema:
+        type: string
+    port_vms_instance_port_mac_requirements:
+      type: org.openecomp.datatypes.network.MacRequirements
+      default:
+        mac_count_required:
+          is_required: false
+    service_template_filter:
+      type: org.openecomp.datatypes.heat.substitution.SubstitutionFiltering
+      default:
+        index_value: 0
+        count: '1'
+        scaling_enabled: true
+        mandatory: true
+      description: Substitution Filter
+    vm_image_name:
+      type: string
+    compute_vms_instance_key_name:
+      type: list
+      entry_schema:
+        type: string
+    port_vms_instance_port_network_role_tag:
+      type: string
+    vm_type_tag:
+      type: string
+      description: vm type based on naming Convention
+    port_vms_instance_port_subnetpoolid:
+      type: string
+    high_availablity:
+      type: string
+      description: high_availablity
+    min_instances:
+      type: integer
+      default: 0
+      description: Minimum number of VFC Instances
+    nfc_naming_code:
+      type: string
+      description: nfc code for instance naming
+    compute_vms_instance_user_data_format:
+      type: list
+      entry_schema:
+        type: string
+    port_vms_instance_port_network_role:
+      type: string
+    port_vms_instance_port_order:
+      type: integer
+  node_templates:
+    vms_instance:
+      type: org.openecomp.resource.vfc.Infosysarvrvsp.abstract.nodes.heat.vms_instance
+      metadata:
+        invariantUUID: 924e0d7c-5abb-4588-974c-c362ab37f72f
+        UUID: 2753b58b-b7eb-4387-b69f-49ffeea35081
+        customizationUUID: c7abb76d-145b-4ba8-b95c-c2d46fd5b544
+        version: '1.0'
+        name: Infosysarvrvsp.nodes.heat.vms_instance
+        description: Not reusable inner VFC
+        type: VFC
+        category: Generic
+        subcategory: Abstract
+        resourceVendor: InfosysARVRVLM
+        resourceVendorRelease: '1.0'
+        resourceVendorModelNumber: ''
+      properties:
+        flavor:
+          get_input: vm_flavor_name
+        key_name:
+          get_input:
+          - compute_vms_instance_key_name
+          - index_value
+        image:
+          get_input: vm_image_name
+        image_update_policy: REBUILD
+        software_config_transport: POLL_SERVER_CFN
+        contrail_service_instance_ind: false
+        user_data_format:
+          get_input:
+          - compute_vms_instance_user_data_format
+          - index_value
+        user_data_update_policy: REPLACE
+        flavor_update_policy: RESIZE
+      capabilities:
+        disk.device.latency_vms_instance:
+          properties:
+            unit: request
+            description: Number of write requests
+            type: Cumulative
+            category: compute
+        disk.device.write.requests_vms_instance:
+          properties:
+            unit: request
+            description: Number of write requests
+            type: Cumulative
+            category: compute
+        cpu_util_vms_instance:
+          properties:
+            unit: request
+            description: Number of write requests
+            type: Cumulative
+            category: compute
+        disk.device.read.bytes.rate_vms_instance:
+          properties:
+            unit: request
+            description: Number of write requests
+            type: Cumulative
+            category: compute
+        scalable_vms_instance:
+          properties:
+            max_instances: 1
+            min_instances: 1
+        memory_vms_instance:
+          properties:
+            unit: request
+            description: Number of write requests
+            type: Cumulative
+            category: compute
+        disk.device.allocation_vms_instance:
+          properties:
+            unit: request
+            description: Number of write requests
+            type: Cumulative
+            category: compute
+        disk.write.bytes.rate_vms_instance:
+          properties:
+            unit: request
+            description: Number of write requests
+            type: Cumulative
+            category: compute
+        cpu_vms_instance:
+          properties:
+            unit: request
+            description: Number of write requests
+            type: Cumulative
+            category: compute
+        vcpus_vms_instance:
+          properties:
+            unit: request
+            description: Number of write requests
+            type: Cumulative
+            category: compute
+        disk.device.write.requests.rate_vms_instance:
+          properties:
+            unit: request
+            description: Number of write requests
+            type: Cumulative
+            category: compute
+        cpu.delta_vms_instance:
+          properties:
+            unit: request
+            description: Number of write requests
+            type: Cumulative
+            category: compute
+        disk.read.bytes_vms_instance:
+          properties:
+            unit: request
+            description: Number of write requests
+            type: Cumulative
+            category: compute
+        disk.device.read.requests.rate_vms_instance:
+          properties:
+            unit: request
+            description: Number of write requests
+            type: Cumulative
+            category: compute
+        disk.write.bytes_vms_instance:
+          properties:
+            unit: request
+            description: Number of write requests
+            type: Cumulative
+            category: compute
+        disk.iops_vms_instance:
+          properties:
+            unit: request
+            description: Number of write requests
+            type: Cumulative
+            category: compute
+        disk.device.iops_vms_instance:
+          properties:
+            unit: request
+            description: Number of write requests
+            type: Cumulative
+            category: compute
+        endpoint_vms_instance:
+          properties:
+            secure: true
+        disk.device.read.bytes_vms_instance:
+          properties:
+            unit: request
+            description: Number of write requests
+            type: Cumulative
+            category: compute
+        disk.write.requests_vms_instance:
+          properties:
+            unit: request
+            description: Number of write requests
+            type: Cumulative
+            category: compute
+        memory.usage_vms_instance:
+          properties:
+            unit: request
+            description: Number of write requests
+            type: Cumulative
+            category: compute
+        disk.ephemeral.size_vms_instance:
+          properties:
+            unit: request
+            description: Number of write requests
+            type: Cumulative
+            category: compute
+        disk.device.read.requests_vms_instance:
+          properties:
+            unit: request
+            description: Number of write requests
+            type: Cumulative
+            category: compute
+        instance_vms_instance:
+          properties:
+            unit: request
+            description: Number of write requests
+            type: Cumulative
+            category: compute
+        disk.read.bytes.rate_vms_instance:
+          properties:
+            unit: request
+            description: Number of write requests
+            type: Cumulative
+            category: compute
+        disk.allocation_vms_instance:
+          properties:
+            unit: request
+            description: Number of write requests
+            type: Cumulative
+            category: compute
+        disk.device.write.bytes_vms_instance:
+          properties:
+            unit: request
+            description: Number of write requests
+            type: Cumulative
+            category: compute
+        disk.root.size_vms_instance:
+          properties:
+            unit: request
+            description: Number of write requests
+            type: Cumulative
+            category: compute
+        disk.write.requests.rate_vms_instance:
+          properties:
+            unit: request
+            description: Number of write requests
+            type: Cumulative
+            category: compute
+        disk.usage_vms_instance:
+          properties:
+            unit: request
+            description: Number of write requests
+            type: Cumulative
+            category: compute
+        disk.device.capacity_vms_instance:
+          properties:
+            unit: request
+            description: Number of write requests
+            type: Cumulative
+            category: compute
+        disk.device.write.bytes.rate_vms_instance:
+          properties:
+            unit: request
+            description: Number of write requests
+            type: Cumulative
+            category: compute
+        disk.capacity_vms_instance:
+          properties:
+            unit: request
+            description: Number of write requests
+            type: Cumulative
+            category: compute
+        memory.resident_vms_instance:
+          properties:
+            unit: request
+            description: Number of write requests
+            type: Cumulative
+            category: compute
+        disk.latency_vms_instance:
+          properties:
+            unit: request
+            description: Number of write requests
+            type: Cumulative
+            category: compute
+        disk.device.usage_vms_instance:
+          properties:
+            unit: request
+            description: Number of write requests
+            type: Cumulative
+            category: compute
+        disk.read.requests_vms_instance:
+          properties:
+            unit: request
+            description: Number of write requests
+            type: Cumulative
+            category: compute
+    vms_instance_vms_instance_port:
+      type: org.openecomp.resource.cp.nodes.heat.network.neutron.Port
+      metadata:
+        invariantUUID: 287679e4-10d6-4574-afec-36f2b31639f4
+        UUID: 2e7cd774-554d-474d-b01b-59bda2fc6c5a
+        customizationUUID: 21fd1b4c-827f-4bae-9982-ddeca8dc94e3
+        version: '4.0'
+        name: NeutronPort
+        description: Represents a logical entity that associates between Compute and Network normative types.
+        type: CP
+        category: Generic
+        subcategory: Network Elements
+        resourceVendor: ATT (Tosca)
+        resourceVendorRelease: 1.0.0.wd03
+        resourceVendorModelNumber: ''
+      properties:
+        subnetpoolid:
+          get_input: port_vms_instance_port_subnetpoolid
+        is_default: false
+        network:
+          get_input:
+          - port_vms_instance_port_network
+          - index_value
+        replacement_policy: AUTO
+        ip_requirements:
+          get_input: port_vms_instance_port_ip_requirements
+        network_role:
+          get_input: port_vms_instance_port_network_role
+        security_groups:
+          get_input:
+          - port_vms_instance_port_security_groups
+          - index_value
+        mac_requirements:
+          get_input: port_vms_instance_port_mac_requirements
+        admin_state_up: true
+        exCP_naming:
+          get_input: port_vms_instance_port_exCP_naming
+        vlan_requirements:
+          get_input: port_vms_instance_port_vlan_requirements
+        network_role_tag:
+          get_input: port_vms_instance_port_network_role_tag
+        order:
+          get_input: port_vms_instance_port_order
+      requirements:
+      - binding:
+          capability: binding
+          node: vms_instance
+      capabilities:
+        network.incoming.packets.rate_vms_instance_vms_instance_port:
+          properties:
+            unit: packet
+            description: Number of incoming packets
+            type: Cumulative
+            category: network
+        network.outgoing.packets.rate_vms_instance_vms_instance_port:
+          properties:
+            unit: packet
+            description: Number of incoming packets
+            type: Cumulative
+            category: network
+        network.outgoing.bytes.rate_vms_instance_vms_instance_port:
+          properties:
+            unit: packet
+            description: Number of incoming packets
+            type: Cumulative
+            category: network
+        network.outgoing.bytes_vms_instance_vms_instance_port:
+          properties:
+            unit: packet
+            description: Number of incoming packets
+            type: Cumulative
+            category: network
+        network.incoming.bytes.rate_vms_instance_vms_instance_port:
+          properties:
+            unit: packet
+            description: Number of incoming packets
+            type: Cumulative
+            category: network
+        network.outpoing.packets_vms_instance_vms_instance_port:
+          properties:
+            unit: packet
+            description: Number of incoming packets
+            type: Cumulative
+            category: network
+        network.incoming.bytes_vms_instance_vms_instance_port:
+          properties:
+            unit: packet
+            description: Number of incoming packets
+            type: Cumulative
+            category: network
+        network.incoming.packets_vms_instance_vms_instance_port:
+          properties:
+            unit: packet
+            description: Number of incoming packets
+            type: Cumulative
+            category: network
+  substitution_mappings:
+    node_type: org.openecomp.resource.vfc.Infosysarvrvspcvfc.abstract.nodes.vms_instance
+    capabilities:
+      disk.device.latency_vms_instance:
+      - vms_instance
+      - disk.device.latency
+      disk.device.write.requests_vms_instance:
+      - vms_instance
+      - disk.device.write.requests
+      cpu_util_vms_instance:
+      - vms_instance
+      - cpu_util
+      disk.device.read.bytes.rate_vms_instance:
+      - vms_instance
+      - disk.device.read.bytes.rate
+      scalable_vms_instance:
+      - vms_instance
+      - scalable
+      disk.device.allocation_vms_instance:
+      - vms_instance
+      - disk.device.allocation
+      network.outgoing.bytes_vms_instance_vms_instance_port:
+      - vms_instance_vms_instance_port
+      - network.outgoing.bytes
+      disk.write.bytes.rate_vms_instance:
+      - vms_instance
+      - disk.write.bytes.rate
+      network.incoming.packets_vms_instance_vms_instance_port:
+      - vms_instance_vms_instance_port
+      - network.incoming.packets
+      cpu_vms_instance:
+      - vms_instance
+      - cpu
+      vcpus_vms_instance:
+      - vms_instance
+      - vcpus
+      disk.device.write.requests.rate_vms_instance:
+      - vms_instance
+      - disk.device.write.requests.rate
+      network.outgoing.bytes.rate_vms_instance_vms_instance_port:
+      - vms_instance_vms_instance_port
+      - network.outgoing.bytes.rate
+      cpu.delta_vms_instance:
+      - vms_instance
+      - cpu.delta
+      disk.iops_vms_instance:
+      - vms_instance
+      - disk.iops
+      disk.device.iops_vms_instance:
+      - vms_instance
+      - disk.device.iops
+      host_vms_instance:
+      - vms_instance
+      - host
+      endpoint_vms_instance:
+      - vms_instance
+      - endpoint
+      disk.device.read.bytes_vms_instance:
+      - vms_instance
+      - disk.device.read.bytes
+      memory.usage_vms_instance:
+      - vms_instance
+      - memory.usage
+      disk.allocation_vms_instance:
+      - vms_instance
+      - disk.allocation
+      disk.device.write.bytes_vms_instance:
+      - vms_instance
+      - disk.device.write.bytes
+      disk.root.size_vms_instance:
+      - vms_instance
+      - disk.root.size
+      network.incoming.bytes_vms_instance_vms_instance_port:
+      - vms_instance_vms_instance_port
+      - network.incoming.bytes
+      feature_vms_instance:
+      - vms_instance
+      - feature
+      disk.write.requests.rate_vms_instance:
+      - vms_instance
+      - disk.write.requests.rate
+      disk.usage_vms_instance:
+      - vms_instance
+      - disk.usage
+      disk.device.capacity_vms_instance:
+      - vms_instance
+      - disk.device.capacity
+      network.incoming.packets.rate_vms_instance_vms_instance_port:
+      - vms_instance_vms_instance_port
+      - network.incoming.packets.rate
+      disk.capacity_vms_instance:
+      - vms_instance
+      - disk.capacity
+      memory.resident_vms_instance:
+      - vms_instance
+      - memory.resident
+      disk.read.requests_vms_instance:
+      - vms_instance
+      - disk.read.requests
+      binding_vms_instance:
+      - vms_instance
+      - binding
+      memory_vms_instance:
+      - vms_instance
+      - memory
+      attachment_vms_instance_vms_instance_port:
+      - vms_instance_vms_instance_port
+      - attachment
+      os_vms_instance:
+      - vms_instance
+      - os
+      network.outgoing.packets.rate_vms_instance_vms_instance_port:
+      - vms_instance_vms_instance_port
+      - network.outgoing.packets.rate
+      disk.read.bytes_vms_instance:
+      - vms_instance
+      - disk.read.bytes
+      disk.device.read.requests.rate_vms_instance:
+      - vms_instance
+      - disk.device.read.requests.rate
+      disk.write.bytes_vms_instance:
+      - vms_instance
+      - disk.write.bytes
+      feature_vms_instance_vms_instance_port:
+      - vms_instance_vms_instance_port
+      - feature
+      disk.write.requests_vms_instance:
+      - vms_instance
+      - disk.write.requests
+      disk.ephemeral.size_vms_instance:
+      - vms_instance
+      - disk.ephemeral.size
+      disk.device.read.requests_vms_instance:
+      - vms_instance
+      - disk.device.read.requests
+      instance_vms_instance:
+      - vms_instance
+      - instance
+      disk.read.bytes.rate_vms_instance:
+      - vms_instance
+      - disk.read.bytes.rate
+      network.incoming.bytes.rate_vms_instance_vms_instance_port:
+      - vms_instance_vms_instance_port
+      - network.incoming.bytes.rate
+      binding_vms_instance_vms_instance_port:
+      - vms_instance_vms_instance_port
+      - binding
+      disk.device.write.bytes.rate_vms_instance:
+      - vms_instance
+      - disk.device.write.bytes.rate
+      disk.latency_vms_instance:
+      - vms_instance
+      - disk.latency
+      disk.device.usage_vms_instance:
+      - vms_instance
+      - disk.device.usage
+      network.outpoing.packets_vms_instance_vms_instance_port:
+      - vms_instance_vms_instance_port
+      - network.outpoing.packets
+    requirements:
+      dependency_vms_instance_vms_instance_port:
+      - vms_instance_vms_instance_port
+      - dependency
+      link_vms_instance_vms_instance_port:
+      - vms_instance_vms_instance_port
+      - link
+      dependency_vms_instance:
+      - vms_instance
+      - dependency
+      local_storage_vms_instance:
+      - vms_instance
+      - local_storage

@@ -14,29 +14,47 @@ module.exports.createServiceCandidate = function createServiceCandidate (req, re
     });
 };
 
+module.exports.deleteServiceCandidate = function deleteServiceCandidate (req, res, next) {
+  var id = req.swagger.params['id'].value;
+  ServiceCandidate.deleteServiceCandidate(id)
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
+
 module.exports.listServiceCandidate = function listServiceCandidate (req, res, next) {
   var fields = req.swagger.params['fields'].value;
-  var version = req.swagger.params['version'].value;
-  var lastUpdate = req.swagger.params['lastUpdate'].value;
   var name = req.swagger.params['name'].value;
-  var isBundle = req.swagger.params['isBundle'].value;
-  var lifecycleStatus = req.swagger.params['lifecycleStatus'].value;
+  var type = req.swagger.params['type'].value;
+  var @schemaLocation = req.swagger.params['@schemaLocation'].value;
+  var @baseType = req.swagger.params['@baseType'].value;
+  var version = req.swagger.params['version'].value;
   var validForStartDateTime = req.swagger.params['validForStartDateTime'].value;
   var validForEndDateTime = req.swagger.params['validForEndDateTime'].value;
+  var lastUpdate = req.swagger.params['lastUpdate'].value;
+  var lifecycleStatus = req.swagger.params['lifecycleStatus'].value;
+  var categoryVersion = req.swagger.params['categoryVersion'].value;
+  var categoryName = req.swagger.params['categoryName'].value;
+  var categoryType = req.swagger.params['categoryType'].value;
   var serviceSpecificationVersion = req.swagger.params['serviceSpecificationVersion'].value;
   var serviceSpecificationName = req.swagger.params['serviceSpecificationName'].value;
   var serviceSpecificationType = req.swagger.params['serviceSpecificationType'].value;
-  var serviceCandidateVersion = req.swagger.params['serviceCandidateVersion'].value;
-  var serviceCandidateName = req.swagger.params['serviceCandidateName'].value;
-  var categoryVersion = req.swagger.params['categoryVersion'].value;
-  var categoryName = req.swagger.params['categoryName'].value;
-  var resourceCandidateVersion = req.swagger.params['resourceCandidateVersion'].value;
-  var resourceCandidateName = req.swagger.params['resourceCandidateName'].value;
-  var bundledServiceCandidateLifecycleStatus = req.swagger.params['bundledServiceCandidateLifecycleStatus'].value;
-  var bundledServiceCandidateName = req.swagger.params['bundledServiceCandidateName'].value;
-  var serviceCandidateTermName = req.swagger.params['serviceCandidateTermName'].value;
-  var serviceCandidateTermDuration = req.swagger.params['serviceCandidateTermDuration'].value;
-  ServiceCandidate.listServiceCandidate(fields,version,lastUpdate,name,isBundle,lifecycleStatus,validForStartDateTime,validForEndDateTime,serviceSpecificationVersion,serviceSpecificationName,serviceSpecificationType,serviceCandidateVersion,serviceCandidateName,categoryVersion,categoryName,resourceCandidateVersion,resourceCandidateName,bundledServiceCandidateLifecycleStatus,bundledServiceCandidateName,serviceCandidateTermName,serviceCandidateTermDuration)
+  ServiceCandidate.listServiceCandidate(fields,name,type,@schemaLocation,@baseType,version,validForStartDateTime,validForEndDateTime,lastUpdate,lifecycleStatus,categoryVersion,categoryName,categoryType,serviceSpecificationVersion,serviceSpecificationName,serviceSpecificationType)
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
+
+module.exports.patchServiceCandidate = function patchServiceCandidate (req, res, next) {
+  var id = req.swagger.params['id'].value;
+  var serviceCandidate = req.swagger.params['serviceCandidate'].value;
+  ServiceCandidate.patchServiceCandidate(id,serviceCandidate)
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -48,30 +66,6 @@ module.exports.listServiceCandidate = function listServiceCandidate (req, res, n
 module.exports.retrieveServiceCandidate = function retrieveServiceCandidate (req, res, next) {
   var id = req.swagger.params['id'].value;
   ServiceCandidate.retrieveServiceCandidate(id)
-    .then(function (response) {
-      utils.writeJson(res, response);
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response);
-    });
-};
-
-module.exports.updateServiceCandidate = function updateServiceCandidate (req, res, next) {
-  var id = req.swagger.params['id'].value;
-  var serviceCandidate = req.swagger.params['serviceCandidate'].value;
-  ServiceCandidate.updateServiceCandidate(id,serviceCandidate)
-    .then(function (response) {
-      utils.writeJson(res, response);
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response);
-    });
-};
-
-module.exports.updateServiceCandidatePatch = function updateServiceCandidatePatch (req, res, next) {
-  var id = req.swagger.params['id'].value;
-  var serviceCandidate = req.swagger.params['serviceCandidate'].value;
-  ServiceCandidate.updateServiceCandidatePatch(id,serviceCandidate)
     .then(function (response) {
       utils.writeJson(res, response);
     })
