@@ -1,0 +1,107 @@
+[
+    {
+      "isBundle": false,
+      "targetServiceSchema": {
+        "@type": "@type",
+        "@schemaLocation": "@schemaLocation"
+      },
+      "lifecycleStatus": "DEPLOYABLE",
+      "@type": "@type",
+      "resourceSpecification": [
+        {
+          "name": "name",
+          "id": "id",
+          "href": "href",
+          "version": "version"
+        }
+      ],
+      "description": "description",
+      "version": "version",
+      "@baseType": "@baseType",
+      "lastUpdate": "2000-01-23T04:56:07.000+00:00",
+      "name": "VfwService2vfBased",
+      "id": "id",
+      "href": "href",
+      "@schemaLocation": "@schemaLocation",
+      "serviceSpecCharacteristic": [],
+      "serviceSpecRelationship": []
+    },
+    {
+      "isBundle": false,
+      "targetServiceSchema": {
+        "@type": "@type",
+        "@schemaLocation": "@schemaLocation"
+      },
+      "lifecycleStatus": "DEPLOYABLE",
+      "@type": "@type",
+      "resourceSpecification": [
+        {
+          "name": "name",
+          "id": "id",
+          "href": "href",
+          "version": "version"
+        }
+      ],
+      "description": "description",
+      "version": "version",
+      "@baseType": "@baseType",
+      "lastUpdate": "2000-01-23T04:56:07.000+00:00",
+      "name": "VfwService2vfBased",
+      "id": "id",
+      "href": "href",
+      "@schemaLocation": "@schemaLocation",
+      "serviceSpecCharacteristic": [
+        {
+          "@type": "TOSCAServiceCharacteristic",
+          "@valueSchemaLocation": "@valueSchemaLocation",
+          "required": false,
+          "serviceSpecCharRelationship": [],
+          "valueType": "string",
+          "name": "fortigate_image_url",
+          "serviceSpecCharacteristicValue": []
+        },
+        {
+          "@type": "TOSCAServiceCharacteristic",
+          "@valueSchemaLocation": "@valueSchemaLocation",
+          "serviceSpecCharRelationship": [],
+          "valueType": "string",
+          "name": "flavor",
+          "serviceSpecCharacteristicValue": [
+            {
+              "isDefault": true,
+              "valueTo": "2z"
+            }
+          ]
+        },
+        {
+          "@type": "TOSCAServiceCharacteristic",
+          "@valueSchemaLocation": "@valueSchemaLocation",
+          "status": "inactive",
+          "serviceSpecCharRelationship": [],
+          "valueType": "string",
+          "name": "external_network_name",
+          "serviceSpecCharacteristicValue": [
+            {
+              "isDefault": true,
+              "valueTo": "GATEWAY_NET"
+            }
+          ]
+        },
+        {
+          "@type": "TOSCAServiceCharacteristic",
+          "@valueSchemaLocation": "@valueSchemaLocation",
+          "description": "Number of CPUs for the server.",
+          "serviceSpecCharRelationship": [],
+          "valueType": "integer",
+          "name": "cpus",
+          "serviceSpecCharacteristicValue": [
+            {
+              "isDefault": true,
+              "valueTo": 2
+            }
+          ]
+        }
+      ],
+      "serviceSpecRelationship": []
+    }
+  ]

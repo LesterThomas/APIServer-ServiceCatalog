@@ -1,5 +1,7 @@
 'use strict';
 
+var fs = require('fs');
+var yaml = require('js-yaml')
 
 /**
  * Creates a 'ServiceSpecification'
@@ -256,6 +258,11 @@ exports.deleteServiceSpecification = function(id) {
 }
 
 
+/**Utility function to retrieve all TOSCA templates and convert into Service Specifications */
+exports.getServiceSpecifications = function() {
+  return new Promise(function(resolve, reject) {});
+}
+
 /**
  * List or find 'ServiceSpecification' objects
  *
@@ -299,460 +306,138 @@ exports.deleteServiceSpecification = function(id) {
  **/
 exports.listServiceSpecification = function(fields,name,type,schemaLocation,baseType,version,validForStartDateTime,validForEndDateTime,lastUpdate,lifecycleStatus,isBundle,resourceSpecificationVersion,resourceSpecificationName,resourceSpecificationType,attachmentName,attachmentType,attachmentUri,attachmentMimeType,serviceSpecCharacteristicName,serviceSpecCharacteristicValueType,serviceSpecCharacteristicConfigurable,serviceSpecCharacteristicType,serviceSpecCharacteristicSchemaLocation,serviceSpecCharacteristicValueSchemaLocation,serviceSpecCharacteristicMinCardinality,serviceSpecCharacteristicMaxCardinality,serviceSpecCharacteristicIsUnique,serviceSpecCharacteristicRegex,serviceSpecCharacteristicExtensible,relatedPartyRole,relatedPartyName,serviceSpecRelationshipType,serviceSpecRelationshipRole,serviceSpecRelationshipName,targetServiceSchemaType,targetServiceSchemaSchemaLocation) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = [ {
-  "isBundle" : true,
-  "targetServiceSchema" : {
-    "@type" : "@type",
-    "@schemaLocation" : "@schemaLocation"
-  },
-  "lifecycleStatus" : "lifecycleStatus",
-  "validFor" : {
-    "startDateTime" : "2000-01-23T04:56:07.000+00:00",
-    "endDateTime" : "2000-01-23T04:56:07.000+00:00"
-  },
-  "@type" : "@type",
-  "resourceSpecification" : [ {
-    "name" : "name",
-    "id" : "id",
-    "href" : "href",
-    "version" : "version"
-  }, {
-    "name" : "name",
-    "id" : "id",
-    "href" : "href",
-    "version" : "version"
-  } ],
-  "description" : "description",
-  "relatedParty" : [ {
-    "role" : "role",
-    "validFor" : {
-      "startDateTime" : "2000-01-23T04:56:07.000+00:00",
-      "endDateTime" : "2000-01-23T04:56:07.000+00:00"
-    },
-    "name" : "name",
-    "id" : "id",
-    "href" : "href"
-  }, {
-    "role" : "role",
-    "validFor" : {
-      "startDateTime" : "2000-01-23T04:56:07.000+00:00",
-      "endDateTime" : "2000-01-23T04:56:07.000+00:00"
-    },
-    "name" : "name",
-    "id" : "id",
-    "href" : "href"
-  } ],
-  "version" : "version",
-  "@baseType" : "@baseType",
-  "attachment" : [ {
-    "description" : "description",
-    "href" : "href",
-    "id" : "id",
-    "type" : "type",
-    "url" : "url"
-  }, {
-    "description" : "description",
-    "href" : "href",
-    "id" : "id",
-    "type" : "type",
-    "url" : "url"
-  } ],
-  "lastUpdate" : "2000-01-23T04:56:07.000+00:00",
-  "name" : "name",
-  "id" : "id",
-  "href" : "href",
-  "@schemaLocation" : "@schemaLocation",
-  "serviceSpecCharacteristic" : [ {
-    "validFor" : {
-      "startDateTime" : "2000-01-23T04:56:07.000+00:00",
-      "endDateTime" : "2000-01-23T04:56:07.000+00:00"
-    },
-    "@type" : "@type",
-    "@valueSchemaLocation" : "@valueSchemaLocation",
-    "isUnique" : true,
-    "description" : "description",
-    "serviceSpecCharacteristicValue" : [ {
-      "rangeInterval" : "rangeInterval",
-      "isDefault" : true,
-      "valueTo" : 5,
-      "regex" : "regex",
-      "unitOfMeasure" : "unitOfMeasure",
-      "validFor" : {
-        "startDateTime" : "2000-01-23T04:56:07.000+00:00",
-        "endDateTime" : "2000-01-23T04:56:07.000+00:00"
-      },
-      "@type" : "@type",
-      "valueType" : "valueType",
-      "@schemaLocation" : "@schemaLocation",
-      "value" : "{}",
-      "valueFrom" : 1
-    }, {
-      "rangeInterval" : "rangeInterval",
-      "isDefault" : true,
-      "valueTo" : 5,
-      "regex" : "regex",
-      "unitOfMeasure" : "unitOfMeasure",
-      "validFor" : {
-        "startDateTime" : "2000-01-23T04:56:07.000+00:00",
-        "endDateTime" : "2000-01-23T04:56:07.000+00:00"
-      },
-      "@type" : "@type",
-      "valueType" : "valueType",
-      "@schemaLocation" : "@schemaLocation",
-      "value" : "{}",
-      "valueFrom" : 1
-    } ],
-    "maxCardinality" : 6,
-    "minCardinality" : 0,
-    "serviceSpecCharRelationship" : [ {
-      "validFor" : {
-        "startDateTime" : "2000-01-23T04:56:07.000+00:00",
-        "endDateTime" : "2000-01-23T04:56:07.000+00:00"
-      },
-      "@type" : "@type",
-      "name" : "name",
-      "id" : "id",
-      "href" : "href",
-      "type" : "type"
-    }, {
-      "validFor" : {
-        "startDateTime" : "2000-01-23T04:56:07.000+00:00",
-        "endDateTime" : "2000-01-23T04:56:07.000+00:00"
-      },
-      "@type" : "@type",
-      "name" : "name",
-      "id" : "id",
-      "href" : "href",
-      "type" : "type"
-    } ],
-    "regex" : "regex",
-    "valueType" : "valueType",
-    "name" : "name",
-    "@schemaLocation" : "@schemaLocation",
-    "extensible" : true,
-    "configurable" : true
-  }, {
-    "validFor" : {
-      "startDateTime" : "2000-01-23T04:56:07.000+00:00",
-      "endDateTime" : "2000-01-23T04:56:07.000+00:00"
-    },
-    "@type" : "@type",
-    "@valueSchemaLocation" : "@valueSchemaLocation",
-    "isUnique" : true,
-    "description" : "description",
-    "serviceSpecCharacteristicValue" : [ {
-      "rangeInterval" : "rangeInterval",
-      "isDefault" : true,
-      "valueTo" : 5,
-      "regex" : "regex",
-      "unitOfMeasure" : "unitOfMeasure",
-      "validFor" : {
-        "startDateTime" : "2000-01-23T04:56:07.000+00:00",
-        "endDateTime" : "2000-01-23T04:56:07.000+00:00"
-      },
-      "@type" : "@type",
-      "valueType" : "valueType",
-      "@schemaLocation" : "@schemaLocation",
-      "value" : "{}",
-      "valueFrom" : 1
-    }, {
-      "rangeInterval" : "rangeInterval",
-      "isDefault" : true,
-      "valueTo" : 5,
-      "regex" : "regex",
-      "unitOfMeasure" : "unitOfMeasure",
-      "validFor" : {
-        "startDateTime" : "2000-01-23T04:56:07.000+00:00",
-        "endDateTime" : "2000-01-23T04:56:07.000+00:00"
-      },
-      "@type" : "@type",
-      "valueType" : "valueType",
-      "@schemaLocation" : "@schemaLocation",
-      "value" : "{}",
-      "valueFrom" : 1
-    } ],
-    "maxCardinality" : 6,
-    "minCardinality" : 0,
-    "serviceSpecCharRelationship" : [ {
-      "validFor" : {
-        "startDateTime" : "2000-01-23T04:56:07.000+00:00",
-        "endDateTime" : "2000-01-23T04:56:07.000+00:00"
-      },
-      "@type" : "@type",
-      "name" : "name",
-      "id" : "id",
-      "href" : "href",
-      "type" : "type"
-    }, {
-      "validFor" : {
-        "startDateTime" : "2000-01-23T04:56:07.000+00:00",
-        "endDateTime" : "2000-01-23T04:56:07.000+00:00"
-      },
-      "@type" : "@type",
-      "name" : "name",
-      "id" : "id",
-      "href" : "href",
-      "type" : "type"
-    } ],
-    "regex" : "regex",
-    "valueType" : "valueType",
-    "name" : "name",
-    "@schemaLocation" : "@schemaLocation",
-    "extensible" : true,
-    "configurable" : true
-  } ],
-  "serviceSpecRelationship" : [ {
-    "role" : "role",
-    "validFor" : {
-      "startDateTime" : "2000-01-23T04:56:07.000+00:00",
-      "endDateTime" : "2000-01-23T04:56:07.000+00:00"
-    },
-    "name" : "name",
-    "id" : "id",
-    "href" : "href",
-    "type" : "type"
-  }, {
-    "role" : "role",
-    "validFor" : {
-      "startDateTime" : "2000-01-23T04:56:07.000+00:00",
-      "endDateTime" : "2000-01-23T04:56:07.000+00:00"
-    },
-    "name" : "name",
-    "id" : "id",
-    "href" : "href",
-    "type" : "type"
-  } ]
-}, {
-  "isBundle" : true,
-  "targetServiceSchema" : {
-    "@type" : "@type",
-    "@schemaLocation" : "@schemaLocation"
-  },
-  "lifecycleStatus" : "lifecycleStatus",
-  "validFor" : {
-    "startDateTime" : "2000-01-23T04:56:07.000+00:00",
-    "endDateTime" : "2000-01-23T04:56:07.000+00:00"
-  },
-  "@type" : "@type",
-  "resourceSpecification" : [ {
-    "name" : "name",
-    "id" : "id",
-    "href" : "href",
-    "version" : "version"
-  }, {
-    "name" : "name",
-    "id" : "id",
-    "href" : "href",
-    "version" : "version"
-  } ],
-  "description" : "description",
-  "relatedParty" : [ {
-    "role" : "role",
-    "validFor" : {
-      "startDateTime" : "2000-01-23T04:56:07.000+00:00",
-      "endDateTime" : "2000-01-23T04:56:07.000+00:00"
-    },
-    "name" : "name",
-    "id" : "id",
-    "href" : "href"
-  }, {
-    "role" : "role",
-    "validFor" : {
-      "startDateTime" : "2000-01-23T04:56:07.000+00:00",
-      "endDateTime" : "2000-01-23T04:56:07.000+00:00"
-    },
-    "name" : "name",
-    "id" : "id",
-    "href" : "href"
-  } ],
-  "version" : "version",
-  "@baseType" : "@baseType",
-  "attachment" : [ {
-    "description" : "description",
-    "href" : "href",
-    "id" : "id",
-    "type" : "type",
-    "url" : "url"
-  }, {
-    "description" : "description",
-    "href" : "href",
-    "id" : "id",
-    "type" : "type",
-    "url" : "url"
-  } ],
-  "lastUpdate" : "2000-01-23T04:56:07.000+00:00",
-  "name" : "name",
-  "id" : "id",
-  "href" : "href",
-  "@schemaLocation" : "@schemaLocation",
-  "serviceSpecCharacteristic" : [ {
-    "validFor" : {
-      "startDateTime" : "2000-01-23T04:56:07.000+00:00",
-      "endDateTime" : "2000-01-23T04:56:07.000+00:00"
-    },
-    "@type" : "@type",
-    "@valueSchemaLocation" : "@valueSchemaLocation",
-    "isUnique" : true,
-    "description" : "description",
-    "serviceSpecCharacteristicValue" : [ {
-      "rangeInterval" : "rangeInterval",
-      "isDefault" : true,
-      "valueTo" : 5,
-      "regex" : "regex",
-      "unitOfMeasure" : "unitOfMeasure",
-      "validFor" : {
-        "startDateTime" : "2000-01-23T04:56:07.000+00:00",
-        "endDateTime" : "2000-01-23T04:56:07.000+00:00"
-      },
-      "@type" : "@type",
-      "valueType" : "valueType",
-      "@schemaLocation" : "@schemaLocation",
-      "value" : "{}",
-      "valueFrom" : 1
-    }, {
-      "rangeInterval" : "rangeInterval",
-      "isDefault" : true,
-      "valueTo" : 5,
-      "regex" : "regex",
-      "unitOfMeasure" : "unitOfMeasure",
-      "validFor" : {
-        "startDateTime" : "2000-01-23T04:56:07.000+00:00",
-        "endDateTime" : "2000-01-23T04:56:07.000+00:00"
-      },
-      "@type" : "@type",
-      "valueType" : "valueType",
-      "@schemaLocation" : "@schemaLocation",
-      "value" : "{}",
-      "valueFrom" : 1
-    } ],
-    "maxCardinality" : 6,
-    "minCardinality" : 0,
-    "serviceSpecCharRelationship" : [ {
-      "validFor" : {
-        "startDateTime" : "2000-01-23T04:56:07.000+00:00",
-        "endDateTime" : "2000-01-23T04:56:07.000+00:00"
-      },
-      "@type" : "@type",
-      "name" : "name",
-      "id" : "id",
-      "href" : "href",
-      "type" : "type"
-    }, {
-      "validFor" : {
-        "startDateTime" : "2000-01-23T04:56:07.000+00:00",
-        "endDateTime" : "2000-01-23T04:56:07.000+00:00"
-      },
-      "@type" : "@type",
-      "name" : "name",
-      "id" : "id",
-      "href" : "href",
-      "type" : "type"
-    } ],
-    "regex" : "regex",
-    "valueType" : "valueType",
-    "name" : "name",
-    "@schemaLocation" : "@schemaLocation",
-    "extensible" : true,
-    "configurable" : true
-  }, {
-    "validFor" : {
-      "startDateTime" : "2000-01-23T04:56:07.000+00:00",
-      "endDateTime" : "2000-01-23T04:56:07.000+00:00"
-    },
-    "@type" : "@type",
-    "@valueSchemaLocation" : "@valueSchemaLocation",
-    "isUnique" : true,
-    "description" : "description",
-    "serviceSpecCharacteristicValue" : [ {
-      "rangeInterval" : "rangeInterval",
-      "isDefault" : true,
-      "valueTo" : 5,
-      "regex" : "regex",
-      "unitOfMeasure" : "unitOfMeasure",
-      "validFor" : {
-        "startDateTime" : "2000-01-23T04:56:07.000+00:00",
-        "endDateTime" : "2000-01-23T04:56:07.000+00:00"
-      },
-      "@type" : "@type",
-      "valueType" : "valueType",
-      "@schemaLocation" : "@schemaLocation",
-      "value" : "{}",
-      "valueFrom" : 1
-    }, {
-      "rangeInterval" : "rangeInterval",
-      "isDefault" : true,
-      "valueTo" : 5,
-      "regex" : "regex",
-      "unitOfMeasure" : "unitOfMeasure",
-      "validFor" : {
-        "startDateTime" : "2000-01-23T04:56:07.000+00:00",
-        "endDateTime" : "2000-01-23T04:56:07.000+00:00"
-      },
-      "@type" : "@type",
-      "valueType" : "valueType",
-      "@schemaLocation" : "@schemaLocation",
-      "value" : "{}",
-      "valueFrom" : 1
-    } ],
-    "maxCardinality" : 6,
-    "minCardinality" : 0,
-    "serviceSpecCharRelationship" : [ {
-      "validFor" : {
-        "startDateTime" : "2000-01-23T04:56:07.000+00:00",
-        "endDateTime" : "2000-01-23T04:56:07.000+00:00"
-      },
-      "@type" : "@type",
-      "name" : "name",
-      "id" : "id",
-      "href" : "href",
-      "type" : "type"
-    }, {
-      "validFor" : {
-        "startDateTime" : "2000-01-23T04:56:07.000+00:00",
-        "endDateTime" : "2000-01-23T04:56:07.000+00:00"
-      },
-      "@type" : "@type",
-      "name" : "name",
-      "id" : "id",
-      "href" : "href",
-      "type" : "type"
-    } ],
-    "regex" : "regex",
-    "valueType" : "valueType",
-    "name" : "name",
-    "@schemaLocation" : "@schemaLocation",
-    "extensible" : true,
-    "configurable" : true
-  } ],
-  "serviceSpecRelationship" : [ {
-    "role" : "role",
-    "validFor" : {
-      "startDateTime" : "2000-01-23T04:56:07.000+00:00",
-      "endDateTime" : "2000-01-23T04:56:07.000+00:00"
-    },
-    "name" : "name",
-    "id" : "id",
-    "href" : "href",
-    "type" : "type"
-  }, {
-    "role" : "role",
-    "validFor" : {
-      "startDateTime" : "2000-01-23T04:56:07.000+00:00",
-      "endDateTime" : "2000-01-23T04:56:07.000+00:00"
-    },
-    "name" : "name",
-    "id" : "id",
-    "href" : "href",
-    "type" : "type"
-  } ]
-} ];
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
+    var hostName= "http://localhost:8080";
+    var basePathName= "/tmf-api/serviceCatalogManagement/v2/";
+    var fileArray=[];
+    var filestarttemplate='service-';
+    var fileendtemplate='-template.yml';
+    fs.readdirSync('TOSCA').forEach(file => {
+      if ((file.substring(file.length-fileendtemplate.length)==fileendtemplate) && (file.substring(0,filestarttemplate.length)==filestarttemplate)) {
+        fileArray.push(file);
+      }
+    });
+
+    var outputServiceSpecArray=[];
+    //for (var file_index=0;file_index<fileArray.length;file_index++){
+    fileArray.forEach(function(fileName){
+      var serviceName=fileName.substring(filestarttemplate.length,fileName.length-fileendtemplate.length);
+      console.log('Service Name',serviceName);
+      fs.readFile('TOSCA/'+fileName, 'utf8', function (err, data) {
+        if (err) throw err;
+        var yamlObject = yaml.safeLoad(data, 'utf8');
+
+        var metadataObject=yamlObject.metadata;
+        var inputObject=yamlObject.topology_template.inputs;
+        var nodeTemplateObject=yamlObject.topology_template.node_templates;
+
+        var outputServiceSpec =  {
+          "isBundle" : false,
+          "targetServiceSchema" : {
+            "@type" : "TOSCAService",
+            "@schemaLocation" : "@schemaLocation"
+          },
+          "lifecycleStatus" : "DEPLOYABLE",
+          "@type" : "@type",
+          "resourceSpecification" : [ {
+            "name" : "name",
+            "id" : "id",
+            "href" : "href",
+            "version" : "version"
+          }],
+          "description" : metadataObject.description,
+          "version" : metadataObject.version,
+          "@baseType" : "@baseType",
+          "lastUpdate" : "2000-01-23T04:56:07.000+00:00",
+          "name" : metadataObject.name,
+          "id" : metadataObject.UUID,
+          "href" : hostName+basePathName+metadataObject.UUID,
+          "@schemaLocation" : "@schemaLocation",
+          "serviceSpecCharacteristic" : [],
+          "serviceSpecRelationship" : []
+          //"relatedParty" : [ {
+          //  "role" : "role",
+          //  "validFor" : {
+          //     "startDateTime" : "2000-01-23T04:56:07.000+00:00",
+          //     "endDateTime" : "2000-01-23T04:56:07.000+00:00"
+          //  },
+          //  "name" : "name",
+          //  "id" : "id",
+          //  "href" : "href"
+          //}],
+          //"attachment" : [ {
+          //  "description" : "description",
+          //  "href" : "href",
+          //  "id" : "id",
+          //  "type" : "type",
+          //  "url" : "url"
+          //}],
+          //"validFor" : {
+          //  "startDateTime" : "2000-01-23T04:56:07.000+00:00",
+          //  "endDateTime" : "2000-01-23T04:56:07.000+00:00"
+          //},
+        } ;
+        if (inputObject) {
+          var serviceSpecKeys=Object.keys(inputObject);
+          for (var i=0;i<serviceSpecKeys.length;i++) {
+            var characteristicObject=inputObject[serviceSpecKeys[i]];
+            var serviceSpecCharacteristic=
+            {
+              "@type" : "TOSCAServiceCharacteristic",
+              "@valueSchemaLocation" : "@valueSchemaLocation",
+              "description" : characteristicObject.description,
+              "required" : characteristicObject.required,
+              "status" : characteristicObject.status,
+              "serviceSpecCharRelationship" : [],
+              "valueType" : characteristicObject.type,
+              "name" : serviceSpecKeys[i]
+              //"isUnique" : true,
+              //"maxCardinality" : 6,
+              //"minCardinality" : 0,
+              //"regex" : "regex",
+              //"validFor" : {
+                //"startDateTime" : "2000-01-23T04:56:07.000+00:00",
+                //"endDateTime" : "2000-01-23T04:56:07.000+00:00"
+              //},
+              //"@schemaLocation" : "@schemaLocation",
+              //"extensible" : true,
+              //"configurable" : true
+            }
+            var serviceSpecCharacteristicValueArray=[];
+            if (characteristicObject.default){
+              var serviceSpecCharacteristicValue=
+                {
+                  "isDefault" : true,
+                  "valueTo" : characteristicObject.default,
+                  //"rangeInterval" : "rangeInterval",
+                  //"regex" : "regex",
+                  //"unitOfMeasure" : "unitOfMeasure",
+                  //"validFor" : {
+                  //  "startDateTime" : "2000-01-23T04:56:07.000+00:00",
+                  //  "endDateTime" : "2000-01-23T04:56:07.000+00:00"
+                  //},
+                  //"@type" : "@type",
+                  //"valueType" : "valueType",
+                  //"@schemaLocation" : "@schemaLocation"
+                  //"value" : "{}",
+                  //"valueFrom" : 1
+                }
+              serviceSpecCharacteristicValueArray.push(serviceSpecCharacteristicValue);      
+            }
+
+        
+            serviceSpecCharacteristic.serviceSpecCharacteristicValue = serviceSpecCharacteristicValueArray;
+
+            outputServiceSpec.serviceSpecCharacteristic.push(serviceSpecCharacteristic);
+          }
+        }
+        outputServiceSpecArray.push(outputServiceSpec);
+        if (outputServiceSpecArray.length == fileArray.length) {  //if this is last file processed (async) then resolve promise
+          resolve(outputServiceSpecArray);
+        } 
+      });  
+    });    
   });
+  
 }
 
 
