@@ -6,9 +6,9 @@ info:
   version: "2.0.0"
   title: "Service Catalog Management"
 host: "localhost:8080"
-basePath: "/tmf-api/serviceCatalogManagement/v2/"
+basePath: "/tmf-api/serviceCatalogManagement/v2"
 schemes:
-- "https"
+- "http"
 consumes:
 - "application/json"
 produces:

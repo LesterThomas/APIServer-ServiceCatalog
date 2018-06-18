@@ -29,8 +29,8 @@ module.exports.listServiceCandidate = function listServiceCandidate (req, res, n
   var fields = req.swagger.params['fields'].value;
   var name = req.swagger.params['name'].value;
   var type = req.swagger.params['type'].value;
-  var @schemaLocation = req.swagger.params['@schemaLocation'].value;
-  var @baseType = req.swagger.params['@baseType'].value;
+  var schemaLocation = req.swagger.params['@schemaLocation'].value;
+  var baseType = req.swagger.params['@baseType'].value;
   var version = req.swagger.params['version'].value;
   var validForStartDateTime = req.swagger.params['validForStartDateTime'].value;
   var validForEndDateTime = req.swagger.params['validForEndDateTime'].value;
@@ -42,7 +42,7 @@ module.exports.listServiceCandidate = function listServiceCandidate (req, res, n
   var serviceSpecificationVersion = req.swagger.params['serviceSpecificationVersion'].value;
   var serviceSpecificationName = req.swagger.params['serviceSpecificationName'].value;
   var serviceSpecificationType = req.swagger.params['serviceSpecificationType'].value;
-  ServiceCandidate.listServiceCandidate(fields,name,type,@schemaLocation,@baseType,version,validForStartDateTime,validForEndDateTime,lastUpdate,lifecycleStatus,categoryVersion,categoryName,categoryType,serviceSpecificationVersion,serviceSpecificationName,serviceSpecificationType)
+  ServiceCandidate.listServiceCandidate(fields,name,type,schemaLocation,baseType,version,validForStartDateTime,validForEndDateTime,lastUpdate,lifecycleStatus,categoryVersion,categoryName,categoryType,serviceSpecificationVersion,serviceSpecificationName,serviceSpecificationType)
     .then(function (response) {
       utils.writeJson(res, response);
     })

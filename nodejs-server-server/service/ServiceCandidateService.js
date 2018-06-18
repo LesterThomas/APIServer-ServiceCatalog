@@ -87,7 +87,7 @@ exports.deleteServiceCandidate = function(id) {
  * serviceSpecificationType String For filtering: The (class) type of the ServiceSpecification (optional)
  * returns List
  **/
-exports.listServiceCandidate = function(fields,name,type,@schemaLocation,@baseType,version,validForStartDateTime,validForEndDateTime,lastUpdate,lifecycleStatus,categoryVersion,categoryName,categoryType,serviceSpecificationVersion,serviceSpecificationName,serviceSpecificationType) {
+exports.listServiceCandidate = function(fields,name,type,schemaLocation,baseType,version,validForStartDateTime,validForEndDateTime,lastUpdate,lifecycleStatus,categoryVersion,categoryName,categoryType,serviceSpecificationVersion,serviceSpecificationName,serviceSpecificationType) {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = [ {
