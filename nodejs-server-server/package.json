@@ -6,7 +6,8 @@
   "scripts": {
     "prestart": "npm install",
     "start": "node index.js",
-    "pretest": "eslint --ignore-path ../.gitignore ."
+    "pretest": "eslint --ignore-path ../.gitignore .",
+    "test": "newman run test/ServiceCatalogTest.postman_collection.json -e test/ServiceCatalogTest.postman_environment.json"
   },
   "keywords": [
     "swagger"
@@ -16,6 +17,7 @@
   "dependencies": {
     "connect": "^3.2.0",
     "js-yaml": "^3.12.0",
+    "newman": "^3.9.4",
     "swagger-tools": "0.10.1"
   },
   "devDependencies": {

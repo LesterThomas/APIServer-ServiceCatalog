@@ -1,0 +1,71 @@
+{
+	"info": {
+		"_postman_id": "4f7465aa-1050-4cd7-8b36-6d63aa083a82",
+		"name": "ServiceCatalogTest",
+		"description": "Testing the TM Forum Service Catalog API implementation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/tmf-api/serviceCatalogManagement/v2/serviceSpecification",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "74659a10-df87-4a57-ab23-142530650f74",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Response time is less than 2s\"] = responseTime < 2000;",
+							"var serviceSpecArray = JSON.parse(responseBody);",
+							"if (serviceSpecArray.length>0){",
+							"    tests[serviceSpecArray.length + \" Service Specs found\"] = true;",
+							"    serviceSpecArray.forEach(function(serviceSpec){",
+							"        if (serviceSpec.name) {",
+							"            tests[serviceSpec.name + \": Service Name found\" ] = true;",
+							"        } else {",
+							"            tests[serviceSpec.name+\": No Service Name found\"] = false;",
+							"        }",
+							"        if (serviceSpec['@type']) {",
+							"            if (serviceSpec['@type']=='ServiceCatalog') {",
+							"                tests[serviceSpec.name + \": Service Type =\" + serviceSpec['@type']] = true;",
+							"            } else {",
+							"                tests[serviceSpec.name + \": Service Type =\" + serviceSpec['@type']] = false;",
+							"            }",
+							"        } else {",
+							"            tests[serviceSpec.name + \": No Type found\"] = false;",
+							"        }",
+							"        tests[serviceSpec.name + \": id found\"] = serviceSpec.id;",
+							"        tests[serviceSpec.name + \": description found\"] = serviceSpec.description;",
+							"        tests[serviceSpec.name + \": href found\"] = serviceSpec.href;",
+							"         ",
+							"    })",
+							"} else {",
+							"    tests[\"No Service Spec found\"] = true;",
+							"}",
+							"",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://{{url}}/serviceSpecification",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"serviceSpecification"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
