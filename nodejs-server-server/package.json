@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "prestart": "npm install",
-    "start": "node index.js selftest",
+    "start": "node index.js",
     "pretest": "eslint --ignore-path ../.gitignore .",
-    "test": "newman run test/ServiceCatalogTest.postman_collection.json -e test/ServiceCatalogTest.postman_environment.json"
+    "test": "node index.js selftest"
   },
   "keywords": [
     "swagger"
