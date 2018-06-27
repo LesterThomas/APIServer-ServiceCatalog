@@ -6,5 +6,4 @@ jobs:
     steps:
       - checkout
       - run: cd nodejs-server-server && npm install
-      - run: cd nodejs-server-server && npm start &
       - run: cd nodejs-server-server && npm test
