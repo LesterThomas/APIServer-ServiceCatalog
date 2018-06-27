@@ -5,6 +5,4 @@ jobs:
       - image: circleci/node:9.11.2-stretch
     steps:
       - checkout
-      - run: cd nodejs-server-server
-      - run: ls
-      - run: npm test
+      - run: cd nodejs-server-server | npm test
