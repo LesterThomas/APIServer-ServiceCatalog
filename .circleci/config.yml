@@ -6,4 +6,5 @@ jobs:
     steps:
       - checkout
       - run: cd nodejs-server-server
+      - run: ls
       - run: npm test
