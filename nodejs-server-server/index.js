@@ -40,21 +40,20 @@ swaggerTools.initializeMiddleware(swaggerDoc, function(middleware) {
     console.log('Your server is listening on port %d (http://localhost:%d)', serverPort, serverPort);
     console.log('Swagger-ui is available on http://localhost:%d/docs', serverPort);
 
-    //if test flag then run tests and exit
+    // if test flag then run tests and exit
     console.log(process.argv);
-    if (process.argv[2]=="selftest") {
+    if (process.argv[2] === 'selftest') {
       // call newman.run to pass `options` object and wait for callback
       newman.run({
         collection: require('./test/ServiceCatalogTest.postman_collection.json'),
         environment: require('./test/ServiceCatalogTest.postman_environment.json'),
-        reporters: 'cli'
-      }, function (err, summary) {
+        reporters: 'cli',
+      }, function(err, summary) {
         if (err) { throw err; }
-        console.log("Selftest finished, exiting.");
+        console.log('Selftest finished, exiting.');
         process.exit();
-        });      
+      });
     }
-
   });
 
 });
