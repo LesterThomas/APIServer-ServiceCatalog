@@ -6,4 +6,4 @@ jobs:
     working_directory: ~/nodejs-server-server
     steps:
       - checkout
-      - run: echo "hello world"
+      - run: npm test
