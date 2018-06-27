@@ -1,5 +1,7 @@
 # APIServer-ServiceCatalog
 
+Build status: [![Build Status](https://circleci.com/gh/LesterThomas/APIServer-ServiceCatalog.svg)](https://circleci.com/gh/LesterThomas/APIServer-ServiceCatalog)
+
 Test (stub) server for TMF ServiceCatalog Open-API.
 
 This is a simple experiment to show the relationship between TOSCA templates to define a service (the Receipe for the service) and TM Forum Open-APIs (how the service gets published in the Menu). 
