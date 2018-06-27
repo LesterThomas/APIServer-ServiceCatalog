@@ -3,7 +3,8 @@ jobs:
   build:
     docker:
       - image: circleci/node:9.11.2-stretch
-    working_directory: ~/nodejs-server-server
     steps:
       - checkout
-      - run: echo "hello world"
+      - run: cd nodejs-server-server && npm install
+      - run: cd nodejs-server-server && npm start &
+      - run: cd nodejs-server-server && npm test
