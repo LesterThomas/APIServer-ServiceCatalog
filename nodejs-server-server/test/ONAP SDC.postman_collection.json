@@ -1,0 +1,138 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Ludo ONAP SDC",
+		"_postman_id": "e0343ccf-f2ed-8d59-6d48-666e10609b8f",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "SDC1 Get vFW Metadata",
+			"request": {
+				"url": "{{url}}/sdc/v1/catalog/services/3dd3923d-1681-4f5b-99bb-f695ab147004/metadata",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "X-TransactionId",
+						"value": "robot-ete-ba84612d-c1c6-4c53-9967-7b1dff276c7a",
+						"description": ""
+					},
+					{
+						"key": "USER_ID",
+						"value": "cs0008",
+						"description": ""
+					},
+					{
+						"key": "X-FromAppId",
+						"value": "robot-ete",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWFpOktwOGJKNFNYc3pNMFdYbGhhazNlSGxjc2UyZ0F3ODR2YW9HR21KdlV5MlU=",
+						"description": ""
+					},
+					{
+						"key": "x-ecomp-instanceid",
+						"value": "Rene",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"contactId\": \"cs0008\", \"vendorRelease\": \"1.0\", \"requirements\": {}, \"artifacts\": {}, \"capabilities\": {}, \"componentInstancesProperties\": {}, \"deploymentArtifacts\": {}, \"icon\": \"defaulticon\", \"vendorName\": \"test-api-license-model\", \"description\": \"vendor software product\", \"tags\": [\"test-vsp\"], \"groups\": [], \"properties\": [], \"categories\": [{\"subcategories\": [{\"normalizedName\": \"abstract\", \"name\": \"Abstract\", \"uniqueId\": \"resourceNewCategory.generic.abstract\", \"icons\": [\"icon\"]}], \"normalizedName\": \"generic\", \"name\": \"Generic\", \"uniqueId\": \"resourceNewCategory.generic\"}], \"name\": \"test-vsp\", \"toscaArtifacts\": {}, \"csarUUID\": \"F3CD5189C2DF45B4B1CFA6D6E45FD613\", \"resourceType\": \"VF\", \"csarVersion\": \"1.0\", \"componentType\": \"RESOURCE\", \"componentInstancesAttributes\": {}, \"attributes\": [], \"componentInstances\": []}"
+				},
+				"description": "Consultation  vFW"
+			},
+			"response": []
+		},
+		{
+			"name": "SDC2 Get list of services",
+			"request": {
+				"url": {
+					"raw": "{{url}}/sdc/v1/catalog/services/?distributionStatus=DISTRIBUTED&category=Network Service",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"sdc",
+						"v1",
+						"catalog",
+						"services",
+						""
+					],
+					"query": [
+						{
+							"key": "distributionStatus",
+							"value": "DISTRIBUTED",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "category",
+							"value": "Network Service",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "X-TransactionId",
+						"value": "robot-ete-ba84612d-c1c6-4c53-9967-7b1dff276c7a",
+						"description": ""
+					},
+					{
+						"key": "USER_ID",
+						"value": "cs0008",
+						"description": ""
+					},
+					{
+						"key": "X-FromAppId",
+						"value": "robot-ete",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWFpOktwOGJKNFNYc3pNMFdYbGhhazNlSGxjc2UyZ0F3ODR2YW9HR21KdlV5MlU=",
+						"description": ""
+					},
+					{
+						"key": "x-ecomp-instanceid",
+						"value": "Rene",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"contactId\": \"cs0008\", \"vendorRelease\": \"1.0\", \"requirements\": {}, \"artifacts\": {}, \"capabilities\": {}, \"componentInstancesProperties\": {}, \"deploymentArtifacts\": {}, \"icon\": \"defaulticon\", \"vendorName\": \"test-api-license-model\", \"description\": \"vendor software product\", \"tags\": [\"test-vsp\"], \"groups\": [], \"properties\": [], \"categories\": [{\"subcategories\": [{\"normalizedName\": \"abstract\", \"name\": \"Abstract\", \"uniqueId\": \"resourceNewCategory.generic.abstract\", \"icons\": [\"icon\"]}], \"normalizedName\": \"generic\", \"name\": \"Generic\", \"uniqueId\": \"resourceNewCategory.generic\"}], \"name\": \"test-vsp\", \"toscaArtifacts\": {}, \"csarUUID\": \"F3CD5189C2DF45B4B1CFA6D6E45FD613\", \"resourceType\": \"VF\", \"csarVersion\": \"1.0\", \"componentType\": \"RESOURCE\", \"componentInstancesAttributes\": {}, \"attributes\": [], \"componentInstances\": []}"
+				},
+				"description": "Consultation  vFW"
+			},
+			"response": []
+		}
+	]
+}

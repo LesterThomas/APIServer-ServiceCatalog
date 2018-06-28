@@ -27,6 +27,7 @@ metadata:
   serviceEcompNaming: true
   ecompGeneratedNaming: true
   namingPolicy: ''
+  version: '1.0'
 imports:
 - nodes:
     file: nodes.yml
