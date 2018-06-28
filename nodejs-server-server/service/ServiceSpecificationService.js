@@ -4,7 +4,7 @@ var fs = require('fs');
 var yaml = require('js-yaml');
 
 /** Utility function to retrieve all TOSCA templates and convert into Service Specifications */
-// TODO add related party info; @baseType; 
+// TODO add related party info; @baseType;
 exports.getServiceSpecifications = function() {
   return new Promise(function(resolve, reject) {
 
@@ -36,19 +36,17 @@ exports.getServiceSpecifications = function() {
 
         var resourceSpecKeys = Object.keys(nodeTemplateObject);
         resourceSpecKeys.forEach(function(resourceSpecKey){
-          if (nodeTemplateObject[resourceSpecKey].metadata){ 
+          if (nodeTemplateObject[resourceSpecKey].metadata) {
             var resourceSpec = {name: nodeTemplateObject[resourceSpecKey].metadata.name,
               description: nodeTemplateObject[resourceSpecKey].metadata.description,
               id: nodeTemplateObject[resourceSpecKey].metadata.invariantUUID,
               version: nodeTemplateObject[resourceSpecKey].metadata.version,
               '@type': 'ONAPResource',
-              'resourceType':nodeTemplateObject[resourceSpecKey].type
-              }
+              resourceType: nodeTemplateObject[resourceSpecKey].type,
+            };
             outputResourceSpecArray.push(resourceSpec);
           }
         });
-
-
 
         var outputServiceSpec = {
           isBundle: false,
