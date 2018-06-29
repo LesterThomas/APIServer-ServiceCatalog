@@ -8,7 +8,7 @@ var yaml = require('js-yaml');
 exports.getServiceSpecifications = function() {
   return new Promise(function(resolve, reject) {
 
-    var hostName = 'http://localhost:8080';
+    var hostName= 'http://localhost:8080';
     var basePathName = '/tmf-api/serviceCatalogManagement/v2/';
     var fileArray = [];
     var filestarttemplate = 'service-';
